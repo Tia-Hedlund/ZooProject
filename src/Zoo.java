@@ -3,18 +3,22 @@ import java.util.Scanner;
 
 public class Zoo {
     public String name;
-    private static double money = 0;
-    public int maxStorage = 10;
+    private static double money;
+    public int maxStorage;
     private int securityLevel = 0;
     private int zooLevel = 1;
     // public ArrayList<Tradables> tradables;
 
-    public int getSecurityLevel() {
-        return securityLevel;
+    public Zoo(String name, double money, int maxStorage, int securityLevel, int zooLevel){
+        this.name = name;
+        this.money = money;
+        this.maxStorage = maxStorage;
+        this.securityLevel = securityLevel;
+        this.zooLevel = zooLevel;
     }
 
-    public Zoo(String name){
-        this.name = name;
+    public int getSecurityLevel() {
+        return securityLevel;
     }
 
     public static void setMoney(double money) {
@@ -38,7 +42,7 @@ public class Zoo {
                 UpgradeZooWood(inventory);
                 break;
             case "2":
-                // UpgradeZooMoney();
+                UpgradeZooMoney();
                 break;
             case "3":
                 break;
@@ -48,19 +52,31 @@ public class Zoo {
 
     }
 
+    public void ZooUpgrade(){
+        this.zooLevel++;
+        maxStorage+=10;
+    }
+
     public void UpgradeZooWood(Inventory inventory){
         double woodNeeded = this.zooLevel+this.zooLevel*0.5;
         int intWoodNeeded = (int) Math.round(woodNeeded);
 
         if (inventory.woodCount >= intWoodNeeded) {
-            this.zooLevel++;
+            ZooUpgrade();
             System.out.println("Zoo have been updraded to level "+zooLevel);
         }
         else{
             System.out.println(inventory.woodCount+"/"+intWoodNeeded+ ". Not enough wood. "+(intWoodNeeded-inventory.woodCount)+ " more wood required.");
         }
-
     }
 
-
+    public void UpgradeZooMoney(){
+        double upgradeCost = this.zooLevel*10;
+        if (this.money>upgradeCost){
+            ZooUpgrade();
+        }
+        else{
+            System.out.println(this.money+"/"+upgradeCost +". Not enough money. "+(upgradeCost-this.money)+" more money required.");
+        }
+    }
 }
