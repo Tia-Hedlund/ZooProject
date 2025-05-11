@@ -1,14 +1,14 @@
 public class Creature {
     private int dangerLevel;
     public int price;
-    public String creatureName;
-    private int level;
+    private String creatureName;
+    private int creatureLevel;
 
     public Creature(int dangerLevel, int price, String creatureName, int level){
         this.dangerLevel = dangerLevel;
         this.price = price;
         this.creatureName = creatureName;
-        this.level = level;
+        this.creatureLevel = level;
     }
     //public Biome creatureBiome;
     public boolean attemptEscape(Zoo zoo){
@@ -20,21 +20,20 @@ public class Creature {
         }
     }
 
-    public int getLevel() {
-        return level;
+    public int getCreatureLevel() {
+        return creatureLevel;
     }
 
     public int getDangerLevel() {
         return dangerLevel;
     }
 
+    public String getCreatureName() {
+        return creatureName;
+    }
+
     public void feed(Inventory inventory){
-        if (inventory.getFoodCount()>=this.level){
-            this.level++;
-        }
-        else{
-            System.out.println("You dont have enough food to feed " + creatureName);
-        }
+        this.creatureLevel++;
     }
 
     public static int claimProfit(Zoo zoo){
