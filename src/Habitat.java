@@ -2,12 +2,12 @@ import java.util.ArrayList;
 
 public class Habitat {
     private int habitatLevel;
-    public String name;
+    private String habitatName;
     private int creatureTotalLevelLimit;
     public ArrayList<Creature> creatures;
 
     public Habitat(String name, int habitatLevel, int creatureLimit){
-        this.name = name;
+        this.habitatName = name;
         this.habitatLevel = habitatLevel;
         this.creatureTotalLevelLimit = creatureLimit;
     }
@@ -18,6 +18,10 @@ public class Habitat {
 
     public int getCreatureLimit() {
         return creatureTotalLevelLimit;
+    }
+
+    public String getHabitatName() {
+        return habitatName;
     }
 
     // Om upgrade metoden körs så ökas level och creaturelimit med 1

@@ -32,7 +32,7 @@ public class Creature {
         return creatureName;
     }
 
-    public void feed(Inventory inventory){
+    public void feed(){
         this.creatureLevel++;
     }
 

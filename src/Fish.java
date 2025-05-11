@@ -7,8 +7,10 @@ public class Fish extends Food{
     }
 
     public void use(Creature creature, Inventory inventory){
-
+        if (inventory.upgradedWithFish(creature)){// eftersom metoden upgradedWithFish kräver creature som parameter{
+            creature.feed();
+            System.out.println(creature.getCreatureName() + "has been upgraded to " + creature.getCreatureLevel());
+        }
     }
-
 }
 
