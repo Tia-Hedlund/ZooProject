@@ -29,6 +29,13 @@ public class Zoo {
         return money;
     }
 
+    public void printZooStats(){
+        System.out.println(this.name + " Stats:");
+        System.out.println("Coins: "+ this.money);
+        System.out.println("Level: "+ this.zooLevel);
+        System.out.println("Security Level: " + this.securityLevel);
+    }
+
     public void upgradeMenu(Inventory inventory){
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Choose a method to upgrade the Zoo [1/2/3]");

@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class Habitat {
@@ -10,6 +11,12 @@ public class Habitat {
         this.habitatName = name;
         this.habitatLevel = habitatLevel;
         this.creatureTotalLevelLimit = creatureLimit;
+        creatures = new ArrayList<>();
+    }
+
+    // kanske måste flytta sen så addCreature är olika för de olika habitats
+    public void addCreature(Creature creature){
+        creatures.add(creature);
     }
 
     public int getHabitatLevel() {
@@ -29,6 +36,7 @@ public class Habitat {
         this.habitatLevel++;
         this.creatureTotalLevelLimit++;
     }
+
 
     // Skapa tryUpgrade() som kollar om man har tillräckligt med pengar
 }
