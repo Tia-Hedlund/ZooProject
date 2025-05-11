@@ -16,7 +16,7 @@ public abstract class Item {
     public abstract void sell();
     // use metoden kan kallas på för itemet när den behövs för att uppgradera ett djur eller
      */
-    public abstract void use();
+    public abstract void use(Object target, Inventory inventory);
 
 
 
