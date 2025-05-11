@@ -11,8 +11,8 @@ public class Creature {
         this.level = level;
     }
     //public Biome creatureBiome;
-    public boolean attemptEscape(int securityLevel){
-        if (!(securityLevel < this.dangerLevel)){
+    public boolean attemptEscape(Zoo zoo){
+        if (!(zoo.getSecurityLevel() < this.dangerLevel)){
             return false; // returnar false för attempted Escape lyckades inte
         }
         else{
@@ -28,12 +28,17 @@ public class Creature {
         return dangerLevel;
     }
 
-    public void upgrade(){
-        this.level++;
+    public void feed(Inventory inventory){
+        if (inventory.getFoodCount()>=this.level){
+            this.level++;
+        }
+        else{
+            System.out.println("You dont have enough food to feed " + creatureName);
+        }
     }
 
-    public static int claimProfit(int money, int dangerLevel){
-        money = Zoo.getMoney();
+    public static int claimProfit(Zoo zoo){
+        //Zoo.getMoney();
 
         return -4;
     }
