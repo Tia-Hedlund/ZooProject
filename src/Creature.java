@@ -3,23 +3,27 @@ public class Creature {
     public int price;
     private String creatureName;
     private int creatureLevel;
+    private int pacifyLevel;
+    //public Biome creatureBiome;
 
-    public Creature(int dangerLevel, int price, String creatureName, int level){
+    public Creature(int dangerLevel, int pacifyLevel, int price, String creatureName, int level){
         this.dangerLevel = dangerLevel;
+        this.pacifyLevel = pacifyLevel;
         this.price = price;
         this.creatureName = creatureName;
         this.creatureLevel = level;
     }
-    //public Biome creatureBiome;
+
+/*
     public boolean attemptEscape(Zoo zoo){
-        if (!(zoo.getSecurityLevel() < this.dangerLevel)){
+        if (!(zoo.getSecurityLevel() < (this.dangerLevel-this.pacifyLevel){
             return false; // returnar false för attempted Escape lyckades inte
         }
         else{
             return true; // returnar true för att attempted Espace lyckades
         }
     }
-
+*/
     public int getCreatureLevel() {
         return creatureLevel;
     }
@@ -28,17 +32,33 @@ public class Creature {
         return dangerLevel;
     }
 
+    public int getPacifyLevel() {
+        return pacifyLevel;
+    }
+
     public String getCreatureName() {
         return creatureName;
     }
 
-    public void feed(){
+    public void upgrade(){
         this.creatureLevel++;
     }
 
-    public static int claimProfit(Zoo zoo){
-        //Zoo.getMoney();
+    public boolean possibleToPacify(){
+        if (this.dangerLevel>=this.pacifyLevel){
+            return true; // ja, det är möjligt att pacifya
+        }
+        else{
+            return false; // nej, det är inte möjligt att pacifya
+        }
+    }
 
-        return -4;
+    public void Pacify(){
+        pacifyLevel++;
+    }
+
+    public void claimProfit(Zoo zoo){
+        zoo.getMoney() = zoo.getMoney()*this.dangerLevel();
+
     }
 }

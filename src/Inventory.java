@@ -52,6 +52,30 @@ public class Inventory {
 
     }
 
+    public boolean fedWithFish(){
+        if (fishCount >0){
+            fishCount--;
+            storageUsed--;
+            return true; // lyckades använda fisk för feed för det fanns tillräckligt
+        }
+        else{
+            System.out.println("You dont have any fish in your inventory.");
+            return false; // kunde inte använda fisk för feed för det fanns inte tillräckligt
+        }
+    }
+
+    public boolean fedWithFruit(){
+        if (fruitCount >0){
+            fruitCount--;
+            storageUsed--;
+            return true; // lyckades använda fisk för feed för det fanns tillräckligt
+        }
+        else{
+            System.out.println("You dont have any fruit in your inventory.");
+            return false; // kunde inte använda fisk för feed för det fanns inte tillräckligt
+        }
+    }
+
 }
 
 
