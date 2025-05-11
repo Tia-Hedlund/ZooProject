@@ -1,11 +1,15 @@
 public class Fish extends Food{
-    public int goldBonusValue;
+    private double goldBonusValue = 0.1;
 
     public Fish(int goldBonusValue){
-        this.goldBonusValue = goldBonusValue;
         setPrice(10);
     }
 
+    public double getGoldBonusValue() {
+        return goldBonusValue;
+    }
+
+    @Override
     // krävs att en av parametrarna är object target eftersom det anges i grunden för use metoden i items
     public void useToUpgrade(Object target, Inventory inventory){
         // om targeten är av typen creature så kan det genomföras
@@ -14,13 +18,14 @@ public class Fish extends Food{
                 creature.upgrade();
                 System.out.println(creature.getCreatureName() + "has been upgraded to " + creature.getCreatureLevel());
             }
-
         }
-
     }
 
+    @Override
     public void useToFeed(Creature creature, Inventory inventory){
-
+        if (inventory.fedWithFish()){
+            creature.updateGoldBonus(this);
+        }
     }
 }
 

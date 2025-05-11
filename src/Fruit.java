@@ -6,6 +6,7 @@ public class Fruit extends Food{
         setPrice(20);
     }
 
+    @Override
     // krävs att en av parametrarna är object target eftersom det anges i grunden för use metoden i items
     public void useToUpgrade(Object target, Inventory inventory){
         // om targeten är av typen creature så kan det genomföras
@@ -20,7 +21,7 @@ public class Fruit extends Food{
     public void pacify(){
 
     }
-
+    @Override
     public void useToFeed(Creature creature, Inventory inventory){
         // Checkar om det går att pacifya med metoden possibleToPacify från creature klassen
         if (creature.possibleToPacify()){

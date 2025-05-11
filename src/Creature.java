@@ -4,14 +4,17 @@ public class Creature {
     private String creatureName;
     private int creatureLevel;
     private int pacifyLevel;
+    public int dailyProfit;
+    private double creatureGoldBonus = 1.0;
     //public Biome creatureBiome;
 
-    public Creature(int dangerLevel, int pacifyLevel, int price, String creatureName, int level){
-        this.dangerLevel = dangerLevel;
+    public Creature(int dangerLevel, int pacifyLevel, int price, String creatureName, int level, int dailyProfit, int creatureGoldBonus){
+        this.dangerLevel = dangerLevel; // ska randomisa dangerLevelen
         this.pacifyLevel = pacifyLevel;
         this.price = price;
         this.creatureName = creatureName;
         this.creatureLevel = level;
+        this.dailyProfit = dailyProfit;// randomize mellan intervall
     }
 
 /*
@@ -57,8 +60,13 @@ public class Creature {
         pacifyLevel++;
     }
 
-    public void claimProfit(Zoo zoo){
-        zoo.getMoney() = zoo.getMoney()*this.dangerLevel();
+    public void updateGoldBonus(Fish fish){
+        this.creatureGoldBonus= this.creatureGoldBonus + fish.getGoldBonusValue();
+    }
 
+    public void claimProfit(Zoo zoo){
+        double profitMoney = this.dailyProfit * this.dangerLevel * this.creatureGoldBonus; // multiplicerar det tidigare värdet på money med danger
+        double totalMoney = profitMoney + zoo.getMoney();
+        Zoo.setMoney(totalMoney);
     }
 }

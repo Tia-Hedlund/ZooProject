@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 public class Zoo {
     public String name;
-    private static int money = 0;
+    private static double money = 0;
     public int maxStorage = 10;
-    private int securityLevel = 1;
+    private int securityLevel = 0;
+    private int zooLevel = 1;
     // public ArrayList<Tradables> tradables;
 
     public int getSecurityLevel() {
@@ -14,8 +15,24 @@ public class Zoo {
         this.name = name;
     }
 
-    public static int getMoney() {
+    public static void setMoney(double money) {
+        Zoo.money = money;
+    }
+
+    public double getMoney() {
         return money;
+    }
+
+    public void upgrade(){
+        Scanner myScanner =
+        System.out.println("Choose a method to upgrade the Zoo");
+        System.out.println("1. Use wood");
+        System.out.println("2. Pay money");
+        System.out.println("Back.");
+
+        int choice =
+        switch ()
+        zooLevel++;
     }
 
 }
