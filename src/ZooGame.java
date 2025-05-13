@@ -5,33 +5,42 @@ import static java.lang.Thread.*;
 public class ZooGame {
     public void StartZoo()
     {
+        int day = 0;
         Scanner myScanner = new Scanner(System.in);
+        String firstHabitat = "Forest Habitat";
+        String firstCreature= "First Creature";
+
         System.out.println("\033[31mThis is not a normal Zoo.");
         System.out.println("This is...\033[0m");
         System.out.println("[Please name your zoo]");
 
         String zooName = myScanner.nextLine();
-        String firstHabitat = "Forest Habitat";
-        String firstCreature= "First Creature";
-        int day = 1;
-
-        Zoo TheZoo = new Zoo(zooName, 100, 50, 0, 1);
-
-        System.out.println("Day "+day);
-        TheZoo.printZooStats();
-        myScanner.nextLine();
-
-        System.out.println("Lets start off by buying your first habitat.");
-        System.out.println("Since this is your first day, you will be given a " + firstHabitat + " for free!");
-
-
-        System.out.println("You have recieved a "+ firstHabitat + ".");
-        System.out.println("Press enter to construct.");
-        myScanner.nextLine();
-        System.out.println(firstHabitat+ "has been constructed");
         System.out.println();
-        System.out.println("Now let's buy your first creature.");
-        myScanner.nextLine();
+
+        // Starting Zoo and Receiving starting biome and creature:
+        Zoo zoo = new Zoo(zooName, 100, 50, 0, 1);
+        Biome woodlandBiome = new WoodlandBiome();
+        Habitat meadow = new Meadow(100.0, "Meadow", 1, 1, woodlandBiome, 0);
+        Creature twiglet = new Creature(100.0, woodlandBiome, 1, 0, "Twiglet", 1, 10, 1);
+
+        zoo.addHabitatToZoo(meadow);
+        if (meadow.canAddCreatureToHabitat(twiglet, zoo)){
+            meadow.addCreatureToHabitatAndZoo(twiglet, zoo);
+        }
+        else{
+            System.out.println("Could not add "+ twiglet.getCreatureName()+" to "+ meadow.getHabitatName()+".");
+        }
+
+        // start of loop
+
+        day +=1;
+        System.out.println("🧬 Day "+ day + " 🐲" );
+        System.out.println();
+
+        zoo.printZooStats();
+        zoo.printHabitatStats();
+
+
 
 
 

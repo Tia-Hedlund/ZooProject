@@ -62,6 +62,31 @@ public class Zoo {
         System.out.println("Coins: "+ this.money);
         System.out.println("Level: "+ this.zooLevel);
         System.out.println("Security Level: " + this.securityLevel);
+        System.out.println();
+    }
+
+    public void printHabitatStats(){
+        System.out.printf("%-17s %-12s %s\n", "Habitat:", "Level:", "Creatures:");
+
+
+        for (Habitat habitat : this.habitats){
+            String habitatName = habitat.getHabitatName();
+            int level = habitat.getHabitatLevel();
+            ArrayList<Creature> creatures = habitat.getCreatures();
+
+            StringBuilder creatureList = new StringBuilder("[");
+            for (int i = 0; i < creatures.size(); i++){
+                Creature c = creatures.get(i);
+                creatureList.append(c.getCreatureName()).append(" - lvl ").append(c.getCreatureLevel());
+                if (i != creatures.size() - 1){
+                    creatureList.append(", ");
+                }
+            }
+            creatureList.append("]");
+
+            System.out.printf("%-17s %-12s %s\n", habitatName, level, creatureList);
+            System.out.println();
+        }
     }
 
     public void upgradeMenu(Inventory inventory){

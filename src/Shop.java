@@ -93,8 +93,8 @@ public class Shop {
         if(canBuyCreature(zoo, creature, habitat)){
             // Reduce the total price of the habitat from the Zoo's total money.
             Zoo.setMoney(zoo.getMoney()-creature.getPrice());
-            // the bought habitat is added to the Arraylist habitats in zoo.
-            zoo.addCreatureToZoo(creature);
+            // the bought habitat is added to the Arraylist creatures in habitats and creatures in zoo.
+            habitat.addCreatureToHabitatAndZoo(creature, zoo);
         }
         else{
             System.out.println("gick inte att köpa creature");

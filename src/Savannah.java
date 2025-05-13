@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class Savannah extends DrylandHabitat{
 
-    public Savannah(double price, String habitatName, int habitatLevel, int creatureLimit, Biome habitatBiome) {
-        super(price, habitatName, habitatLevel, creatureLimit, habitatBiome);
+    public Savannah(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat) {
+        super(price, habitatName, habitatLevel, creatureLevelLimit, habitatBiome, totalLevelInHabitat);
     }
 
     public void tryGenerateFruit(Habitat habitat, Inventory inventory, Zoo zoo){

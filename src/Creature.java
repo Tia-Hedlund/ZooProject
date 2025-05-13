@@ -7,7 +7,7 @@ public class Creature extends Buyable{
     private double creatureGoldBonus = 1.0;
     private Biome creatureBiome;
 
-    public Creature(Double price, Biome creatureBiome,int dangerLevel, int pacifyLevel, String creatureName, int level, int dailyProfit, int creatureGoldBonus){
+    public Creature(Double price, Biome creatureBiome, int dangerLevel, int pacifyLevel, String creatureName, int level, int dailyProfit, int creatureGoldBonus){
         super(price);
         this.creatureBiome = creatureBiome;
         this.dangerLevel = dangerLevel; // ska randomisa dangerLevelen

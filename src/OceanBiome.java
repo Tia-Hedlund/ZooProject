@@ -1,4 +1,4 @@
-public class OceanBiome extends Biome{
+public abstract class OceanBiome extends Biome{
 
     @Override
     public boolean BiomesAreCompatible(Creature creature){

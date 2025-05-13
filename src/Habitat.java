@@ -6,23 +6,17 @@ public class Habitat extends Buyable{
     private String habitatName;
     private int creatureTotalLevelLimit;
     private int totalLevelInHabitat;
-    public ArrayList<Creature> creatures;
+    private ArrayList<Creature> creatures;
     public Biome habitatBiome;
 
-    public Habitat(double price, String habitatName, int habitatLevel, int creatureLimit, Biome habitatBiome){
+    public Habitat(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat){
         super(price);
         this.habitatName = habitatName;
         this.habitatLevel = habitatLevel;
-        this.creatureTotalLevelLimit = creatureLimit;
+        this.creatureTotalLevelLimit = creatureLevelLimit;
         this.habitatBiome = habitatBiome;
         creatures = new ArrayList<>();
-    }
-
-
-    // kanske måste flytta sen så addCreature är olika för de olika habitats
-    public void buyCreature(Creature creature){
-
-
+        this.totalLevelInHabitat = totalLevelInHabitat;
     }
 
     public int getHabitatLevel() {
@@ -30,13 +24,25 @@ public class Habitat extends Buyable{
     }
 
     public boolean canAddCreatureToHabitat(Creature creature, Zoo zoo){
-        if (habitatBiome.BiomesAreCompatible(creature) && totalLevelInHabitat < creatureTotalLevelLimit && !zoo.getCreatures().contains(creature)){
+        if (habitatBiome.BiomesAreCompatible(creature) && totalLevelInHabitat < creatureTotalLevelLimit && !creatures.contains(creature) && !zoo.getCreatures().contains(creature)){
             return true;
         }
         else{
             return false;
         }
     }
+
+    public void addCreatureToHabitatAndZoo(Creature creature, Zoo zoo){
+        this.creatures.add(creature);
+        totalLevelInHabitat += creature.getCreatureLevel();
+        zoo.addCreatureToZoo(creature);
+    }
+
+    public ArrayList<Creature> getCreatures() {
+        return creatures;
+    }
+
+
 
     public int getCreatureLimit() {
         return creatureTotalLevelLimit;
@@ -53,5 +59,5 @@ public class Habitat extends Buyable{
     }
 
 
-    // Skapa tryUpgrade() som kollar om man har tillräckligt med pengar
+    // Skapa tryUpgrade() som kollar om man har tillräckligt med pengar (skapa i shoppen)
 }

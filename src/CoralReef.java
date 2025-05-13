@@ -1,8 +1,10 @@
 import java.util.Random;
 
 public class CoralReef extends OceanHabitat{
-    public CoralReef(double price, String habitatName, int habitatLevel, int creatureLimit, Biome habitatBiome) {
-        super(price, habitatName, habitatLevel, creatureLimit, habitatBiome);
+
+
+    public CoralReef(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat) {
+        super(price, habitatName, habitatLevel, creatureLevelLimit, habitatBiome, totalLevelInHabitat);
     }
 
     public void tryGenerateFish(Habitat habitat, Inventory inventory, Zoo zoo){

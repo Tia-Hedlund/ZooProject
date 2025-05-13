@@ -1,8 +1,9 @@
 import java.util.Random;
 
 public class Forest extends WoodlandHabitat{
-    public Forest(double price, String habitatName, int habitatLevel, int creatureLimit, Biome habitatBiome) {
-        super(price, habitatName, habitatLevel, creatureLimit, habitatBiome);
+
+    public Forest(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat) {
+        super(price, habitatName, habitatLevel, creatureLevelLimit, habitatBiome, totalLevelInHabitat);
     }
 
     public void tryGenerateWood(Habitat habitat, Inventory inventory, Zoo zoo){
