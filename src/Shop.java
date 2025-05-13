@@ -15,6 +15,13 @@ public class Shop {
         }
     }
 
+    public void buyItems(Zoo zoo, Buyable item, Inventory inventory, int quantity){
+        if (canBuyItems(zoo, item, inventory, quantity)){
+
+
+        }
+    }
+
 
     public boolean CanBuyHabitat(Zoo zoo, Habitat habitat){
         if (zoo.getMoney() >= habitat.getPrice() && !zoo.getHabitats().contains(habitat)){

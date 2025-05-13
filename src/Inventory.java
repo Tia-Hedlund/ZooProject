@@ -1,11 +1,16 @@
+import java.util.HashMap;
+
 public class Inventory {
     public int fishCount;
     public int fruitCount;
     public int woodCount;
     public int guards;
     private int storageUsed;
+    private HashMap<String, Integer> items;
 
     public Inventory(int fishCount, int fruitCount, int woodCount, int storageUsed){
+        items = new HashMap<>();
+
         this.fishCount = fishCount;
         this.fruitCount = fruitCount;
         this.woodCount = woodCount;
