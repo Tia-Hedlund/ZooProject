@@ -7,6 +7,8 @@ public class Zoo {
     public int maxStorage;
     private int securityLevel = 0;
     private int zooLevel = 1;
+    private ArrayList<Creature> creatures;
+    private ArrayList<Habitat> habitats;
     // public ArrayList<Tradables> tradables;
 
     public Zoo(String name, double money, int maxStorage, int securityLevel, int zooLevel){
@@ -15,6 +17,16 @@ public class Zoo {
         this.maxStorage = maxStorage;
         this.securityLevel = securityLevel;
         this.zooLevel = zooLevel;
+        this.creatures = new ArrayList<>();
+        this.habitats = new ArrayList<>();
+    }
+
+    public void addCreatureToZoo(Creature creature){
+        creatures.add(creature);
+    }
+
+    public void addHabitatToZoo(Habitat habitat){
+        habitats.add(habitat);
     }
 
     public int getSecurityLevel() {

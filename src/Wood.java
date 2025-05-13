@@ -1,6 +1,6 @@
 public class Wood extends Item{
     public Wood(){
-        setPrice(10);
+
     }
     @Override
     // krävs att en av parametrarna är object target eftersom det anges i grunden för use metoden i items

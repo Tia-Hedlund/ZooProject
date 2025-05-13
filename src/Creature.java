@@ -1,6 +1,5 @@
-public class Creature {
+public class Creature extends Buyable{
     private int dangerLevel;
-    public int price;
     private String creatureName;
     private int creatureLevel;
     private int pacifyLevel;
@@ -8,11 +7,10 @@ public class Creature {
     private double creatureGoldBonus = 1.0;
     private Biome creatureBiome;
 
-    public Creature(Biome creatureBiome,int dangerLevel, int pacifyLevel, int price, String creatureName, int level, int dailyProfit, int creatureGoldBonus){
+    public Creature(Biome creatureBiome,int dangerLevel, int pacifyLevel, String creatureName, int level, int dailyProfit, int creatureGoldBonus){
         this.creatureBiome = creatureBiome;
         this.dangerLevel = dangerLevel; // ska randomisa dangerLevelen
         this.pacifyLevel = pacifyLevel;
-        this.price = price;
         this.creatureName = creatureName;
         this.creatureLevel = level;
         this.dailyProfit = dailyProfit;// randomize mellan intervall

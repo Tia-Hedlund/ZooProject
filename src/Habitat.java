@@ -1,7 +1,7 @@
 import java.sql.Array;
 import java.util.ArrayList;
 
-public class Habitat {
+public class Habitat extends Buyable{
     private int habitatLevel;
     private String habitatName;
     private int creatureTotalLevelLimit;
@@ -18,8 +18,9 @@ public class Habitat {
 
 
     // kanske måste flytta sen så addCreature är olika för de olika habitats
-    public void addCreature(Creature creature){
-        creatures.add(creature);
+    public void buyCreature(Creature creature){
+
+
     }
 
     public int getHabitatLevel() {
