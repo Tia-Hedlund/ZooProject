@@ -8,7 +8,8 @@ public class Habitat extends Buyable{
     public ArrayList<Creature> creatures;
     public Biome habitatBiome;
 
-    public Habitat(String habitatName, int habitatLevel, int creatureLimit, Biome habitatBiome){
+    public Habitat(double price, String habitatName, int habitatLevel, int creatureLimit, Biome habitatBiome){
+        super(price);
         this.habitatName = habitatName;
         this.habitatLevel = habitatLevel;
         this.creatureTotalLevelLimit = creatureLimit;

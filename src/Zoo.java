@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Zoo {
     public String name;
     private static double money;
-    public int maxStorage;
+    private int maxStorage;
     private int securityLevel = 0;
     private int zooLevel = 1;
     private ArrayList<Creature> creatures;
@@ -19,6 +19,15 @@ public class Zoo {
         this.zooLevel = zooLevel;
         this.creatures = new ArrayList<>();
         this.habitats = new ArrayList<>();
+    }
+
+
+    public ArrayList<Creature> getCreatures() {
+        return creatures;
+    }
+
+    public int getMaxStorage() {
+        return maxStorage;
     }
 
     public void addCreatureToZoo(Creature creature){
@@ -91,7 +100,7 @@ public class Zoo {
 
     public void UpgradeZooMoney(){
         double upgradeCost = this.zooLevel*10;
-        if (this.money>upgradeCost){
+        if (this.money>=upgradeCost){
             ZooUpgrade();
         }
         else{

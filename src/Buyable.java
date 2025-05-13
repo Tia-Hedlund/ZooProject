@@ -1,4 +1,11 @@
 public class Buyable {
-    public int price;
+    public double price;
 
+    public Buyable(double price){
+        this.price = price;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 }

@@ -1,5 +1,6 @@
 public class Wood extends Item{
-    public Wood(){
+    public Wood(double price){
+        super(price);
 
     }
     @Override

@@ -3,13 +3,17 @@ public class Inventory {
     public int fruitCount;
     public int woodCount;
     public int guards;
-    public int storageUsed;
+    private int storageUsed;
 
     public Inventory(int fishCount, int fruitCount, int woodCount, int storageUsed){
         this.fishCount = fishCount;
         this.fruitCount = fruitCount;
         this.woodCount = woodCount;
         this.storageUsed = storageUsed;
+    }
+
+    public int getStorageUsed() {
+        return storageUsed;
     }
 
     public int getFoodCount() {

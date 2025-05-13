@@ -1,7 +1,9 @@
 public class Fish extends Food{
     private double goldBonusValue = 0.1;
 
-
+    public Fish(double price) {
+        super(price);
+    }
 
 
     public double getGoldBonusValue() {
