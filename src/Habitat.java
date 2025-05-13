@@ -5,6 +5,7 @@ public class Habitat extends Buyable{
     private int habitatLevel;
     private String habitatName;
     private int creatureTotalLevelLimit;
+    private int totalLevelInHabitat;
     public ArrayList<Creature> creatures;
     public Biome habitatBiome;
 
@@ -26,6 +27,15 @@ public class Habitat extends Buyable{
 
     public int getHabitatLevel() {
         return habitatLevel;
+    }
+
+    public boolean canAddCreatureToHabitat(Creature creature, Zoo zoo){
+        if (habitatBiome.BiomesAreCompatible(creature) && totalLevelInHabitat < creatureTotalLevelLimit && !zoo.getCreatures().contains(creature)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public int getCreatureLimit() {

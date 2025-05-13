@@ -1,5 +1,5 @@
 public abstract class Biome {
 
-    public abstract boolean AreBiomesCompatible(Creature creature);
+    public abstract boolean BiomesAreCompatible(Creature creature);
 
 }

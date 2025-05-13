@@ -21,6 +21,9 @@ public class Zoo {
         this.habitats = new ArrayList<>();
     }
 
+    public ArrayList<Habitat> getHabitats() {
+        return habitats;
+    }
 
     public ArrayList<Creature> getCreatures() {
         return creatures;

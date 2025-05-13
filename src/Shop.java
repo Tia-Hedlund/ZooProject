@@ -6,7 +6,7 @@ public class Shop {
     }
 
     // glöm inte att fråga användare om quantity
-    public boolean CanBuyItems(Zoo zoo, Buyable item, Inventory inventory, int quantity){
+    public boolean canBuyItems(Zoo zoo, Buyable item, Inventory inventory, int quantity){
         if (zoo.getMoney() >= item.getPrice()*quantity && ((zoo.getMaxStorage()-inventory.getStorageUsed())>=quantity)){
             return true;
         }
@@ -15,19 +15,27 @@ public class Shop {
         }
     }
 
-    public void CanBuyHabitat(Habitat habitat){
-        if (zoo.getMoney() >= habitat.getPrice && )
-    }
 
-    // lägg till att den inte går att köpa om det inte finns en biome den kan bo i
-    public boolean CanBuyCreature(Zoo zoo, Creature creature){
-        if (zoo.getMoney() >= creature.getPrice() && !zoo.getCreatures().contains(creature)){
+    public boolean CanBuyHabitat(Zoo zoo, Habitat habitat){
+        if (zoo.getMoney() >= habitat.getPrice() && !zoo.getHabitats().contains(habitat)){
             return true;
         }
         else{
             return false;
         }
     }
+
+    // lägg till att den inte går att köpa om det inte finns en biome den kan bo i
+    public boolean CanBuyCreature(Zoo zoo, Creature creature, Habitat habitat){
+        if (zoo.getMoney() >= creature.getPrice() && habitat.canAddCreatureToHabitat(creature, zoo)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 
 
 }
