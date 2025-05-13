@@ -18,8 +18,17 @@ public class Inventory {
         return storageUsed;
     }
 
+    public HashMap<String, Integer> getItems() {
+        return items;
+    }
+
     public int getFoodCount() {
         return items.getOrDefault("fish", 0)+items.getOrDefault("fruit", 0);
+    }
+
+    // method for increasing the Storage used with a specific quantity
+    public void increaseStorageUsed(int quantity){
+        this.storageUsed+=quantity;
     }
 
     public boolean upgradedWithFish(Creature creature){
@@ -35,6 +44,7 @@ public class Inventory {
             return false; // det var ej möjligt att uppgradera
         }
     }
+
 
     public boolean upgradedWithFruit(Creature creature) {
         if (items.getOrDefault("fruit", 0) >= creature.getCreatureLevel()) {
