@@ -8,12 +8,9 @@ public class Inventory {
     private int storageUsed;
     private HashMap<String, Integer> items;
 
-    public Inventory(int fishCount, int fruitCount, int woodCount, int storageUsed){
+    public Inventory(int storageUsed){
         items = new HashMap<>();
 
-        this.fishCount = fishCount;
-        this.fruitCount = fruitCount;
-        this.woodCount = woodCount;
         this.storageUsed = storageUsed;
     }
 
@@ -22,13 +19,15 @@ public class Inventory {
     }
 
     public int getFoodCount() {
-        return fishCount+fruitCount;
+        return items.getOrDefault("fish", 0)+items.getOrDefault("fruit", 0);
     }
 
     public boolean upgradedWithFish(Creature creature){
-        if (fishCount >= creature.getCreatureLevel()){
-            fishCount = fishCount-creature.getCreatureLevel();
-            storageUsed = storageUsed-creature.getCreatureLevel();
+        if (items.getOrDefault("fish", 0) >= creature.getCreatureLevel()){
+            // Updates key "fish" in the Hashmap, to store the difference between the previous amount of fish and the creature's level
+            items.put("fish", items.get("fish") - creature.getCreatureLevel());
+            // Storage used is reduced by creatureLevel, the same amount of Fish that were used to Upgrade
+            storageUsed -= creature.getCreatureLevel();
             return true; // det var möjligt att upgradera
         }
         else{
@@ -38,9 +37,9 @@ public class Inventory {
     }
 
     public boolean upgradedWithFruit(Creature creature) {
-        if (fruitCount >= creature.getCreatureLevel()) {
-            fruitCount = fruitCount - creature.getCreatureLevel();
-            storageUsed = storageUsed - creature.getCreatureLevel();
+        if (items.getOrDefault("fruit", 0) >= creature.getCreatureLevel()) {
+            items.put("fruit", items.get("fruit") - creature.getCreatureLevel());
+            storageUsed -= creature.getCreatureLevel();
             return true; // det var möjligt att uppgradera;
         } else {
             System.out.println("Not enough fruit in inventory to upgrade creature");
@@ -49,9 +48,9 @@ public class Inventory {
     }
 
     public boolean upgradedWithWood(Habitat habitat){
-        if (woodCount>=habitat.getHabitatLevel()){
-            woodCount = woodCount-habitat.getHabitatLevel();
-            storageUsed = storageUsed-habitat.getHabitatLevel();
+        if (items.getOrDefault("wood", 0)>=habitat.getHabitatLevel()){
+            items.put("wood", items.get("wood")-habitat.getHabitatLevel());
+            storageUsed -= habitat.getHabitatLevel();
             return true; // det var möjligt att uppgradera;
         }
         else{
@@ -62,8 +61,8 @@ public class Inventory {
     }
 
     public boolean fedWithFish(){
-        if (fishCount >0){
-            fishCount--;
+        if (items.getOrDefault("fish", 0) > 0){
+            items.put("fish", items.getOrDefault("fish", 0)-1);
             storageUsed--;
             return true; // lyckades använda fisk för feed för det fanns tillräckligt
         }
@@ -74,8 +73,8 @@ public class Inventory {
     }
 
     public boolean fedWithFruit(){
-        if (fruitCount >0){
-            fruitCount--;
+        if (items.getOrDefault("fruit", 0) >0){
+            items.put("fruit", items.getOrDefault("fruit", 0) -1);
             storageUsed--;
             return true; // lyckades använda fruit för feed för det fanns tillräckligt
         }
