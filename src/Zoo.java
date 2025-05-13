@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Zoo {
-    public String name;
+    private String name;
     private static double money;
     private int maxStorage;
     private int securityLevel = 0;
@@ -19,6 +19,10 @@ public class Zoo {
         this.zooLevel = zooLevel;
         this.creatures = new ArrayList<>();
         this.habitats = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public ArrayList<Habitat> getHabitats() {

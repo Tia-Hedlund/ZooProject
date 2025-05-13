@@ -38,12 +38,33 @@ public class Shop {
 
 
     public boolean canBuyHabitat(Zoo zoo, Habitat habitat){
+
+        // Looks through the arraylist habitats
+        for (Habitat h : zoo.getHabitats()){
+            // if any of the habitats found in habitats are of the exact same class as the one the user is trying to buy
+            if (h.getClass().equals(habitat.getClass())){
+                // it will return false, meaning that the user cannot buy the habitat
+                return false;
+            }
+        }
+
+        // if no habitats of the exact same class were found:
+        if (zoo.getMoney() >= habitat.getPrice()){
+            // the player has enough money
+            return true;
+        }
+        else{
+            // the player doesn't have enough money
+            return false;
+        }
+        /*
         if (zoo.getMoney() >= habitat.getPrice() && !zoo.getHabitats().contains(habitat)){
             return true;
         }
         else{
             return false;
         }
+         */
     }
 
     public void buyHabitat(Zoo zoo, Habitat habitat){
