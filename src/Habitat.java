@@ -6,13 +6,16 @@ public class Habitat {
     private String habitatName;
     private int creatureTotalLevelLimit;
     public ArrayList<Creature> creatures;
+    public Biome habitatBiome;
 
-    public Habitat(String name, int habitatLevel, int creatureLimit){
-        this.habitatName = name;
+    public Habitat(String habitatName, int habitatLevel, int creatureLimit, Biome habitatBiome){
+        this.habitatName = habitatName;
         this.habitatLevel = habitatLevel;
         this.creatureTotalLevelLimit = creatureLimit;
+        this.habitatBiome = habitatBiome;
         creatures = new ArrayList<>();
     }
+
 
     // kanske måste flytta sen så addCreature är olika för de olika habitats
     public void addCreature(Creature creature){

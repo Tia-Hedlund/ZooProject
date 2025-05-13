@@ -24,7 +24,7 @@ public class ZooGame {
         System.out.println("Lets start off by buying your first habitat.");
         System.out.println("Since this is your first day, you will be given a " + firstHabitat + " for free!");
 
-        Habitat habitat1 = new Habitat(firstHabitat, 1, 1);
+
         System.out.println("You have recieved a "+ firstHabitat + ".");
         System.out.println("Press enter to construct.");
         myScanner.nextLine();
@@ -33,10 +33,20 @@ public class ZooGame {
         System.out.println("Now let's buy your first creature.");
         myScanner.nextLine();
 
-        Creature creature1 = new Creature(1, 0, 10, firstCreature, 1, 2, 1);
-        habitat1.addCreature(creature1);
 
 
+        // få igång spelet, faktiskt skapa habitats och flera creatures.
+        // gräs monster grön text, gräs habitats grön och bold
+        // Dryland monster orange text, dryland habitats orange och bold
+        // Ocean monster blue text, ocean habitat blue and bold.
+        // stå såhär : (lägg också till så att det är så det står i början istället för all text.
+        /*
+        Habitat:    Level   Creatures:
+        Coral Reef  2       [Bubblebo - lvl 1, Ocelian - lvl 3]
+        Forest      1       [Timber - lvl 1]
+        Savannah    3       []                                      (inga monster)
+
+        Röd text när någon försökt fly. Kanske att man måste betala en qouta efter dagen, och att någon flytt kommer göra att du måste betala rejält vilket kan köra att du inte kan betala quouta.
+        */
     }
-
 }

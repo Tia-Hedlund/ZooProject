@@ -6,15 +6,18 @@ public class Creature {
     private int pacifyLevel;
     public int dailyProfit;
     private double creatureGoldBonus = 1.0;
-    //public Biome creatureBiome;
+    private Biome creatureBiome;
 
-    public Creature(int dangerLevel, int pacifyLevel, int price, String creatureName, int level, int dailyProfit, int creatureGoldBonus){
+    public Creature(Biome creatureBiome,int dangerLevel, int pacifyLevel, int price, String creatureName, int level, int dailyProfit, int creatureGoldBonus){
+        this.creatureBiome = creatureBiome;
         this.dangerLevel = dangerLevel; // ska randomisa dangerLevelen
         this.pacifyLevel = pacifyLevel;
         this.price = price;
         this.creatureName = creatureName;
         this.creatureLevel = level;
         this.dailyProfit = dailyProfit;// randomize mellan intervall
+        this.creatureGoldBonus = creatureGoldBonus;
+
     }
 
 /*
@@ -27,6 +30,11 @@ public class Creature {
         }
     }
 */
+
+    public Biome getCreatureBiome() {
+        return creatureBiome;
+    }
+
     public int getCreatureLevel() {
         return creatureLevel;
     }
