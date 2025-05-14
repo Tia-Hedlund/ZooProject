@@ -5,6 +5,8 @@ public class Shop {
         this.name = name;
     }
 
+    // ***** Methods Buy *****
+
     // glöm inte att fråga användare om quantity
     public boolean canBuyItems(Zoo zoo, Buyable item, Inventory inventory, int quantity){
         if (zoo.getMoney() >= item.getPrice()*quantity && ((zoo.getMaxStorage()-inventory.getStorageUsed())>=quantity)){
@@ -39,6 +41,7 @@ public class Shop {
 
     public boolean canBuyHabitat(Zoo zoo, Habitat habitat){
 
+        // Make it so that a certain zoo level is required to unluck certain habitats and creatures.
         // Looks through the arraylist habitats
         for (Habitat h : zoo.getHabitats()){
             // if any of the habitats found in habitats are of the exact same class as the one the user is trying to buy
@@ -100,6 +103,10 @@ public class Shop {
             System.out.println("gick inte att köpa creature");
         }
     }
+
+    // ***** Methods Upgrades *****
+
+
 
 
 

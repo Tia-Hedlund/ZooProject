@@ -20,16 +20,13 @@ public class Fruit extends Food{
         }
     }
 
-    public void pacify(){
-
-    }
     @Override
     public void useToFeed(Creature creature, Inventory inventory){
         // Checkar om det går att pacifya med metoden possibleToPacify från creature klassen
         if (creature.possibleToPacify()){
             // checkar om det går att mata med frukt, om det finns i inventory
             if(inventory.fedWithFruit()){
-                creature.Pacify(); // pacifyar, PacifyLevel ökar hos creaturen
+                creature.pacify(); // pacifyar, PacifyLevel ökar hos creaturen
             }
         }
     }

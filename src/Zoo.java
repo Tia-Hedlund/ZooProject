@@ -89,20 +89,20 @@ public class Zoo {
         }
     }
 
-    public void upgradeMenu(Inventory inventory){
+    public void upgradeZooMenu(Inventory inventory){
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Choose a method to upgrade the Zoo [1/2/3]");
         System.out.println("1. Use wood");
-        System.out.println("2. Pay money");
+        System.out.println("2. Use coins");
         System.out.println("3. Back.");
 
         String choice = myScanner.nextLine();
         switch (choice){
             case "1":
-                UpgradeZooWood(inventory);
+                upgradeZooWood(inventory);
                 break;
             case "2":
-                UpgradeZooMoney();
+                upgradeZooMoney();
                 break;
             case "3":
                 break;
@@ -117,7 +117,7 @@ public class Zoo {
         maxStorage+=10;
     }
 
-    public void UpgradeZooWood(Inventory inventory){
+    public void upgradeZooWood(Inventory inventory){
         double woodNeeded = this.zooLevel+this.zooLevel*0.5;
         int intWoodNeeded = (int) Math.round(woodNeeded);
 
@@ -130,7 +130,7 @@ public class Zoo {
         }
     }
 
-    public void UpgradeZooMoney(){
+    public void upgradeZooMoney(){
         double upgradeCost = this.zooLevel*10;
         if (this.money>=upgradeCost){
             ZooUpgrade();

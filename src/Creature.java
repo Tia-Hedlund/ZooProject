@@ -20,6 +20,9 @@ public class Creature extends Buyable{
     }
 
 /*
+Ändra hur securitylevel funkar och ökar för upgrade av guards - upgrade av guards ska göra så security level ökar i zoo och guard level ökar.
+(level kan bli gemensam för alla upgradables på samma sätt som pris är för buyable, men då måste upgradable extenda buyable också)
+
     public boolean attemptEscape(Zoo zoo){
         if (!(zoo.getSecurityLevel() < (this.dangerLevel-this.pacifyLevel){
             return false; // returnar false för attempted Escape lyckades inte
@@ -54,7 +57,6 @@ public class Creature extends Buyable{
         this.creatureLevel++;
     }
 
-
     public boolean possibleToPacify(){
         if (this.dangerLevel>=this.pacifyLevel){
             return true; // ja, det är möjligt att pacifya
@@ -64,7 +66,7 @@ public class Creature extends Buyable{
         }
     }
 
-    public void Pacify(){
+    public void pacify(){
         pacifyLevel++;
     }
 
@@ -72,9 +74,11 @@ public class Creature extends Buyable{
         this.creatureGoldBonus= this.creatureGoldBonus + fish.getGoldBonusValue();
     }
 
+    // move to Zoo
     public void claimProfit(Zoo zoo){
-        double profitMoney = this.dailyProfit * this.dangerLevel * this.creatureGoldBonus; // multiplicerar det tidigare värdet på money med danger
+        double profitMoney = this.dailyProfit * this.dangerLevel * this.creatureGoldBonus + 50*this.creatureLevel; // multiplicerar det tidigare värdet på money med danger
         double totalMoney = profitMoney + zoo.getMoney();
         Zoo.setMoney(totalMoney);
+        System.out.println(creatureName + " generated "+totalMoney + " in ");
     }
 }
