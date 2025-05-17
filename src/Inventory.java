@@ -1,16 +1,13 @@
 import java.util.HashMap;
 
 public class Inventory {
-    public int fishCount;
-    public int fruitCount;
-    public int woodCount;
-    public int guards;
+
+    public int woodCount; // gör om så jag kan ta bort denna
     private int storageUsed;
     private HashMap<String, Integer> items;
 
     public Inventory(int storageUsed){
         items = new HashMap<>();
-
         this.storageUsed = storageUsed;
     }
 

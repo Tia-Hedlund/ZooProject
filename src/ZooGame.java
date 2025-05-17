@@ -21,6 +21,11 @@ public class ZooGame {
         // Starting Zoo and Receiving starting biome and creature:
         Zoo zoo = new Zoo(zooName, 100, 50, 0, 1);
         Shop shop = new Shop();
+        Fish fish = new Fish(50.0);
+        Fruit fruit = new Fruit(50.0);
+        Wood wood = new Wood(50.0);
+        Inventory inventory = new Inventory(0);
+
         Biome woodlandBiome = new WoodlandBiome();
         Habitat meadow = new Meadow(100.0, "Meadow", 1, 1, woodlandBiome, 0);
         Creature twiglet = new Creature(100.0, woodlandBiome, 1, 0, "Twiglet", 1, 10, 1);
@@ -57,7 +62,7 @@ public class ZooGame {
             boolean dayActive = true;
 
             // if showMainMenu returns false the boolean playing will become false which ends the loop
-            playing = showMainMenu(myScanner, zoo, day);
+            playing = showMainMenu(myScanner,  zoo,  day,  shop,  inventory,  wood,  fish,  fruit);
 
         }
 
@@ -88,7 +93,7 @@ public class ZooGame {
         */
     }
 
-    private boolean showMainMenu(Scanner scanner, Zoo zoo, int day){
+    private boolean showMainMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit){
         System.out.println();
         System.out.println("Zoo Actions: ");
         System.out.println();
@@ -96,13 +101,13 @@ public class ZooGame {
         System.out.println("2. View Creatures and Habitats");
         System.out.println("3. End Day");
         System.out.println("4. Quit Game");
-        System.out.print("Choose an action: (1/2/3/4):");
+        System.out.print("Choose an action: (1/2/3/4): ");
 
         String stringAnswer = scanner.nextLine();
         String answer = stringAnswer.toLowerCase();
         switch (answer){
             case "1":
-                visitShopMenu(scanner, zoo, day);
+                visitShopMenu(scanner, zoo, day, shop, inventory, wood, fish, fruit);
                 break;
             case "2":
                 zoo.printHabitatStats();
@@ -120,7 +125,7 @@ public class ZooGame {
         return true;
     }
 
-    private void visitShopMenu(Scanner scanner, Zoo zoo, int day){
+    private void visitShopMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit){
         System.out.println();
         System.out.println("Shop:");
         System.out.println();
@@ -137,6 +142,7 @@ public class ZooGame {
 
         switch (answer){
             case "1":
+                buyItemsMenu(scanner, shop, zoo, inventory, wood, fish, fruit);
                 break;
             case "2":
                 break;
@@ -149,7 +155,7 @@ public class ZooGame {
             case "6":
                 break;
             case "7":
-                showMainMenu(scanner, zoo, day);
+                showMainMenu(scanner, zoo, day, shop, inventory, wood, fish, fruit);
                 break;
             default:
                 System.out.println("Please enter (1/2/3/4/5/6/7)");
@@ -165,30 +171,42 @@ public class ZooGame {
         // for loop för creatures i zoo, testa att fly för varje
     }
 
-    private void buyItemsMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory){
+    private void buyItemsMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory, Wood wood, Fish fish, Fruit fruit){
         System.out.println();
         System.out.println("Shop - Items:");
         System.out.println();
         System.out.println("1. Wood");
         System.out.println("2. Fish");
-        System.out.println("3. Food");
+        System.out.println("3. Fruit");
         System.out.println("4. Back to Shop Menu");
         System.out.print("Choose an option: (1/2/3/4): ");
 
         String answer = scanner.nextLine().toLowerCase();
         int quantity = 0;
+        String item = "";
 
         switch (answer){
             case "1":
-                String item = "wood";
+                item = wood.getClass().getSimpleName().toLowerCase();
                 quantity = enterQuantity(scanner, item);
+                shop.buyItems(zoo, wood, inventory, quantity);
 
-                shop.buyItems(zoo, item, inventory, quantity);
+                for (String itemName: inventory.getItems().keySet()){
+                    int num = inventory.getItems().get(itemName);
+                    System.out.println(itemName + num);
+                }
+                System.out.println(zoo.getMoney());
 
                 break;
             case "2":
+                item = fish.getClass().getSimpleName().toLowerCase();
+                quantity = enterQuantity(scanner, item);
+                shop.buyItems(zoo, fish, inventory, quantity);
                 break;
             case "3":
+                item = fruit.getClass().getSimpleName().toLowerCase();
+                quantity = enterQuantity(scanner, item);
+                shop.buyItems(zoo, fruit, inventory, quantity);
                 break;
             case "4":
                 break;
