@@ -27,9 +27,19 @@ public class Shop {
 
             // Update storageUsed with the increaseStorageUsed method from inventory.
             inventory.increaseStorageUsed(quantity);
+            System.out.println(quantity + " " + boughtItem + " purchased for "+ item.getPrice()*quantity+" coins.");
+        }
+        else if (zoo.getMoney() < item.getPrice()*quantity) {
+            System.out.println("Could not purchase. Not enough Coins.");
+            System.out.println("["+zoo.getMoney()+"/"+item.getPrice()*quantity+"]");
+        }
+        else if ((zoo.getMaxStorage()-inventory.getStorageUsed())<quantity){
+            System.out.println("Could not purchase " +quantity+ " "+ item.getClass().getSimpleName().toLowerCase() + ". Not enough Storage.");
+            System.out.println("Storage used: ["+inventory.getStorageUsed()+"/"+zoo.getMaxStorage()+"]");
+
         }
         else{
-            System.out.println("gick inte");
+            System.out.println("Could not purchase.");
         }
     }
 
@@ -72,8 +82,11 @@ public class Shop {
             // the bought habitat is added to the Arraylist habitats in zoo.
             zoo.addHabitatToZoo(habitat);
         }
+        else if(zoo.getMoney() >= habitat.getPrice()){
+            System.out.println("Could not purchase habitat. Not enough coins.");
+        }
         else{
-            System.out.println("gick inte att köpa habitat");
+            System.out.println("Could purchase habitat. "+habitat.getHabitatName()+ " already owned.");
         }
     }
 

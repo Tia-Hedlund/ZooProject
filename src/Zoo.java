@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Zoo {
@@ -55,6 +56,21 @@ public class Zoo {
 
     public double getMoney() {
         return money;
+    }
+
+    public void successfullEscape(Creature creature){
+        int totalDanger = 0;
+        for (Creature c : creatures){
+            int danger = creature.getDangerLevel()-creature.getPacifyLevel();
+            totalDanger += danger;
+        }
+
+        if (securityLevel >= totalDanger){
+            // return false;
+        }
+        else{
+            Random myRandom = new Random();
+        }
     }
 
     public void printZooStats(){

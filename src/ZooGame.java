@@ -5,7 +5,7 @@ import static java.lang.Thread.*;
 public class ZooGame {
     public void StartZoo()
     {
-        int day = 0;
+        int day = 1;
         Scanner myScanner = new Scanner(System.in);
         /*
         System.out.println("\033[31mThis is not a normal Zoo.");
@@ -40,8 +40,6 @@ public class ZooGame {
             System.out.println("Could not add "+ twiglet.getCreatureName()+" to "+ meadow.getHabitatName()+".");
         }
 
-        // start of loop
-        day +=1;
 
         System.out.println();
         zoo.printZooStats();
@@ -60,9 +58,13 @@ public class ZooGame {
         while (playing){
             System.out.println("✦ʚ♡ɞ✦ Day "+ day +" ✦ʚ♡ɞ✦" );
             boolean dayActive = true;
+            while (dayActive){
+                // if showMainMenu returns false the boolean "dayActive" will become false which ends the loop
+                dayActive = showMainMenu(myScanner,  zoo,  day,  shop,  inventory,  wood,  fish,  fruit);
 
-            // if showMainMenu returns false the boolean playing will become false which ends the loop
-            playing = showMainMenu(myScanner,  zoo,  day,  shop,  inventory,  wood,  fish,  fruit);
+            }
+            endDay(zoo, day);
+            day++;
 
         }
 
@@ -99,12 +101,14 @@ public class ZooGame {
         System.out.println();
         System.out.println("1. Visit Shop");
         System.out.println("2. View Creatures and Habitats");
-        System.out.println("3. End Day");
-        System.out.println("4. Quit Game");
+        System.out.println("3. Use Item");
+        System.out.println("4. End Day");
+        System.out.println("5. Quit Game");
         System.out.print("Choose an action: (1/2/3/4): ");
 
         String stringAnswer = scanner.nextLine();
         String answer = stringAnswer.toLowerCase();
+        System.out.println();
         switch (answer){
             case "1":
                 visitShopMenu(scanner, zoo, day, shop, inventory, wood, fish, fruit);
@@ -113,16 +117,67 @@ public class ZooGame {
                 zoo.printHabitatStats();
                 break;
             case "3":
-                endDay(zoo);
-                day++;
+
                 break;
             case "4":
-                System.out.println("Quitting game.");
                 return false;
+            case "5":
+                System.out.println("Quitting game.");
+                System.exit(0);
             default:
                 System.out.println("Please enter 1/2/3/4.");
         }
         return true;
+    }
+
+    private void endDay(Zoo zoo, int day){
+
+        System.out.println("Ending day "+ day + ".");
+        for (Creature creature : zoo.getCreatures()){
+            zoo.claimProfit(creature);
+        }
+        System.out.println("Total Coins: "+zoo.getMoney());
+        // for loop för creatures i zoo, testa att fly för varje
+    }
+
+    private void nightTime(){
+
+    }
+
+    private void useItemMenu(Scanner scanner, Inventory inventory){
+        System.out.println();
+        System.out.printf("%-17s %s\n", "Item:", "In inventory:");
+        System.out.print("1. ");
+        System.out.printf("%-17s %s\n", "Wood", inventory.getItems().getOrDefault("wood", 0));
+        System.out.print("2. ");
+        System.out.printf("%-17s %s\n", "Fish", inventory.getItems().getOrDefault("fish", 0));
+        System.out.print("3. ");
+        System.out.printf("%-17s %s\n", "Fruit", inventory.getItems().getOrDefault("fruit", 0));
+        System.out.println();
+        System.out.println("4. Back");
+        System.out.print("Choose an option: (1/2/3/4): ");
+
+        String stringAnswer = scanner.nextLine();
+        String answer = stringAnswer.toLowerCase();
+        System.out.println();
+        switch (answer){
+            case "1":
+
+                break;
+            case "2":
+
+                break;
+            case "3":
+
+                break;
+            case "4":
+                return;
+            default:
+        }
+    }
+
+    private void useItemMenu(){
+
     }
 
     private void visitShopMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit){
@@ -139,10 +194,11 @@ public class ZooGame {
         System.out.print("Choose an option (1/2/3/4): ");
 
         String answer = scanner.nextLine().toLowerCase();
+        System.out.println();
 
         switch (answer){
             case "1":
-                buyItemsMenu(scanner, shop, zoo, inventory, wood, fish, fruit);
+                buyItemsMenu(scanner, shop, zoo, inventory, wood, fish, fruit, day);
                 break;
             case "2":
                 break;
@@ -155,30 +211,26 @@ public class ZooGame {
             case "6":
                 break;
             case "7":
-                showMainMenu(scanner, zoo, day, shop, inventory, wood, fish, fruit);
-                break;
+                return;
             default:
                 System.out.println("Please enter (1/2/3/4/5/6/7)");
 
         }
     }
 
-    private void endDay(Zoo zoo){
-        for (Creature creature : zoo.getCreatures()){
-            zoo.claimProfit(creature);
-        }
-        System.out.println("Total Coins: "+zoo.getMoney());
-        // for loop för creatures i zoo, testa att fly för varje
-    }
-
-    private void buyItemsMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory, Wood wood, Fish fish, Fruit fruit){
+    private void buyItemsMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory, Wood wood, Fish fish, Fruit fruit, int day){
         System.out.println();
         System.out.println("Shop - Items:");
         System.out.println();
-        System.out.println("1. Wood");
-        System.out.println("2. Fish");
-        System.out.println("3. Fruit");
-        System.out.println("4. Back to Shop Menu");
+        System.out.printf("%-12s %s\n", "Item:", "   Price:");
+        System.out.print("1. ");
+        System.out.printf("%-12s %s\n", "Wood", wood.getPrice());
+        System.out.print("2. ");
+        System.out.printf("%-12s %s\n", "Fish", fish.getPrice());
+        System.out.print("3. ");
+        System.out.printf("%-12s %s\n", "Fruit", fruit.getPrice());
+        System.out.println();
+        System.out.println("4. Back");
         System.out.print("Choose an option: (1/2/3/4): ");
 
         String answer = scanner.nextLine().toLowerCase();
@@ -190,13 +242,6 @@ public class ZooGame {
                 item = wood.getClass().getSimpleName().toLowerCase();
                 quantity = enterQuantity(scanner, item);
                 shop.buyItems(zoo, wood, inventory, quantity);
-
-                for (String itemName: inventory.getItems().keySet()){
-                    int num = inventory.getItems().get(itemName);
-                    System.out.println(itemName + num);
-                }
-                System.out.println(zoo.getMoney());
-
                 break;
             case "2":
                 item = fish.getClass().getSimpleName().toLowerCase();
@@ -209,7 +254,7 @@ public class ZooGame {
                 shop.buyItems(zoo, fruit, inventory, quantity);
                 break;
             case "4":
-                break;
+                return;
             default:
                 System.out.println();
 
@@ -221,9 +266,10 @@ public class ZooGame {
         boolean intInput = false;
 
         while (!intInput){
-            System.out.print("Enter an number of "+item+" to purchase: ");
+            System.out.print("Enter a number of "+item+" to purchase: ");
             try{
                 quantity = scanner.nextInt();
+                scanner.nextLine();
                 intInput=true;
             } catch(Exception e){
                 System.out.println("Enter a number.");
@@ -232,5 +278,34 @@ public class ZooGame {
         }
 
         return quantity;
+    }
+
+    private void buyHabitatsMenu(Scanner scanner, Habitat habitat) {
+        System.out.println();
+        System.out.println("Shop - Habitats:");
+        System.out.println();
+        System.out.printf("%-17s %s\n", "Habitat:", "Price:");
+
+        System.out.print("1. ");
+        System.out.printf("%-17s %s\n", habitat.getHabitatName(), "   "+habitat.getPrice() );
+        System.out.println("3. Fruit");
+        System.out.println("4. Back to Shop Menu");
+        System.out.print("Choose an option: (1/2/3/4): ");
+
+        String answer = scanner.nextLine();
+
+        switch (answer) {
+            case "1":
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            case "4":
+                return;
+            default:
+                System.out.println();
+        }
+
     }
 }
