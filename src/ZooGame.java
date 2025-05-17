@@ -36,21 +36,31 @@ public class ZooGame {
         }
 
         // start of loop
-
         day +=1;
-        System.out.println("🧬 Day "+ day + " 🐲" );
-        System.out.println();
 
+        System.out.println();
         zoo.printZooStats();
         zoo.printHabitatStats();
 
         // Make it so that a certain zoo level is required to unluck certain habitats and creatures.  !!!!!
 
-        System.out.println("The creatures you own ("+twiglet.getCreatureName()+") will generate coins which you collect at the end of each day.");
+        System.out.println("The creatures you own ("+twiglet.getCreatureName()+") will generate coins which you can collect at the end of each day.");
         System.out.println("The coins will be added to your Zoo's total coins (Current coins: "+zoo.getMoney()+")");
         System.out.println("Moreover, the coins can be used to buy 'Items', 'Habitats' and more 'Creatures' in the 'Shop'.");
         System.out.println("Or to upgrade the level of your Zoo, guards, owned habitats or creatures. ");
-        System.out.println("More information can be found under the 'Information' option when choosing an 'Action' or 'Buyable' in the 'Shop'. ");
+        System.out.println("More information can be found under the 'Information' option when choosing to 'Upgrade>' or a 'Buyable' in the 'Shop'. ");
+        System.out.println();
+
+        boolean playing = true;
+        while (playing){
+            System.out.println("~~~ Day "+ day + " ~~~" );
+            boolean dayActive = true;
+
+
+
+        }
+
+
 
         // Shop switch case being divided into : 1 items, 2 habitats, 3 creatures, 4 upgrades, 5 guards, 6 sell, 7 back, default
         // Upgrades a switch case divided into : 1 upgrade Zoo, 2 upgrade habitat, 3 upgrade creature, 4 upgrade guards, 5 back
@@ -75,5 +85,39 @@ public class ZooGame {
 
         Röd text när någon försökt fly. Kanske att man måste betala en qouta efter dagen, och att någon flytt kommer göra att du måste betala rejält vilket kan köra att du inte kan betala quouta.
         */
+    }
+
+    private void showMainMenu(Scanner myScanner, Zoo zoo){
+        System.out.println("Choose an action: (1/2/3/4)");
+        System.out.println("1. Visit Shop");
+        System.out.println("2. View Creatures and Habitats");
+        System.out.println("3. End Day");
+        System.out.println("4. Quit Game");
+
+        String stringAnswer = myScanner.nextLine();
+        String answer = stringAnswer.toLowerCase();
+        switch (answer){
+            case "1":
+
+                break;
+
+            case "2":
+                zoo.printHabitatStats();
+                break;
+            default:
+                System.out.println("Please enter y/n");
+        }
+    }
+
+    private void visitShopMenu(){
+        System.out.println("Choose an option: (1/2/3/4)");
+        System.out.println("1. Items");
+        System.out.println("2. Habitats");
+        System.out.println("3. Creatures");
+        System.out.println("4. Guards");
+        System.out.println("5. Upgrades");
+        System.out.println("6. Sell Items");
+        System.out.println("7. Back");
+
     }
 }
