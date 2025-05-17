@@ -1,9 +1,4 @@
 public class Shop {
-    private String name;
-
-    public Shop(String name){
-        this.name = name;
-    }
 
     // ***** Methods Buy *****
 
@@ -28,7 +23,7 @@ public class Shop {
 
             // Reduce the total price from the Zoo total money.
             // the Zoo's money is set to the difference between the Zoos previous money and the cost of the users chosen quantity.
-            Zoo.setMoney(zoo.getMoney()-item.getPrice()*quantity);
+            zoo.setMoney(zoo.getMoney()-item.getPrice()*quantity);
 
             // Update storageUsed with the increaseStorageUsed method from inventory.
             inventory.increaseStorageUsed(quantity);
@@ -73,7 +68,7 @@ public class Shop {
     public void buyHabitat(Zoo zoo, Habitat habitat){
         if(canBuyHabitat(zoo, habitat)){
             // Reduce the total price of the habitat from the Zoo's total money.
-            Zoo.setMoney(zoo.getMoney()-habitat.getPrice());
+            zoo.setMoney(zoo.getMoney()-habitat.getPrice());
             // the bought habitat is added to the Arraylist habitats in zoo.
             zoo.addHabitatToZoo(habitat);
         }
@@ -95,7 +90,7 @@ public class Shop {
     public void buyCreature(Zoo zoo, Creature creature, Habitat habitat){
         if(canBuyCreature(zoo, creature, habitat)){
             // Reduce the total price of the habitat from the Zoo's total money.
-            Zoo.setMoney(zoo.getMoney()-creature.getPrice());
+            zoo.setMoney(zoo.getMoney()-creature.getPrice());
             // the bought habitat is added to the Arraylist creatures in habitats and creatures in zoo.
             habitat.addCreatureToHabitatAndZoo(creature, zoo);
         }

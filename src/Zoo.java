@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Zoo {
     private String name;
-    private static double money;
+    private double money;
     private int maxStorage;
     private int securityLevel = 0;
     private int zooLevel = 1;
@@ -49,8 +49,8 @@ public class Zoo {
         return securityLevel;
     }
 
-    public static void setMoney(double money) {
-        Zoo.money = money;
+    public void setMoney(double money) {
+        this.money = money;
     }
 
     public double getMoney() {
@@ -58,15 +58,14 @@ public class Zoo {
     }
 
     public void printZooStats(){
-        System.out.println(this.name + " Stats:");
-        System.out.println("Coins: "+ this.money);
-        System.out.println("Level: "+ this.zooLevel);
-        System.out.println("Security Level: " + this.securityLevel);
+        System.out.printf("%-17s %-15s %s\n", "Coins:", "Zoo Level:", "Security Level:");
+        System.out.printf("%-17s %-15s %s\n", money, zooLevel, securityLevel);
+
         System.out.println();
     }
 
     public void printHabitatStats(){
-        System.out.printf("%-17s %-12s %s\n", "Habitat:", "Level:", "Creatures:");
+        System.out.printf("%-17s %-15s %s\n", "Habitat:", "Level:", "Creatures:");
 
 
         for (Habitat habitat : this.habitats){
@@ -84,7 +83,7 @@ public class Zoo {
             }
             creatureList.append("]");
 
-            System.out.printf("%-17s %-12s %s\n", habitatName, level, creatureList);
+            System.out.printf("%-17s %-15s %s\n", habitatName, level, creatureList);
             System.out.println();
         }
     }
