@@ -3,7 +3,7 @@ public class Creature extends Buyable{
     private String creatureName;
     private int creatureLevel;
     private int pacifyLevel;
-    public int dailyProfit;
+    private int dailyProfit;
     private double creatureGoldBonus = 1.0;
     private Biome creatureBiome;
 
@@ -35,6 +35,14 @@ public class Creature extends Buyable{
 
     public Biome getCreatureBiome() {
         return creatureBiome;
+    }
+
+    public int getDailyProfit() {
+        return dailyProfit;
+    }
+
+    public double getCreatureGoldBonus() {
+        return creatureGoldBonus;
     }
 
     public int getCreatureLevel() {
@@ -74,11 +82,4 @@ public class Creature extends Buyable{
         this.creatureGoldBonus= this.creatureGoldBonus + fish.getGoldBonusValue();
     }
 
-    // move to Zoo
-    public void claimProfit(Zoo zoo){
-        double profitMoney = this.dailyProfit * this.dangerLevel * this.creatureGoldBonus + 50*this.creatureLevel; // multiplicerar det tidigare värdet på money med danger
-        double totalMoney = profitMoney + zoo.getMoney();
-        Zoo.setMoney(totalMoney);
-        System.out.println(creatureName + " generated "+totalMoney + " in ");
-    }
 }

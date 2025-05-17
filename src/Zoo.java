@@ -132,11 +132,19 @@ public class Zoo {
 
     public void upgradeZooMoney(){
         double upgradeCost = this.zooLevel*10;
-        if (this.money>=upgradeCost){
+        if (money>=upgradeCost){
             ZooUpgrade();
         }
         else{
-            System.out.println(this.money+"/"+upgradeCost +". Not enough money. "+(upgradeCost-this.money)+" more money required.");
+            System.out.println(money+"/"+upgradeCost +". Not enough money. "+(upgradeCost-this.money)+" more money required.");
         }
+    }
+
+    public void claimProfit(Creature creature){
+        double profitMoney = creature.getDailyProfit() * creature.getDangerLevel() * creature.getCreatureGoldBonus() + 50*creature.getCreatureLevel();
+        double totalMoney = profitMoney + money;
+        money = totalMoney;
+
+        System.out.println(creature.getCreatureName() + " generated "+profitMoney + " coins. ");
     }
 }

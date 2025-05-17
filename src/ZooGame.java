@@ -56,7 +56,8 @@ public class ZooGame {
             System.out.println("~~~ Day "+ day + " ~~~" );
             boolean dayActive = true;
 
-
+            // if showMainMenu returns false the boolean playing will become false which ends the loop
+            playing = showMainMenu(myScanner, zoo, day);
 
         }
 
@@ -87,30 +88,43 @@ public class ZooGame {
         */
     }
 
-    private void showMainMenu(Scanner myScanner, Zoo zoo){
-        System.out.println("Choose an action: (1/2/3/4)");
+    private boolean showMainMenu(Scanner myScanner, Zoo zoo, int day){
+        System.out.println();
+        System.out.println("Zoo Actions: ");
+        System.out.println();
         System.out.println("1. Visit Shop");
         System.out.println("2. View Creatures and Habitats");
         System.out.println("3. End Day");
         System.out.println("4. Quit Game");
+        System.out.print("Choose an action: (1/2/3/4):");
 
         String stringAnswer = myScanner.nextLine();
         String answer = stringAnswer.toLowerCase();
         switch (answer){
             case "1":
-
+                visitShopMenu(myScanner);
                 break;
 
             case "2":
                 zoo.printHabitatStats();
                 break;
+            case "3":
+                endDay(zoo);
+                day++;
+                break;
+            case "4":
+                System.out.println("Quitting game.");
+                return false;
             default:
-                System.out.println("Please enter y/n");
+                System.out.println("Please enter 1/2/3/4.");
         }
+        return true;
     }
 
-    private void visitShopMenu(){
-        System.out.println("Choose an option: (1/2/3/4)");
+    private void visitShopMenu(Scanner scanner){
+        System.out.println();
+        System.out.println("Shop:");
+        System.out.println();
         System.out.println("1. Items");
         System.out.println("2. Habitats");
         System.out.println("3. Creatures");
@@ -118,6 +132,30 @@ public class ZooGame {
         System.out.println("5. Upgrades");
         System.out.println("6. Sell Items");
         System.out.println("7. Back");
+        System.out.print("Choose an option: (1/2/3/4): ");
 
+        String answer = scanner.nextLine().toLowerCase();
+
+        switch (answer){
+            case "1":
+                break;
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            default:
+                System.out.println();
+
+        }
+    }
+
+    private void endDay(Zoo zoo){
+        for (Creature creature : zoo.getCreatures()){
+            zoo.claimProfit(creature);
+        }
+        System.out.println("Total Coins: "+zoo.getMoney());
+        // for loop för creatures i zoo, testa att fly för varje
     }
 }
