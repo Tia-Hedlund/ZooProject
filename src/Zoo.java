@@ -65,9 +65,10 @@ public class Zoo {
     public void addGuardToZoo(){
         securityLevel++;
         guardCount++;
+        System.out.println("Security Level increased to "+ securityLevel+".");
     }
 
-    public void nightTime(){
+    public void nightTime(Shop shop){
         Creature escaped = creatureEscape();
         if (escaped != null){
 
@@ -77,6 +78,7 @@ public class Zoo {
             // Remove the creature that escaped from its specific habitat
             Habitat creaturesHabitat = escaped.getHabitat();
             creaturesHabitat.getCreatures().remove(escaped);
+            shop.addCreatureForSale(escaped);
 
             // Remove creature from the zoo
             creatures.remove(escaped);

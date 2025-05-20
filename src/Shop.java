@@ -132,12 +132,37 @@ public class Shop {
         }
     }
 
+    public ArrayList<Habitat> getMatchingHabitats(Creature creature, Zoo zoo){
+        ArrayList<Habitat> biomeMatchingHabitats = new ArrayList();
+        for (Habitat h : zoo.getHabitats()){
+            // If the biome of the habitat h from all the owned habitats, is compatible with the creatures biome...
+            if (h.getHabitatBiome().BiomesAreCompatible(creature)){
+                biomeMatchingHabitats.add(h);
+            }
+        }
+        return biomeMatchingHabitats;
+
+    }
+
+    public void showMatchingHabitats(){
+
+
+    }
+
+    public void chooseCreaturesHabitat(Creature creature, Zoo zoo){
+        System.out.println("To purchase "+ creature.getCreatureName() +" please select a habitat.");
+
+
+    }
+
     public void buyCreature(Zoo zoo, Creature creature, Habitat habitat){
         if(canBuyCreature(zoo, creature, habitat)){
-            // Reduce the total price of the habitat from the Zoo's total money.
+            // Reduce the total price of the creature from the Zoo's total money.
             zoo.setMoney(zoo.getMoney()-creature.getPrice());
-            // the bought habitat is added to the Arraylist creatures in habitats and creatures in zoo.
+            // the bought creature is added to the Arraylist creatures in habitats and creatures in zoo.
             habitat.addCreatureToHabitatAndZoo(creature, zoo);
+            // remove the bought creature from the for sale Arraylist in shop
+            removeCreatureForSale(creature);
         }
         else{
             System.out.println("gick inte att köpa creature");
@@ -159,7 +184,6 @@ public class Shop {
             // Reduce the total price of the guard from the Zoo's total money.
             zoo.setMoney(zoo.getMoney()-guard.getTotalPrice(zoo));
             System.out.println("1 Guard purchased for "+ guard.getTotalPrice(zoo) +" coins.");
-            System.out.println("Security Level increased to "+ zoo.getSecurityLevel()+".");
             zoo.addGuardToZoo();
         }
     }

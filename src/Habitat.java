@@ -7,7 +7,7 @@ public class Habitat extends Buyable{
     private int creatureTotalLevelLimit;
     private int totalLevelInHabitat;
     private ArrayList<Creature> creatures;
-    public Biome habitatBiome;
+    private Biome habitatBiome;
 
     public Habitat(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat){
         super(price);
@@ -17,6 +17,10 @@ public class Habitat extends Buyable{
         this.habitatBiome = habitatBiome;
         creatures = new ArrayList<>();
         this.totalLevelInHabitat = totalLevelInHabitat;
+    }
+
+    public Biome getHabitatBiome() {
+        return habitatBiome;
     }
 
     public int getHabitatLevel() {

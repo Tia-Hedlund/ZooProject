@@ -75,12 +75,12 @@ public class ZooGame {
             boolean dayActive = true;
             while (dayActive){
                 // if showMainMenu returns false the boolean "dayActive" will become false which ends the loop
-                dayActive = showMainMenu(myScanner,  zoo,  day,  shop,  inventory,  wood,  fish,  fruit);
+                dayActive = showMainMenu(myScanner,  zoo,  day,  shop,  inventory,  wood,  fish,  fruit, guard);
 
             }
             endDay(zoo, day);
             day++;
-            zoo.nightTime();
+            zoo.nightTime(shop);
 
 
 
@@ -113,7 +113,7 @@ public class ZooGame {
         */
     }
 
-    private boolean showMainMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit){
+    private boolean showMainMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard){
         System.out.println();
         System.out.println("Zoo Actions: ");
         System.out.println();
@@ -130,7 +130,7 @@ public class ZooGame {
         System.out.println();
         switch (answer){
             case "1":
-                visitShopMenu(scanner, zoo, day, shop, inventory, wood, fish, fruit);
+                visitShopMenu(scanner, zoo, day, shop, inventory, wood, fish, fruit, guard);
                 break;
             case "2":
                 zoo.printHabitatStats();
@@ -197,7 +197,7 @@ public class ZooGame {
 
     }
 
-    private void visitShopMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit){
+    private void visitShopMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard){
         System.out.println();
         System.out.println("Shop:");
         System.out.println();
@@ -221,8 +221,10 @@ public class ZooGame {
                 buyHabitatsMenu(scanner, shop, zoo);
                 break;
             case "3":
+                buyCreatureMenu(scanner, shop, zoo);
                 break;
             case "4":
+                buyGuardMenu(scanner, guard, shop, zoo);
                 break;
             case "5":
                 break;
@@ -339,6 +341,48 @@ public class ZooGame {
         }
     }
 
+    private void buyCreatureMenu(Scanner scanner, Shop shop, Zoo zoo) {
+        System.out.println();
+
+        if (shop.getCreaturesForSale().isEmpty())
+        {
+            System.out.println("No creatures available for purchase.");
+            return;
+        }
+
+        System.out.println("Shop - Creatures:");
+        System.out.printf("%-17s %s\n", "Creature:", "   Price:");
+
+        for (int i = 0; i < shop.getCreaturesForSale().size(); i++){
+            Creature c = shop.getCreaturesForSale().get(i);
+            System.out.print(i+1 +". ");
+            System.out.printf("%-17s %s\n", c.getCreatureName(), ""+c.getPrice() );
+        }
+        System.out.println((shop.getCreaturesForSale().size() +1) +". Back");
+        System.out.print("Choose an option: ");
+        String answer = scanner.nextLine();
+        int intChoice;
+        try {
+            intChoice = Integer.parseInt(answer);
+            if (intChoice == (shop.getCreaturesForSale().size() +1)){
+                return;
+            }
+            else if (intChoice >= 1 && intChoice <= shop.getCreaturesForSale().size()){
+                Creature chosenCreature = shop.getCreaturesForSale().get(intChoice-1);
+
+
+                // DETTA ÄR FEL MÅSTE LÅDA ANVÄNDAREN VÄLJA VILKEN HABITAT DE VILL PLACERA CREATUREN I
+                Habitat habitatCorresponding = chosenCreature.getHabitat();
+                shop.buyCreature(zoo, chosenCreature, habitatCorresponding);
+            }
+            else{
+                System.out.println("Please enter a number between (1-"+(shop.getCreaturesForSale().size() +1) +")");
+            }
+        } catch (Exception e){
+            System.out.println("Please enter a number between (1-"+(shop.getCreaturesForSale().size() +1) +")");
+        }
+    }
+
     private void buyGuardMenu(Scanner scanner, Guard guard, Shop shop, Zoo zoo){
         System.out.println();
         System.out.println("Shop - Items:");
@@ -347,6 +391,7 @@ public class ZooGame {
         System.out.print("1. ");
         System.out.printf("%-12s %s\n", "Guard", guard.getTotalPrice(zoo));
         System.out.println("2. Back");
+        System.out.print("Choose an option (1/2): ");
 
         String answer = scanner.nextLine().toLowerCase();
 

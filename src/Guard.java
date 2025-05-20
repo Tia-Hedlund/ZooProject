@@ -5,7 +5,7 @@ public class Guard extends Buyable{
     }
 
     public double getTotalPrice(Zoo zoo){
-        return price*zoo.getGuardCount();
+        return price*(zoo.getGuardCount()+1);
     }
 
 }
