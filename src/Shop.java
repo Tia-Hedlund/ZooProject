@@ -144,6 +144,26 @@ public class Shop {
         }
     }
 
+    public boolean canBuyGuard(Zoo zoo, Guard guard){
+        if (zoo.getMoney() >= (guard.getTotalPrice(zoo))){
+            return true;
+        }
+        else{
+            System.out.println("Could not purchase a Guard. Not enough coins.");
+            return false;
+        }
+    }
+
+    public void buyGuard(Zoo zoo, Guard guard){
+        if (canBuyGuard(zoo, guard)){
+            // Reduce the total price of the guard from the Zoo's total money.
+            zoo.setMoney(zoo.getMoney()-guard.getTotalPrice(zoo));
+            System.out.println("1 Guard purchased for "+ guard.getTotalPrice(zoo) +" coins.");
+            System.out.println("Security Level increased to "+ zoo.getSecurityLevel()+".");
+            zoo.addGuardToZoo();
+        }
+    }
+
     // ***** Methods Upgrades *****
 
 

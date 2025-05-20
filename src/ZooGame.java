@@ -25,6 +25,7 @@ public class ZooGame {
         Fruit fruit = new Fruit(50.0);
         Wood wood = new Wood(50.0);
         Inventory inventory = new Inventory(0);
+        Guard guard = new Guard(50.0);
 
         Biome woodlandBiome = new WoodlandBiome();
         Biome drylandBiome = new DrylandBiome();
@@ -44,6 +45,13 @@ public class ZooGame {
         shop.addHabitatForSale(glacier);
 
         Creature twiglet = new Creature(100.0, woodlandBiome, 1, 0, "Twiglet", 1, 10, 1);
+        Creature reek = new Creature(100.0, drylandBiome, 1, 0, "Reek", 1, 10, 1);
+        Creature scavenger = new Creature(100.0, drylandBiome, 1, 0, "Scavenger", 1, 10, 1);
+        Creature sawtooth = new Creature(100.0, woodlandBiome, 1, 0, "Sawtooth", 1, 10, 1);
+
+        shop.addCreatureForSale(reek);
+        shop.addCreatureForSale(scavenger);
+        shop.addCreatureForSale(sawtooth);
 
         zoo.addHabitatToZoo(meadow);
         meadow.addCreatureToHabitatAndZoo(twiglet, zoo);
@@ -111,9 +119,10 @@ public class ZooGame {
         System.out.println();
         System.out.println("1. Visit Shop");
         System.out.println("2. View Creatures and Habitats");
-        System.out.println("3. Use Item");
-        System.out.println("4. End Day");
-        System.out.println("5. Quit Game");
+        System.out.println("3. View Zoo stats");
+        System.out.println("4. Use Item");
+        System.out.println("5. End Day");
+        System.out.println("6. Quit Game");
         System.out.print("Choose an action: (1/2/3/4): ");
 
         String stringAnswer = scanner.nextLine();
@@ -127,11 +136,13 @@ public class ZooGame {
                 zoo.printHabitatStats();
                 break;
             case "3":
-
+                zoo.printZooStats();
                 break;
             case "4":
-                return false;
+                break;
             case "5":
+                return false;
+            case "6":
                 System.out.println("Quitting game.");
                 System.exit(0);
             default:
@@ -326,6 +337,29 @@ public class ZooGame {
         } catch (Exception e){
             System.out.println("Please enter a number between (1-"+(shop.getHabitatsForSale().size() +1) +")");
         }
+    }
+
+    private void buyGuardMenu(Scanner scanner, Guard guard, Shop shop, Zoo zoo){
+        System.out.println();
+        System.out.println("Shop - Items:");
+
+        System.out.printf("%-12s %s\n", "Guard:", "   Price:");
+        System.out.print("1. ");
+        System.out.printf("%-12s %s\n", "Guard", guard.getTotalPrice(zoo));
+        System.out.println("2. Back");
+
+        String answer = scanner.nextLine().toLowerCase();
+
+        switch (answer){
+            case "1":
+                shop.buyGuard(zoo, guard);
+            case "2":
+                return;
+            default:
+                System.out.println();
+
+        }
+
     }
 
 

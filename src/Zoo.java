@@ -10,7 +10,7 @@ public class Zoo {
     private int zooLevel = 1;
     private ArrayList<Creature> creatures;
     private ArrayList<Habitat> habitats;
-    // public ArrayList<Tradables> tradables;
+    private int guardCount;
 
     public Zoo(String name, double money, int maxStorage, int securityLevel, int zooLevel) {
         this.name = name;
@@ -56,6 +56,15 @@ public class Zoo {
 
     public double getMoney() {
         return money;
+    }
+
+    public int getGuardCount() {
+        return guardCount;
+    }
+
+    public void addGuardToZoo(){
+        securityLevel++;
+        guardCount++;
     }
 
     public void nightTime(){
@@ -109,7 +118,6 @@ public class Zoo {
             int randomInt2 = myRandom.nextInt(3);
 
             if (randomInt1==randomInt2){
-                System.out.println(escapingCreature.getCreatureName() + " has escaped. ");
                 return escapingCreature;
             }
             else{
