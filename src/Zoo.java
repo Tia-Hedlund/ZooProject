@@ -128,7 +128,6 @@ public class Zoo {
     public void printHabitatStats(){
         System.out.printf("%-17s %-15s %s\n", "Habitat:", "Level:", "Creatures:");
 
-
         for (Habitat habitat : this.habitats){
             String habitatName = habitat.getHabitatName();
             int level = habitat.getHabitatLevel();
@@ -145,7 +144,6 @@ public class Zoo {
             creatureList.append("]");
 
             System.out.printf("%-17s %-15s %s\n", habitatName, level, creatureList);
-            System.out.println();
         }
     }
 

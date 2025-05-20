@@ -90,5 +90,4 @@ public class Creature extends Buyable{
     public void updateGoldBonus(Fish fish){
         this.creatureGoldBonus= this.creatureGoldBonus + fish.getGoldBonusValue();
     }
-
 }

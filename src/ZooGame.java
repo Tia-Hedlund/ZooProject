@@ -31,10 +31,17 @@ public class ZooGame {
         Biome oceanBiome = new OceanBiome();
 
         Habitat meadow = new Meadow(100.0, "Meadow", 1, 1, woodlandBiome, 0);
-        Habitat forest = new Forest(100,"Forest", 1,1, woodlandBiome,0);
+        Habitat forest = new Forest(100.0,"Forest", 1,1, woodlandBiome,0);
+        Habitat desert = new Desert(100.0,"Desert", 1,1, drylandBiome, 0);
+        Habitat savannah = new Savannah(100.0,"Savannah", 1,1, drylandBiome, 0);
+        Habitat coralReef = new CoralReef(100.0,"Coral Reef", 1,1, oceanBiome, 0);
+        Habitat glacier = new CoralReef(100.0,"Glacier Reef", 1,1, oceanBiome, 0);
 
-        Habitat
-
+        shop.addHabitatForSale(forest);
+        shop.addHabitatForSale(desert);
+        shop.addHabitatForSale(savannah);
+        shop.addHabitatForSale(coralReef);
+        shop.addHabitatForSale(glacier);
 
         Creature twiglet = new Creature(100.0, woodlandBiome, 1, 0, "Twiglet", 1, 10, 1);
 
@@ -200,6 +207,7 @@ public class ZooGame {
                 buyItemsMenu(scanner, shop, zoo, inventory, wood, fish, fruit, day);
                 break;
             case "2":
+                buyHabitatsMenu(scanner, shop, zoo);
                 break;
             case "3":
                 break;
@@ -279,32 +287,46 @@ public class ZooGame {
         return quantity;
     }
 
-    private void buyHabitatsMenu(Scanner scanner, Habitat habitat, Habitat glacier) {
+    private void buyHabitatsMenu(Scanner scanner, Shop shop, Zoo zoo) {
         System.out.println();
-        System.out.println("Shop - Habitats:");
-        System.out.printf("%-17s %s\n", "Habitat:", "Price:");
 
-        System.out.print("1. ");
-        System.out.printf("%-17s %s\n", habitat.getHabitatName(), "   "+habitat.getPrice() );
-        System.out.print("2. ");
-        System.out.printf("%-17s %s\n", habitat.getHabitatName(), "   "+habitat.getPrice() );
-        System.out.println("4. Back to Shop Menu");
-        System.out.print("Choose an option: (1/2/3/4): ");
+        if (shop.getHabitatsForSale().isEmpty())
+        {
+            System.out.println("No habitats available for purchase.");
+            return;
+        }
+
+        System.out.println("Shop - Habitats:");
+        System.out.printf("%-17s %s\n", "Habitat:", "   Price:");
+
+        for (int i = 0; i < shop.getHabitatsForSale().size(); i++){
+            Habitat h = shop.getHabitatsForSale().get(i);
+            System.out.print(i+1 +". ");
+            System.out.printf("%-17s %s\n", h.getHabitatName(), ""+h.getPrice() );
+        }
+        System.out.println((shop.getHabitatsForSale().size() +1) +". Back");
+        System.out.print("Choose an option: ");
 
         String answer = scanner.nextLine();
 
-        switch (answer) {
-            case "1":
-                break;
-            case "2":
-                break;
-            case "3":
-                break;
-            case "4":
-                return;
-            default:
-                System.out.println();
-        }
+        int intChoice;
 
+        try {
+            intChoice = Integer.parseInt(answer);
+            if (intChoice == (shop.getHabitatsForSale().size() +1)){
+                return;
+            }
+            else if (intChoice >= 1 && intChoice <= shop.getHabitatsForSale().size()){
+                Habitat chosenHabitat = shop.getHabitatsForSale().get(intChoice-1);
+                shop.buyHabitat(zoo, chosenHabitat);
+            }
+            else{
+                System.out.println("Please enter a number between (1-"+(shop.getHabitatsForSale().size() +1) +")");
+            }
+        } catch (Exception e){
+            System.out.println("Please enter a number between (1-"+(shop.getHabitatsForSale().size() +1) +")");
+        }
     }
+
+
 }

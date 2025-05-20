@@ -1,4 +1,40 @@
+import java.util.ArrayList;
+
 public class Shop {
+
+    private ArrayList<Habitat> habitatsForSale;
+    private ArrayList<Creature> creaturesForSale;
+
+    public Shop(){
+        habitatsForSale = new ArrayList<>();
+        creaturesForSale = new ArrayList<>();
+    }
+
+    public ArrayList<Habitat> getHabitatsForSale() {
+        return habitatsForSale;
+    }
+
+    public ArrayList<Creature> getCreaturesForSale() {
+        return creaturesForSale;
+    }
+
+    // ***** Methods Add for Sale *****
+
+    public void addHabitatForSale(Habitat habitat){
+        habitatsForSale.add(habitat);
+    }
+
+    public void removeHabitatForSale(Habitat habitat){
+        habitatsForSale.remove(habitat);
+    }
+
+    public void addCreatureForSale(Creature creature){
+        creaturesForSale.add(creature);
+    }
+
+    public void removeCreatureForSale(Creature creature){
+        creaturesForSale.remove(creature);
+    }
 
     // ***** Methods Buy *****
 
@@ -65,14 +101,6 @@ public class Shop {
             // the player doesn't have enough money
             return false;
         }
-        /*
-        if (zoo.getMoney() >= habitat.getPrice() && !zoo.getHabitats().contains(habitat)){
-            return true;
-        }
-        else{
-            return false;
-        }
-         */
     }
 
     public void buyHabitat(Zoo zoo, Habitat habitat){
@@ -81,12 +109,16 @@ public class Shop {
             zoo.setMoney(zoo.getMoney()-habitat.getPrice());
             // the bought habitat is added to the Arraylist habitats in zoo.
             zoo.addHabitatToZoo(habitat);
+
+            // removes the bought habitat from the for sale list
+            removeHabitatForSale(habitat);
+            System.out.println(habitat.getHabitatName()+ " purchased for "+ habitat.getPrice()+".");
         }
-        else if(zoo.getMoney() >= habitat.getPrice()){
+        else if(zoo.getMoney() < habitat.getPrice()){
             System.out.println("Could not purchase habitat. Not enough coins.");
         }
         else{
-            System.out.println("Could purchase habitat. "+habitat.getHabitatName()+ " already owned.");
+            System.out.println("Could not purchase habitat. "+habitat.getHabitatName()+ " already owned.");
         }
     }
 
