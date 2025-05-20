@@ -12,7 +12,7 @@ public class Zoo {
     private ArrayList<Habitat> habitats;
     // public ArrayList<Tradables> tradables;
 
-    public Zoo(String name, double money, int maxStorage, int securityLevel, int zooLevel){
+    public Zoo(String name, double money, int maxStorage, int securityLevel, int zooLevel) {
         this.name = name;
         this.money = money;
         this.maxStorage = maxStorage;
@@ -38,11 +38,11 @@ public class Zoo {
         return maxStorage;
     }
 
-    public void addCreatureToZoo(Creature creature){
+    public void addCreatureToZoo(Creature creature) {
         creatures.add(creature);
     }
 
-    public void addHabitatToZoo(Habitat habitat){
+    public void addHabitatToZoo(Habitat habitat) {
         habitats.add(habitat);
     }
 
@@ -58,19 +58,48 @@ public class Zoo {
         return money;
     }
 
-    public void successfullEscape(Creature creature){
+    private void nightTime(){
+
+    }
+
+    public boolean tryCreatureEscape(Creature creature) {
         int totalDanger = 0;
-        for (Creature c : creatures){
-            int danger = creature.getDangerLevel()-creature.getPacifyLevel();
+        for (Creature c : creatures) {
+            int danger = c.getDangerLevel() - c.getPacifyLevel();
             totalDanger += danger;
         }
 
-        if (securityLevel >= totalDanger){
-            // return false;
-        }
-        else{
+        if (securityLevel >= totalDanger) {
+            return false;
+        } else {
             Random myRandom = new Random();
-        }
+
+            // Out of the creatures at the zoo, the ones that are not fully pacified are added into a new ArrayList called notPacifiedCreatures
+            ArrayList<Creature> nonPacifiedCreatures = new ArrayList<>();
+            for (Creature c : creatures) {
+                if (c.getDangerLevel() - c.getPacifyLevel() > 0) {
+                    nonPacifiedCreatures.add(c);
+                }
+            }
+
+            if (nonPacifiedCreatures.isEmpty()) {
+                // If all creatures are pacified non will escape.
+                return false;
+            }
+
+            Creature escapingCreature = nonPacifiedCreatures.get(myRandom.nextInt(nonPacifiedCreatures.size()));
+
+            int randomInt1 = myRandom.nextInt(3);
+            int randomInt2 = myRandom.nextInt(3);
+
+            if (randomInt1==randomInt2){
+                System.out.println(escapingCreature.getCreatureName() + " has escaped. ");
+                return true;
+            }
+            else{
+                return false;
+            }
+        } // Lägg till så de flyr för nighttime
     }
 
     public void printZooStats(){

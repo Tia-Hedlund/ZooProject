@@ -140,10 +140,6 @@ public class ZooGame {
         // for loop för creatures i zoo, testa att fly för varje
     }
 
-    private void nightTime(){
-
-    }
-
     private void useItemMenu(Scanner scanner, Inventory inventory){
         System.out.println();
         System.out.printf("%-17s %s\n", "Item:", "In inventory:");
