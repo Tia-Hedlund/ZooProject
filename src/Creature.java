@@ -76,7 +76,7 @@ public class Creature extends Buyable{
     }
 
     public double getUpgradeCost(){
-        double upgradeCost = getPrice()*creatureLevel*1000;
+        double upgradeCost = getPrice()*creatureLevel*1;
         return upgradeCost;
     }
 

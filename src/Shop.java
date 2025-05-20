@@ -311,6 +311,9 @@ public class Shop {
                     habitat.upgradeReduceMoney(zoo);
                     habitat.upgrade();
                 }
+                else{
+                    System.out.println("Could not upgrade "+habitat.getHabitatName()+ ". Not enough coins.");
+                }
                 break;
             case "3":
                 return;
@@ -336,7 +339,7 @@ public class Shop {
         System.out.print("2. ");
         System.out.printf("%-19s %s\n", "Fish", "  " + creature.getFoodRequired());
         System.out.print("3. ");
-        System.out.printf("%-19s %s\n", "Fish", "  " + creature.getUpgradeCost());
+        System.out.printf("%-19s %s\n", "Coins", "  " + creature.getUpgradeCost());
         System.out.println("4. Back");
         System.out.print("Choose an option (1/2/3/4): ");
 
@@ -355,6 +358,9 @@ public class Shop {
                 if (creature.canUpgradeMoney(zoo)){
                     creature.reduceUpgradeMoney(zoo);
                     creature.upgrade();
+                }
+                else{
+                    System.out.println("Could not upgrade "+ creature.getCreatureName()+". Not enough coins.");
                 }
                 break;
             case "4":

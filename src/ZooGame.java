@@ -4,8 +4,7 @@ import java.util.Scanner;
 import static java.lang.Thread.*;
 
 public class ZooGame {
-    public void StartZoo()
-    {
+    public void StartZoo() {
         int day = 1;
         Scanner myScanner = new Scanner(System.in);
         /*
@@ -33,11 +32,11 @@ public class ZooGame {
         Biome oceanBiome = new OceanBiome();
 
         Habitat meadow = new Meadow(100.0, "Meadow", 1, 1, woodlandBiome, 0);
-        Habitat forest = new Forest(100.0,"Forest", 1,1, woodlandBiome,0);
-        Habitat desert = new Desert(100.0,"Desert", 1,1, drylandBiome, 0);
-        Habitat savannah = new Savannah(100.0,"Savannah", 1,1, drylandBiome, 0);
-        Habitat coralReef = new CoralReef(100.0,"Coral Reef", 1,1, oceanBiome, 0);
-        Habitat glacier = new Glacier(100.0,"Glacier", 1,1, oceanBiome, 0);
+        Habitat forest = new Forest(100.0, "Forest", 1, 1, woodlandBiome, 0);
+        Habitat desert = new Desert(100.0, "Desert", 1, 1, drylandBiome, 0);
+        Habitat savannah = new Savannah(100.0, "Savannah", 1, 1, drylandBiome, 0);
+        Habitat coralReef = new CoralReef(100.0, "Coral Reef", 1, 1, oceanBiome, 0);
+        Habitat glacier = new Glacier(100.0, "Glacier", 1, 1, oceanBiome, 0);
 
         shop.addHabitatForSale(forest);
         shop.addHabitatForSale(desert);
@@ -63,21 +62,21 @@ public class ZooGame {
 
         // Make it so that a certain zoo level is required to unluck certain habitats and creatures.  !!!!!
 
-        System.out.println("The creatures you own (Current creatures owned: "+twiglet.getCreatureName()+") will generate coins which you can collect at the end of each day.");
-        System.out.println("The coins will be added to your Zoo's total coins (Current coins: "+zoo.getMoney()+")");
+        System.out.println("The creatures you own (Current creatures owned: " + twiglet.getCreatureName() + ") will generate coins which you can collect at the end of each day.");
+        System.out.println("The coins will be added to your Zoo's total coins (Current coins: " + zoo.getMoney() + ")");
         System.out.println("Moreover, the coins can be used to buy 'Items', 'Habitats', 'Creatures' and 'Guards' in the 'Shop'.");
         System.out.println("Or to upgrade the level of your Zoo, owned habitats or creatures. ");
         System.out.println("Some habitats and some creatures may differ from others, but that's a problem for future you.");
         System.out.println("Good Luck!");
 
         boolean playing = true;
-        while (playing){
+        while (playing) {
             System.out.println();
-            System.out.println("✦ʚ♡ɞ✦ Day "+ day +" ✦ʚ♡ɞ✦" );
+            System.out.println("✦ʚ♡ɞ✦ Day " + day + " ✦ʚ♡ɞ✦");
             boolean dayActive = true;
-            while (dayActive){
+            while (dayActive) {
                 // if showMainMenu returns false the boolean "dayActive" will become false which ends the loop
-                dayActive = showMainMenu(myScanner,  zoo,  day,  shop,  inventory,  wood,  fish,  fruit, guard);
+                dayActive = showMainMenu(myScanner, zoo, day, shop, inventory, wood, fish, fruit, guard);
 
             }
             zoo.nightTime(shop);
@@ -85,7 +84,6 @@ public class ZooGame {
             day++;
 
         }
-
 
 
         // Shop switch case being divided into : 1 items, 2 habitats, 3 creatures, 4 upgrades, 5 guards, 6 sell, 7 back, default
@@ -113,7 +111,7 @@ public class ZooGame {
         */
     }
 
-    private boolean showMainMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard){
+    private boolean showMainMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard) {
         System.out.println();
         System.out.println("Zoo Actions: ");
         System.out.println();
@@ -128,7 +126,7 @@ public class ZooGame {
         String stringAnswer = scanner.nextLine();
         String answer = stringAnswer.toLowerCase();
         System.out.println();
-        switch (answer){
+        switch (answer) {
             case "1":
                 visitShopMenu(scanner, zoo, day, shop, inventory, wood, fish, fruit, guard);
                 break;
@@ -152,15 +150,15 @@ public class ZooGame {
         return true;
     }
 
-    private void endDay(Zoo zoo, int day){
-        System.out.println("Ending day "+ day + ".");
-        for (Creature creature : zoo.getCreatures()){
+    private void endDay(Zoo zoo, int day) {
+        System.out.println("Ending day " + day + ".");
+        for (Creature creature : zoo.getCreatures()) {
             zoo.claimProfit(creature);
         }
-        System.out.println("Total Coins: "+zoo.getMoney());
+        System.out.println("Total Coins: " + zoo.getMoney());
     }
 
-    private void useItemMenu(Scanner scanner, Inventory inventory){
+    private void useItemMenu(Scanner scanner, Inventory inventory) {
         System.out.println();
         System.out.printf("%-17s %s\n", "Item:", "In inventory:");
         System.out.print("1. ");
@@ -176,7 +174,7 @@ public class ZooGame {
         String stringAnswer = scanner.nextLine();
         String answer = stringAnswer.toLowerCase();
         System.out.println();
-        switch (answer){
+        switch (answer) {
             case "1":
 
                 break;
@@ -192,11 +190,11 @@ public class ZooGame {
         }
     }
 
-    private void useItemMenu(){
+    private void useItemMenu() {
 
     }
 
-    private void visitShopMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard){
+    private void visitShopMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard) {
         System.out.println();
         System.out.println("Shop:");
         System.out.println("1. Items");
@@ -211,7 +209,7 @@ public class ZooGame {
         String answer = scanner.nextLine().toLowerCase();
         System.out.println();
 
-        switch (answer){
+        switch (answer) {
             case "1":
                 buyItemsMenu(scanner, shop, zoo, inventory, wood, fish, fruit, day);
                 break;
@@ -238,7 +236,7 @@ public class ZooGame {
         }
     }
 
-    private void buyItemsMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory, Wood wood, Fish fish, Fruit fruit, int day){
+    private void buyItemsMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory, Wood wood, Fish fish, Fruit fruit, int day) {
         System.out.println();
         System.out.println("Shop - Items:");
         System.out.println();
@@ -257,7 +255,7 @@ public class ZooGame {
         int quantity = 0;
         String item = "";
 
-        switch (answer){
+        switch (answer) {
             case "1":
                 item = wood.getClass().getSimpleName().toLowerCase();
                 quantity = enterQuantity(scanner, item);
@@ -281,17 +279,17 @@ public class ZooGame {
         }
     }
 
-    private int enterQuantity(Scanner scanner, String item){
+    private int enterQuantity(Scanner scanner, String item) {
         int quantity = 0;
         boolean intInput = false;
 
-        while (!intInput){
-            System.out.print("Enter a number of "+item+" to purchase: ");
-            try{
+        while (!intInput) {
+            System.out.print("Enter a number of " + item + " to purchase: ");
+            try {
                 quantity = scanner.nextInt();
                 scanner.nextLine();
-                intInput=true;
-            } catch(Exception e){
+                intInput = true;
+            } catch (Exception e) {
                 System.out.println("Enter a number.");
                 scanner.nextLine();
             }
@@ -303,8 +301,7 @@ public class ZooGame {
     private void buyHabitatsMenu(Scanner scanner, Shop shop, Zoo zoo) {
         System.out.println();
 
-        if (shop.getHabitatsForSale().isEmpty())
-        {
+        if (shop.getHabitatsForSale().isEmpty()) {
             System.out.println("No habitats available for purchase.");
             return;
         }
@@ -312,12 +309,12 @@ public class ZooGame {
         System.out.println("Shop - Habitats:");
         System.out.printf("%-17s %s\n", "Habitat:", "   Price:");
 
-        for (int i = 0; i < shop.getHabitatsForSale().size(); i++){
+        for (int i = 0; i < shop.getHabitatsForSale().size(); i++) {
             Habitat h = shop.getHabitatsForSale().get(i);
-            System.out.print(i+1 +". ");
-            System.out.printf("%-17s %s\n", h.getHabitatName(), ""+h.getPrice() );
+            System.out.print(i + 1 + ". ");
+            System.out.printf("%-17s %s\n", h.getHabitatName(), "" + h.getPrice());
         }
-        System.out.println((shop.getHabitatsForSale().size() +1) +". Back");
+        System.out.println((shop.getHabitatsForSale().size() + 1) + ". Back");
         System.out.print("Choose an option: ");
 
         String answer = scanner.nextLine();
@@ -326,26 +323,23 @@ public class ZooGame {
 
         try {
             intChoice = Integer.parseInt(answer);
-            if (intChoice == (shop.getHabitatsForSale().size() +1)){
+            if (intChoice == (shop.getHabitatsForSale().size() + 1)) {
                 return;
-            }
-            else if (intChoice >= 1 && intChoice <= shop.getHabitatsForSale().size()){
-                Habitat chosenHabitat = shop.getHabitatsForSale().get(intChoice-1);
+            } else if (intChoice >= 1 && intChoice <= shop.getHabitatsForSale().size()) {
+                Habitat chosenHabitat = shop.getHabitatsForSale().get(intChoice - 1);
                 shop.buyHabitat(zoo, chosenHabitat);
+            } else {
+                System.out.println("Please enter a number between (1-" + (shop.getHabitatsForSale().size() + 1) + ")");
             }
-            else{
-                System.out.println("Please enter a number between (1-"+(shop.getHabitatsForSale().size() +1) +")");
-            }
-        } catch (Exception e){
-            System.out.println("Please enter a number between (1-"+(shop.getHabitatsForSale().size() +1) +")");
+        } catch (Exception e) {
+            System.out.println("Please enter a number between (1-" + (shop.getHabitatsForSale().size() + 1) + ")");
         }
     }
 
     private void buyCreatureMenu(Scanner scanner, Shop shop, Zoo zoo) {
         System.out.println();
 
-        if (shop.getCreaturesForSale().isEmpty())
-        {
+        if (shop.getCreaturesForSale().isEmpty()) {
             System.out.println("No creatures available for purchase.");
             return;
         }
@@ -353,34 +347,32 @@ public class ZooGame {
         System.out.println("Shop - Creatures:");
         System.out.printf("%-17s %s\n", "Creature:", "   Price:");
 
-        for (int i = 0; i < shop.getCreaturesForSale().size(); i++){
+        for (int i = 0; i < shop.getCreaturesForSale().size(); i++) {
             Creature c = shop.getCreaturesForSale().get(i);
-            System.out.print(i+1 +". ");
-            System.out.printf("%-17s %s\n", c.getCreatureName(), ""+c.getPrice() );
+            System.out.print(i + 1 + ". ");
+            System.out.printf("%-17s %s\n", c.getCreatureName(), "" + c.getPrice());
         }
-        System.out.println((shop.getCreaturesForSale().size() +1) +". Back");
+        System.out.println((shop.getCreaturesForSale().size() + 1) + ". Back");
         System.out.print("Choose an option: ");
         String answer = scanner.nextLine();
         int intChoice;
         try {
             intChoice = Integer.parseInt(answer);
-            if (intChoice == (shop.getCreaturesForSale().size() +1)){
+            if (intChoice == (shop.getCreaturesForSale().size() + 1)) {
                 return;
-            }
-            else if (intChoice >= 1 && intChoice <= shop.getCreaturesForSale().size()){
-                Creature chosenCreature = shop.getCreaturesForSale().get(intChoice-1);
+            } else if (intChoice >= 1 && intChoice <= shop.getCreaturesForSale().size()) {
+                Creature chosenCreature = shop.getCreaturesForSale().get(intChoice - 1);
 
                 shop.buyCreature(zoo, chosenCreature);
+            } else {
+                System.out.println("Please enter a number between (1-" + (shop.getCreaturesForSale().size() + 1) + ")");
             }
-            else{
-                System.out.println("Please enter a number between (1-"+(shop.getCreaturesForSale().size() +1) +")");
-            }
-        } catch (Exception e){
-            System.out.println("Please enter a number between (1-"+(shop.getCreaturesForSale().size() +1) +")");
+        } catch (Exception e) {
+            System.out.println("Please enter a number between (1-" + (shop.getCreaturesForSale().size() + 1) + ")");
         }
     }
 
-    private void buyGuardMenu(Scanner scanner, Guard guard, Shop shop, Zoo zoo){
+    private void buyGuardMenu(Scanner scanner, Guard guard, Shop shop, Zoo zoo) {
         System.out.println();
         System.out.println("Shop - Items:");
 
@@ -392,7 +384,7 @@ public class ZooGame {
 
         String answer = scanner.nextLine().toLowerCase();
 
-        switch (answer){
+        switch (answer) {
             case "1":
                 shop.buyGuard(zoo, guard);
             case "2":
@@ -402,7 +394,7 @@ public class ZooGame {
         }
     }
 
-    private void buyUpgradesMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory){
+    private void buyUpgradesMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory) {
         System.out.println();
         System.out.println("Upgrades:");
         System.out.println("1. Zoo");
@@ -414,7 +406,7 @@ public class ZooGame {
         String answer = scanner.nextLine().toLowerCase();
         System.out.println();
 
-        switch (answer){
+        switch (answer) {
             case "1":
                 shop.buyUpgradeZoo(scanner, zoo, inventory);
                 break;
@@ -422,7 +414,7 @@ public class ZooGame {
                 upgradeHabitatMenu(zoo, scanner, shop, inventory);
                 break;
             case "3":
-                // upgrade creature menu
+                upgradeCreatureMenu(zoo, scanner, shop, inventory);
                 break;
             case "4":
                 return;
@@ -456,40 +448,39 @@ public class ZooGame {
             if (totalUsedLevel == level) {
                 status = "\033[31mFull\033[0m               ";
             } else {
-                status = "Not Full               ";
+                status = "Not Full           ";
             }
 
             System.out.print(i + 1 + ". ");
             System.out.printf("%-17s %-15s %-15s %s\n", habitatName, level, status, creatureList);
+        }
 
-            System.out.println((zoo.getHabitats().size()+1)+". Back");
-            System.out.print("Choose an option (1-"+(zoo.getHabitats().size()+1)+"): ");
+        System.out.println((zoo.getHabitats().size() + 1) + ". Back");
+        System.out.print("Choose an option (1-" + (zoo.getHabitats().size() + 1) + "): ");
 
-            String answer = scanner.nextLine();
-            System.out.println();
-            int intChoice;
-            try {
-                intChoice = Integer.parseInt(answer);
-                if (intChoice == (zoo.getHabitats().size() +1)){
-                    return;
-                }
-                else if (intChoice >= 1 && intChoice <= zoo.getHabitats().size()){
-                    Habitat chosenHabitat = zoo.getHabitats().get(intChoice-1);
+        String answer = scanner.nextLine();
+        System.out.println();
+        int intChoice;
+        try {
+            intChoice = Integer.parseInt(answer);
+            if (intChoice == (zoo.getHabitats().size() + 1)) {
+                return;
+            } else if (intChoice >= 1 && intChoice <= zoo.getHabitats().size()) {
+                Habitat chosenHabitat = zoo.getHabitats().get(intChoice - 1);
 
-                    shop.buyHabitatUpgrade(chosenHabitat, zoo, inventory);
-                }
-                else{
-                    System.out.println("Please enter a number between (1-"+(zoo.getHabitats().size() +1) +")");
-                }
-            } catch (Exception e){
-                System.out.println("Please enter a number between (1-"+(zoo.getHabitats().size() +1) +")");
+                shop.buyHabitatUpgrade(chosenHabitat, zoo, inventory);
+            } else {
+                System.out.println("Please enter a number between (1-" + (zoo.getHabitats().size() + 1) + ")");
             }
+        } catch (Exception e) {
+            System.out.println("Please enter a number between (1-" + (zoo.getHabitats().size() + 1) + ")");
         }
     }
 
+
     public void upgradeCreatureMenu(Zoo zoo, Scanner scanner, Shop shop, Inventory inventory){
         System.out.println("Owned Creatures:");
-        System.out.printf("%-17s %-15s %-19s %s\n", "Creature:", "Level:", "Habitat:");
+        System.out.printf("%-17s %-15s %s\n", "Creature:", "   Level:", "   Habitat:");
 
         for (int i = 0; i < zoo.getCreatures().size(); i++) {
             Creature c = zoo.getCreatures().get(i);
@@ -499,7 +490,7 @@ public class ZooGame {
             Habitat belongsToHabitat = c.getHabitat();
 
             System.out.print(i + 1 + ". ");
-            System.out.printf("%-17s %-15s %-15s %s\n", creatureName, level, belongsToHabitat);
+            System.out.printf("%-17s %-15s %s\n", creatureName, level, belongsToHabitat.getHabitatName());
         }
 
         System.out.println((zoo.getCreatures().size()+1)+". Back");
@@ -517,7 +508,15 @@ public class ZooGame {
             else if (intChoice >= 1 && intChoice <= zoo.getCreatures().size()){
                 Creature chosenCreature = zoo.getCreatures().get(intChoice-1);
 
-                shop.buyCreatureUpgrade(chosenCreature, zoo, inventory);
+                Habitat chosenCreaturesHabitat = chosenCreature.getHabitat();
+
+                if (shop.canUpgradeCreature(chosenCreature)){
+                    shop.buyCreatureUpgrade(chosenCreature, zoo, inventory);
+                }
+                else{
+                    System.out.println("The "+chosenCreaturesHabitat.getHabitatName()+" is too low level. Cannot upgrade "+ chosenCreature.getCreatureName()+".");
+                }
+
             }
             else{
                 System.out.println("Please enter a number between (1-"+(zoo.getCreatures().size() +1) +")");

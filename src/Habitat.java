@@ -70,7 +70,7 @@ public class Habitat extends Buyable{
     }
 
     public double getUpgradeCost(){
-        double upgradeCost = getPrice()*habitatLevel*100;
+        double upgradeCost = getPrice()*habitatLevel*1;
         return upgradeCost;
     }
 

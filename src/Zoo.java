@@ -73,7 +73,7 @@ public class Zoo {
         if (escaped != null){
 
             System.out.println(escaped.getCreatureName() +" escaped during the night!");
-            System.out.println("Your security level ("+ securityLevel+") was too low.");
+            System.out.println("Your security level ("+ securityLevel+") was too low and could not withstand the danger posed by the creatures ("+getTotalDangerLevel()+").");
 
             // Remove the creature that escaped from its specific habitat
             Habitat creaturesHabitat = escaped.getHabitat();
@@ -95,13 +95,13 @@ public class Zoo {
             if (securityLevel==0){
                 System.out.println("Lucky! Even without a single guard on duty no creature escaped. ");
             }
-            else if(diff<=0 && !(securityLevel==0)){
+            else if(diff<0 && !(securityLevel==0)){
                 System.out.println("The creatures clawed at the gates, but somehow your defenses held... for now.");
             }
-            else if(diff>=1 && diff<=5){
+            else if(diff>=0 && diff<=3){
                 System.out.println("Your guards kept all creatures from escaping tonight.");
             }
-            else if(diff>5){
+            else if(diff>3){
                 System.out.println("Guard duty or holiday? With this many on watch, it's hard to tell.");
             }
         }
