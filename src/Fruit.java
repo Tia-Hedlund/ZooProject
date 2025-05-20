@@ -11,7 +11,8 @@ public class Fruit extends Food{
         if(target instanceof Creature creature) {
             if (inventory.canUpgradeWithFruit(creature)) {// eftersom metoden upgradedWithFruit kräver creature som parameter{
                 System.out.println(creature.getCreatureName() + "has been upgraded to " + creature.getCreatureLevel()+1 +" using "+creature.getFoodRequired()+" fruit.");
-                creature.upgrade();
+                Habitat habitat = creature.getHabitat();
+                creature.upgrade(habitat);
             }
         }
     }

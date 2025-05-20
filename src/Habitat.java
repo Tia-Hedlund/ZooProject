@@ -65,6 +65,8 @@ public class Habitat extends Buyable{
         return creatureTotalLevelLimit;
     }
 
+
+
     public String getHabitatName() {
         return habitatName;
     }

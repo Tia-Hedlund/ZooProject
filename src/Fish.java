@@ -17,7 +17,8 @@ public class Fish extends Food{
         if(target instanceof Creature creature){
             if (inventory.canUpgradeWithFish(creature)){// eftersom metoden upgradedWithFish kräver creature som parameter{
                 System.out.println(creature.getCreatureName() + "has been upgraded to " + creature.getCreatureLevel()+1 +" using "+creature.getFoodRequired()+" fish.");
-                creature.upgrade();
+                Habitat habitat = creature.getHabitat();
+                creature.upgrade(habitat);
             }
         }
     }

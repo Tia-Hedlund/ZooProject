@@ -324,6 +324,8 @@ public class Shop {
 
     public boolean canUpgradeCreature(Creature creature){
         Habitat creaturesHabitat = creature.getHabitat();
+        System.out.println("total level in habitat: "+creaturesHabitat.getTotalLevelInHabitat());
+        System.out.println("creature level limit in habitat: "+ creaturesHabitat.getCreatureLevelLimit());
         if (creaturesHabitat.getTotalLevelInHabitat()>=creaturesHabitat.getCreatureLevelLimit()){
             return false;
         }
@@ -357,7 +359,8 @@ public class Shop {
             case "3":
                 if (creature.canUpgradeMoney(zoo)){
                     creature.reduceUpgradeMoney(zoo);
-                    creature.upgrade();
+                    Habitat habitat = creature.getHabitat();
+                    creature.upgrade(habitat);
                 }
                 else{
                     System.out.println("Could not upgrade "+ creature.getCreatureName()+". Not enough coins.");
