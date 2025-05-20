@@ -211,7 +211,7 @@ public class Zoo {
     }
 
     public void claimProfit(Creature creature){
-        double profitMoney = creature.getDailyProfit() * creature.getDangerLevel() * creature.getCreatureGoldBonus() + 50*creature.getCreatureLevel();
+        double profitMoney = (creature.getDailyProfit()+50) * creature.getCreatureGoldBonus() * creature.getCreatureLevel()* creature.getDangerLevel();
         double totalMoney = profitMoney + money;
         money = totalMoney;
 

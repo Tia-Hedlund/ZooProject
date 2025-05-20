@@ -78,9 +78,10 @@ public class ZooGame {
                 dayActive = showMainMenu(myScanner,  zoo,  day,  shop,  inventory,  wood,  fish,  fruit, guard);
 
             }
+            zoo.nightTime(shop);
             endDay(zoo, day);
             day++;
-            zoo.nightTime(shop);
+
 
 
 
@@ -172,7 +173,7 @@ public class ZooGame {
         System.out.printf("%-17s %s\n", "Fruit", inventory.getItems().getOrDefault("fruit", 0));
         System.out.println();
         System.out.println("4. Back");
-        System.out.print("Choose an option: (1/2/3/4): ");
+        System.out.print("Choose an option: ");
 
         String stringAnswer = scanner.nextLine();
         String answer = stringAnswer.toLowerCase();
@@ -208,7 +209,7 @@ public class ZooGame {
         System.out.println("5. Upgrades");
         System.out.println("6. Sell Items");
         System.out.println("7. Back");
-        System.out.print("Choose an option (1/2/3/4): ");
+        System.out.print("Choose an option: ");
 
         String answer = scanner.nextLine().toLowerCase();
         System.out.println();

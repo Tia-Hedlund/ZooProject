@@ -155,7 +155,7 @@ public class Shop {
 
         System.out.println("To purchase "+ creature.getCreatureName() +" please select a habitat.");
         System.out.println("Compatible Habitats:");
-        System.out.printf("%-17s %-15s %-15s %s\n", "Habitat:", "Level:", "Status:", "Creatures:");
+        System.out.printf("%-17s %-15s %-19s %s\n", "Habitat:", "   Level:", "   Status:", "   Creatures:");
 
         while(true) {
             for (int i = 0; i < biomeMatchingHabitats.size(); i++) {
@@ -177,9 +177,9 @@ public class Shop {
                 creatureList.append("]");
                 String status = "";
                 if (totalUsedLevel == level) {
-                    status = "\033[31mFull\033[0m";
+                    status = "\033[31mFull\033[0m          ";
                 } else {
-                    status = "Available";
+                    status = "Available          ";
                 }
 
                 System.out.print(i + 1 + ". ");
@@ -220,6 +220,11 @@ public class Shop {
     public void buyCreature(Zoo zoo, Creature creature){
         Habitat chosenHabitat = chooseCreaturesHabitat(myScanner, creature, zoo);
 
+        if (chosenHabitat == null){
+            System.out.println("Purchase cancelled.");
+            return;
+        }
+
         if(canBuyCreature(zoo, creature, chosenHabitat)){
             // Reduce the total price of the creature from the Zoo's total money.
             zoo.setMoney(zoo.getMoney()-creature.getPrice());
@@ -228,10 +233,10 @@ public class Shop {
             // remove the bought creature from the for sale Arraylist in shop
             removeCreatureForSale(creature);
 
-            System.out.println(creature.getCreatureName() +" purchased for "+creature.getPrice()+" and added to "+ chosenHabitat.getHabitatName()+ ".");
+            System.out.println(creature.getCreatureName() +" purchased for "+creature.getPrice()+" and added to the "+ chosenHabitat.getHabitatName()+ ".");
         }
         else{
-            System.out.println("gick inte att köpa creature");
+            System.out.println("Could not proceed with purchase.");
         }
     }
 
