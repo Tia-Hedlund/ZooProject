@@ -202,7 +202,7 @@ public class Shop {
                     Habitat chosenHabitat = biomeMatchingHabitats.get(intChoice - 1);
                     if (chosenHabitat.getTotalLevelInHabitat() >= chosenHabitat.getHabitatLevel()){
                         System.out.println("This habitat is \033[31mfull\033[0m. Cannot add "+ creature.getCreatureName() +" to habitat.");
-                        System.out.println("Choose a habitat to add "+creature.getCreatureName() + " too.");
+                        System.out.println("Choose a habitat to add "+creature.getCreatureName() + " too or choose to cancel.");
                         continue;
                     }
                     return chosenHabitat;
@@ -266,11 +266,11 @@ public class Shop {
         int woodNeeded = zoo.getIntWoodNeeded();
         double upgradeCost = zoo.getUpgradeCost();
 
-        System.out.printf("%-12s %s\n", "Upgrade method:", "   Cost:");
+        System.out.printf("%-19s %s\n", "Upgrade method:", "   Amount Required:");
         System.out.print("1. ");
-        System.out.printf("%-12s %s\n", "Wood", zoo.getIntWoodNeeded()+" wood");
+        System.out.printf("%-19s %s\n", "Wood", +zoo.getIntWoodNeeded());
         System.out.print("2. ");
-        System.out.printf("%-12s %s\n", "Coins", zoo.getUpgradeCost()+" wood");
+        System.out.printf("%-19s %s\n", "Coins", +zoo.getUpgradeCost());
         System.out.println("3. Back");
         System.out.print("Choose an option (1/2/3): ");
 
@@ -278,10 +278,10 @@ public class Shop {
 
         switch (answer){
             case "1":
-                zoo.upgradeZooWood(inventory, woodNeeded);
+                zoo.upgradeZooWood(inventory);
                 break;
             case "2":
-                zoo.upgradeZooMoney(upgradeCost);
+                zoo.upgradeZooMoney();
                 break;
             case "3":
                 return;
@@ -291,7 +291,7 @@ public class Shop {
     }
 
     public void buyHabitatUpgrade(Habitat habitat, Zoo zoo, Inventory inventory){
-        System.out.printf("%-19s %s\n", "Upgrade method:", "Amount Required:");
+        System.out.printf("%-19s %s\n", "Upgrade method:", "   Amount Required:");
         System.out.print("1. ");
         System.out.printf("%-19s %s\n", "Wood", "  "+habitat.getIntWoodNeeded());
         System.out.print("2. ");
@@ -308,8 +308,8 @@ public class Shop {
                 break;
             case "2":
                 if (habitat.canUpgrade("money", zoo)){
-                    habitat.upgrade();
                     habitat.upgradeReduceMoney(zoo);
+                    habitat.upgrade();
                 }
                 break;
             case "3":

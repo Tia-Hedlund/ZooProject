@@ -68,10 +68,10 @@ public class ZooGame {
         System.out.println("Moreover, the coins can be used to buy 'Items', 'Habitats' and more 'Creatures' in the 'Shop'.");
         System.out.println("Or to upgrade the level of your Zoo, guards, owned habitats or creatures. ");
         System.out.println("More information can be found under the 'Information' option when choosing to 'Upgrade>' or a 'Buyable' in the 'Shop'. ");
-        System.out.println();
 
         boolean playing = true;
         while (playing){
+            System.out.println();
             System.out.println("✦ʚ♡ɞ✦ Day "+ day +" ✦ʚ♡ɞ✦" );
             boolean dayActive = true;
             while (dayActive){
@@ -406,10 +406,10 @@ public class ZooGame {
 
     private void buyUpgradesMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory){
         System.out.println();
-        System.out.println("Upgrade:");
-        System.out.println("1. Zoo Upgrades");
-        System.out.println("2. Habitat Upgrades");
-        System.out.println("3. Creature Upgrades");
+        System.out.println("Upgrades:");
+        System.out.println("1. Zoo");
+        System.out.println("2. Habitat upgrades");
+        System.out.println("3. Creature upgrades");
         System.out.println("4. Back");
         System.out.print("Choose an option: ");
 

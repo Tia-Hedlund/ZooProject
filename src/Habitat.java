@@ -27,6 +27,10 @@ public class Habitat extends Buyable{
         return totalLevelInHabitat;
     }
 
+    public void setTotalLevelInHabitat(int totalLevelInHabitat) {
+        this.totalLevelInHabitat = totalLevelInHabitat;
+    }
+
     public int getHabitatLevel() {
         return habitatLevel;
     }
@@ -88,11 +92,12 @@ public class Habitat extends Buyable{
     public void upgrade(){
         habitatLevel++;
         creatureTotalLevelLimit++;
-        System.out.println(habitatName + " has been upgraded to " + habitatLevel+".");
+        System.out.println(habitatName + " has been upgraded to level " + habitatLevel+".");
     }
 
     public void upgradeReduceMoney(Zoo zoo){
         zoo.setMoney(zoo.getMoney()-getUpgradeCost());
+        System.out.println("Upgrade bought for "+ getUpgradeCost()+". "+zoo.getMoney()+" coins remaining.");
 
     }
 

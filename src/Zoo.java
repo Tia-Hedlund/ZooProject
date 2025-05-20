@@ -78,10 +78,12 @@ public class Zoo {
             // Remove the creature that escaped from its specific habitat
             Habitat creaturesHabitat = escaped.getHabitat();
             creaturesHabitat.getCreatures().remove(escaped);
+            creaturesHabitat.setTotalLevelInHabitat(creaturesHabitat.getTotalLevelInHabitat()-escaped.getCreatureLevel());
             shop.addCreatureForSale(escaped);
 
             // Remove creature from the zoo
             creatures.remove(escaped);
+            // Remove creature from the habitat
 
         }
         else{
@@ -157,31 +159,6 @@ public class Zoo {
         }
     }
 
-
-
-    public void upgradeZooMenu(Inventory inventory){
-        Scanner myScanner = new Scanner(System.in);
-        System.out.println("Choose a method to upgrade the Zoo [1/2/3]");
-        System.out.println("1. Use wood");
-        System.out.println("2. Use coins");
-        System.out.println("3. Back.");
-
-        String choice = myScanner.nextLine();
-        switch (choice){
-            case "1":
-                upgradeZooWood(inventory, getIntWoodNeeded());
-                break;
-            case "2":
-                upgradeZooMoney(getUpgradeCost());
-                break;
-            case "3":
-                break;
-            default:
-                System.out.println("Invalid choice, please enter: [1/2/3]");
-        }
-
-    }
-
     public void ZooUpgrade(){
         this.zooLevel++;
         maxStorage+=10;
@@ -207,14 +184,15 @@ public class Zoo {
         }
     }
 
-    public void upgradeZooWood(Inventory inventory, int woodNeeded){
+    public void upgradeZooWood(Inventory inventory){
 
-        if (canUpgradeZooWood(inventory, woodNeeded)) {
+        if (canUpgradeZooWood(inventory, getIntWoodNeeded())) {
+
+            System.out.println("Zoo has been upgraded to level "+zooLevel+1+" using "+getIntWoodNeeded() +" wood.");
             ZooUpgrade();
-            System.out.println("Zoo has been upgraded to level "+zooLevel+" using "+woodNeeded +" wood.");
         }
         else{
-            System.out.println(inventory.woodCount+"/"+woodNeeded+ ". Not enough wood. "+(woodNeeded-inventory.woodCount)+ " more wood required.");
+            System.out.println(inventory.woodCount+"/"+getIntWoodNeeded()+ ". Not enough wood. "+(getIntWoodNeeded()-inventory.woodCount)+ " more wood required.");
         }
     }
 
@@ -227,14 +205,19 @@ public class Zoo {
         }
     }
 
-    public void upgradeZooMoney(double upgradeCost){
-        if (canUpgradeZooMoney(upgradeCost)){
+    public void upgradeZooMoney(){
+        if (canUpgradeZooMoney(getUpgradeCost())){
+            deductMoney();
+            System.out.println("Zoo has been upgraded to level "+zooLevel+1+" using "+getUpgradeCost()+" coins.");
             ZooUpgrade();
-            System.out.println("Zoo has been upgraded to level "+zooLevel+" using "+upgradeCost+" coins.");
         }
         else{
-            System.out.println(money+"/"+upgradeCost +". Not enough coins. "+(upgradeCost-money)+" more coins required to upgrade.");
+            System.out.println(money+"/"+getUpgradeCost() +". Not enough coins. "+(getUpgradeCost()-money)+" more coins required to upgrade.");
         }
+    }
+
+    public void deductMoney(){
+        money = money-getUpgradeCost();
     }
 
     public void claimProfit(Creature creature){
