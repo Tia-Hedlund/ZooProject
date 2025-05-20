@@ -19,37 +19,34 @@ public class Inventory {
         return items;
     }
 
-    public int getFoodCount() {
-        return items.getOrDefault("fish", 0)+items.getOrDefault("fruit", 0);
-    }
-
     // method for increasing the Storage used with a specific quantity
     public void increaseStorageUsed(int quantity){
         this.storageUsed+=quantity;
     }
 
+
+
     public boolean canUpgradeWithFish(Creature creature){
-        if (items.getOrDefault("fish", 0) >= creature.getCreatureLevel()){
+        if (items.getOrDefault("fish", 0) >= creature.getFoodRequired()){
             // Updates key "fish" in the Hashmap, to store the difference between the previous amount of fish and the creature's level
-            items.put("fish", items.get("fish") - creature.getCreatureLevel());
+            items.put("fish", items.get("fish") - creature.getFoodRequired());
             // Storage used is reduced by creatureLevel, the same amount of Fish that were used to Upgrade
-            storageUsed -= creature.getCreatureLevel();
+            storageUsed -= creature.getFoodRequired();
             return true; // det var möjligt att upgradera
         }
         else{
-            System.out.println("Not enough fish in inventory to upgrade creature");
+            System.out.println("Not enough fish in inventory to upgrade "+creature.getCreatureName()+".");
             return false; // det var ej möjligt att uppgradera
         }
     }
 
-
     public boolean canUpgradeWithFruit(Creature creature) {
-        if (items.getOrDefault("fruit", 0) >= creature.getCreatureLevel()) {
-            items.put("fruit", items.get("fruit") - creature.getCreatureLevel());
-            storageUsed -= creature.getCreatureLevel();
+        if (items.getOrDefault("fruit", 0) >= creature.getFoodRequired()) {
+            items.put("fruit", items.get("fruit") - creature.getFoodRequired());
+            storageUsed -= creature.getFoodRequired();
             return true; // det var möjligt att uppgradera;
         } else {
-            System.out.println("Not enough fruit in inventory to upgrade creature");
+            System.out.println("Not enough fruit in inventory to upgrade "+creature.getCreatureName()+".");
             return false; // det var ej möjligt att uppgradera
         }
     }

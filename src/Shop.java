@@ -319,7 +319,48 @@ public class Shop {
         }
     }
 
+    public boolean canUpgradeCreature(Creature creature){
+        Habitat creaturesHabitat = creature.getHabitat();
+        if (creaturesHabitat.getTotalLevelInHabitat()>=creaturesHabitat.getCreatureLevelLimit()){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
+    public void buyCreatureUpgrade(Creature creature, Zoo zoo, Inventory inventory) {
+        System.out.printf("%-19s %s\n", "Upgrade method:", "   Amount Required:");
+        System.out.print("1. ");
+        System.out.printf("%-19s %s\n", "Fruit", "  " + creature.getFoodRequired());
+        System.out.print("2. ");
+        System.out.printf("%-19s %s\n", "Fish", "  " + creature.getFoodRequired());
+        System.out.print("3. ");
+        System.out.printf("%-19s %s\n", "Fish", "  " + creature.getUpgradeCost());
+        System.out.println("4. Back");
+        System.out.print("Choose an option (1/2/3/4): ");
 
+        String answer = scanner.nextLine();
 
+        switch (answer) {
+            case "1":
+                Fruit fruit = new Fruit(0);
+                fruit.useToUpgrade(creature, inventory);
+                break;
+            case "2":
+                Fish fish = new Fish(0);
+                fish.useToUpgrade(creature, inventory);
+                break;
+            case "3":
+                if (creature.canUpgradeMoney(zoo)){
+                    creature.reduceUpgradeMoney(zoo);
+                    creature.upgrade();
+                }
+                break;
+            case "4":
+                return;
+            default:
+                System.out.println("Please enter a valid number.");
+        }
+    }
 }

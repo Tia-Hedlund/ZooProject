@@ -11,6 +11,7 @@ public class Wood extends Item{
             // if the method canUpgradeWithWood in inventory is true...
             if (inventory.canUpgradeWithWood(habitat)) {
                 // calls the upgrade method of the habitat
+                System.out.println(habitat.getHabitatName() + "has been upgraded to " + habitat.getHabitatLevel()+1 +" using "+habitat.getIntWoodNeeded()+" wood.");
                 habitat.upgrade();
             }
         }

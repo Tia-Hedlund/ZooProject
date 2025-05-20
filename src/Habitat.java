@@ -61,7 +61,7 @@ public class Habitat extends Buyable{
         return creatures;
     }
 
-    public int getCreatureLimit() {
+    public int getCreatureLevelLimit() {
         return creatureTotalLevelLimit;
     }
 
@@ -70,7 +70,7 @@ public class Habitat extends Buyable{
     }
 
     public double getUpgradeCost(){
-        double upgradeCost = habitatLevel*1000;
+        double upgradeCost = getPrice()*habitatLevel*100;
         return upgradeCost;
     }
 

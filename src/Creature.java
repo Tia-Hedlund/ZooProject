@@ -70,6 +70,31 @@ public class Creature extends Buyable{
         return creatureName;
     }
 
+    public int getFoodRequired(){
+        int foodRequired = creatureLevel*10*dangerLevel;
+        return foodRequired;
+    }
+
+    public double getUpgradeCost(){
+        double upgradeCost = getPrice()*creatureLevel*1000;
+        return upgradeCost;
+    }
+
+    public boolean canUpgradeMoney(Zoo zoo){
+        if (getUpgradeCost()<=zoo.getMoney()){
+            return true;
+        }
+        else{
+            System.out.println("Not enough coins to purchase upgrade.");
+            return false;
+        }
+    }
+
+    public void reduceUpgradeMoney(Zoo zoo){
+        zoo.setMoney(zoo.getMoney()-getUpgradeCost());
+        System.out.println("Upgrade bought for "+ getUpgradeCost()+". "+zoo.getMoney()+" coins remaining.");
+    }
+
     public void upgrade(){
         this.creatureLevel++;
     }

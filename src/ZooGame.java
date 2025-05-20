@@ -63,11 +63,12 @@ public class ZooGame {
 
         // Make it so that a certain zoo level is required to unluck certain habitats and creatures.  !!!!!
 
-        System.out.println("The creatures you own ("+twiglet.getCreatureName()+") will generate coins which you can collect at the end of each day.");
+        System.out.println("The creatures you own (Current creatures owned: "+twiglet.getCreatureName()+") will generate coins which you can collect at the end of each day.");
         System.out.println("The coins will be added to your Zoo's total coins (Current coins: "+zoo.getMoney()+")");
-        System.out.println("Moreover, the coins can be used to buy 'Items', 'Habitats' and more 'Creatures' in the 'Shop'.");
-        System.out.println("Or to upgrade the level of your Zoo, guards, owned habitats or creatures. ");
-        System.out.println("More information can be found under the 'Information' option when choosing to 'Upgrade>' or a 'Buyable' in the 'Shop'. ");
+        System.out.println("Moreover, the coins can be used to buy 'Items', 'Habitats', 'Creatures' and 'Guards' in the 'Shop'.");
+        System.out.println("Or to upgrade the level of your Zoo, owned habitats or creatures. ");
+        System.out.println("Some habitats and some creatures may differ from others, but that's a problem for future you.");
+        System.out.println("Good Luck!");
 
         boolean playing = true;
         while (playing){
@@ -82,9 +83,6 @@ public class ZooGame {
             zoo.nightTime(shop);
             endDay(zoo, day);
             day++;
-
-
-
 
         }
 
@@ -481,15 +479,52 @@ public class ZooGame {
                     shop.buyHabitatUpgrade(chosenHabitat, zoo, inventory);
                 }
                 else{
-                    System.out.println("Please enter a number between (1-"+(shop.getCreaturesForSale().size() +1) +")");
+                    System.out.println("Please enter a number between (1-"+(zoo.getHabitats().size() +1) +")");
                 }
             } catch (Exception e){
-                System.out.println("Please enter a number between (1-"+(shop.getCreaturesForSale().size() +1) +")");
+                System.out.println("Please enter a number between (1-"+(zoo.getHabitats().size() +1) +")");
             }
         }
     }
 
-    public void upgradeCreatureMenu(){
+    public void upgradeCreatureMenu(Zoo zoo, Scanner scanner, Shop shop, Inventory inventory){
+        System.out.println("Owned Creatures:");
+        System.out.printf("%-17s %-15s %-19s %s\n", "Creature:", "Level:", "Habitat:");
+
+        for (int i = 0; i < zoo.getCreatures().size(); i++) {
+            Creature c = zoo.getCreatures().get(i);
+
+            String creatureName = c.getCreatureName();
+            int level = c.getCreatureLevel();
+            Habitat belongsToHabitat = c.getHabitat();
+
+            System.out.print(i + 1 + ". ");
+            System.out.printf("%-17s %-15s %-15s %s\n", creatureName, level, belongsToHabitat);
+        }
+
+        System.out.println((zoo.getCreatures().size()+1)+". Back");
+        System.out.print("Choose an option (1-"+(zoo.getCreatures().size()+1)+"): ");
+
+        String answer = scanner.nextLine();
+        System.out.println();
+
+        int intChoice;
+        try {
+            intChoice = Integer.parseInt(answer);
+            if (intChoice == (zoo.getCreatures().size() +1)){
+                return;
+            }
+            else if (intChoice >= 1 && intChoice <= zoo.getCreatures().size()){
+                Creature chosenCreature = zoo.getCreatures().get(intChoice-1);
+
+                shop.buyCreatureUpgrade(chosenCreature, zoo, inventory);
+            }
+            else{
+                System.out.println("Please enter a number between (1-"+(zoo.getCreatures().size() +1) +")");
+            }
+        } catch (Exception e){
+            System.out.println("Please enter a number between (1-"+(zoo.getCreatures().size() +1) +")");
+        }
 
     }
 }

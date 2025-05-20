@@ -85,19 +85,39 @@ public class Zoo {
             creatures.remove(escaped);
             // Remove creature from the habitat
 
+
         }
         else{
-            System.out.println("Your guards kept all creatures from escaping tonight.");
+            int diff = securityLevel-getTotalDangerLevel();
+            if (creatures.isEmpty()){
+                System.out.println(name +" stood empty tonight. Quiet nights have their own charm...");
+            }
+            if (securityLevel==0){
+                System.out.println("Lucky! Even without a single guard on duty no creature escaped. ");
+            }
+            else if(diff<=0 && !(securityLevel==0)){
+                System.out.println("The creatures clawed at the gates, but somehow your defenses held... for now.");
+            }
+            else if(diff>=1 && diff<=5){
+                System.out.println("Your guards kept all creatures from escaping tonight.");
+            }
+            else if(diff>5){
+                System.out.println("Guard duty or holiday? With this many on watch, it's hard to tell.");
+            }
         }
     }
 
-    public Creature creatureEscape() {
+    public int getTotalDangerLevel(){
         int totalDanger = 0;
         for (Creature c : creatures) {
             int danger = c.getDangerLevel() - c.getPacifyLevel();
             totalDanger += danger;
         }
+        return totalDanger;
+    }
 
+    public Creature creatureEscape() {
+        int totalDanger = getTotalDangerLevel();
         if (securityLevel >= totalDanger) {
             return null;
         } else {
