@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Shop {
-
+    Scanner myScanner = new Scanner(System.in);
     private ArrayList<Habitat> habitatsForSale;
     private ArrayList<Creature> creaturesForSale;
 
@@ -144,25 +145,90 @@ public class Shop {
 
     }
 
-    public void showMatchingHabitats(){
+    public Habitat chooseCreaturesHabitat(Scanner myScanner, Creature creature, Zoo zoo){
+        ArrayList<Habitat> biomeMatchingHabitats = getMatchingHabitats(creature, zoo);
 
+        if (biomeMatchingHabitats.isEmpty()){
+            System.out.println("No habitats compatible with "+ creature.getCreatureName()+ " owned.");
+            return null;
+        }
 
-    }
-
-    public void chooseCreaturesHabitat(Creature creature, Zoo zoo){
         System.out.println("To purchase "+ creature.getCreatureName() +" please select a habitat.");
+        System.out.println("Compatible Habitats:");
+        System.out.printf("%-17s %-15s %-15s %s\n", "Habitat:", "Level:", "Status:", "Creatures:");
+
+        while(true) {
+            for (int i = 0; i < biomeMatchingHabitats.size(); i++) {
+                Habitat h = biomeMatchingHabitats.get(i);
+
+                String habitatName = h.getHabitatName();
+                int level = h.getHabitatLevel();
+                int totalUsedLevel = h.getTotalLevelInHabitat();
+                ArrayList<Creature> creatures = h.getCreatures();
+
+                StringBuilder creatureList = new StringBuilder("[");
+                for (int j = 0; j < creatures.size(); j++) {
+                    Creature c = creatures.get(j);
+                    creatureList.append(c.getCreatureName()).append(" - lvl ").append(c.getCreatureLevel());
+                    if (j != creatures.size() - 1) {
+                        creatureList.append(", ");
+                    }
+                }
+                creatureList.append("]");
+                String status = "";
+                if (totalUsedLevel == level) {
+                    status = "\033[31mFull\033[0m";
+                } else {
+                    status = "Available";
+                }
+
+                System.out.print(i + 1 + ". ");
+                System.out.printf("%-17s %-15s %-15s %s\n", habitatName, level, status, creatureList);
+            }
+
+            System.out.println((biomeMatchingHabitats.size() + 1) + ". Cancel");
+            System.out.println("Choose an option: ");
 
 
+            String answer = myScanner.nextLine();
+
+            int intChoice;
+            try {
+                intChoice = Integer.parseInt(answer);
+
+                if (intChoice == (biomeMatchingHabitats.size() + 1)) {
+                    return null;
+                } else if (intChoice >= 1 && intChoice <= biomeMatchingHabitats.size()) {
+                    Habitat chosenHabitat = biomeMatchingHabitats.get(intChoice - 1);
+                    if (chosenHabitat.getTotalLevelInHabitat() >= chosenHabitat.getHabitatLevel()){
+                        System.out.println("This habitat is \033[31mfull\033[0m. Cannot add "+ creature.getCreatureName() +" to habitat.");
+                        System.out.println("Choose a habitat to add "+creature.getCreatureName() + " too.");
+                        continue;
+                    }
+                    return chosenHabitat;
+                } else {
+                    System.out.println("Please enter a number between (1-" + (biomeMatchingHabitats.size() + 1) + ")");
+
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid number.");
+
+            }
+        }
     }
 
-    public void buyCreature(Zoo zoo, Creature creature, Habitat habitat){
-        if(canBuyCreature(zoo, creature, habitat)){
+    public void buyCreature(Zoo zoo, Creature creature){
+        Habitat chosenHabitat = chooseCreaturesHabitat(myScanner, creature, zoo);
+
+        if(canBuyCreature(zoo, creature, chosenHabitat)){
             // Reduce the total price of the creature from the Zoo's total money.
             zoo.setMoney(zoo.getMoney()-creature.getPrice());
             // the bought creature is added to the Arraylist creatures in habitats and creatures in zoo.
-            habitat.addCreatureToHabitatAndZoo(creature, zoo);
+            chosenHabitat.addCreatureToHabitatAndZoo(creature, zoo);
             // remove the bought creature from the for sale Arraylist in shop
             removeCreatureForSale(creature);
+
+            System.out.println(creature.getCreatureName() +" purchased for "+creature.getPrice()+" and added to "+ chosenHabitat.getHabitatName()+ ".");
         }
         else{
             System.out.println("gick inte att köpa creature");

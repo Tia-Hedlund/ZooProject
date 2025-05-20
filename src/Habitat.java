@@ -23,6 +23,10 @@ public class Habitat extends Buyable{
         return habitatBiome;
     }
 
+    public int getTotalLevelInHabitat() {
+        return totalLevelInHabitat;
+    }
+
     public int getHabitatLevel() {
         return habitatLevel;
     }

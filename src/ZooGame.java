@@ -36,7 +36,7 @@ public class ZooGame {
         Habitat desert = new Desert(100.0,"Desert", 1,1, drylandBiome, 0);
         Habitat savannah = new Savannah(100.0,"Savannah", 1,1, drylandBiome, 0);
         Habitat coralReef = new CoralReef(100.0,"Coral Reef", 1,1, oceanBiome, 0);
-        Habitat glacier = new CoralReef(100.0,"Glacier Reef", 1,1, oceanBiome, 0);
+        Habitat glacier = new Glacier(100.0,"Glacier", 1,1, oceanBiome, 0);
 
         shop.addHabitatForSale(forest);
         shop.addHabitatForSale(desert);
@@ -370,10 +370,7 @@ public class ZooGame {
             else if (intChoice >= 1 && intChoice <= shop.getCreaturesForSale().size()){
                 Creature chosenCreature = shop.getCreaturesForSale().get(intChoice-1);
 
-
-                // DETTA ÄR FEL MÅSTE LÅDA ANVÄNDAREN VÄLJA VILKEN HABITAT DE VILL PLACERA CREATUREN I
-                Habitat habitatCorresponding = chosenCreature.getHabitat();
-                shop.buyCreature(zoo, chosenCreature, habitatCorresponding);
+                shop.buyCreature(zoo, chosenCreature);
             }
             else{
                 System.out.println("Please enter a number between (1-"+(shop.getCreaturesForSale().size() +1) +")");
