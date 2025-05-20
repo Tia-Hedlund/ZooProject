@@ -58,11 +58,27 @@ public class Zoo {
         return money;
     }
 
-    private void nightTime(){
+    public void nightTime(){
+        Creature escaped = creatureEscape();
+        if (escaped != null){
 
+            System.out.println(escaped.getCreatureName() +" escaped during the night!");
+            System.out.println("Your security level ("+ securityLevel+") was too low.");
+
+            // Remove the creature that escaped from its specific habitat
+            Habitat creaturesHabitat = escaped.getHabitat();
+            creaturesHabitat.getCreatures().remove(escaped);
+
+            // Remove creature from the zoo
+            creatures.remove(escaped);
+
+        }
+        else{
+            System.out.println("Your guards kept all creatures from escaping tonight.");
+        }
     }
 
-    public boolean tryCreatureEscape(Creature creature) {
+    public Creature creatureEscape() {
         int totalDanger = 0;
         for (Creature c : creatures) {
             int danger = c.getDangerLevel() - c.getPacifyLevel();
@@ -70,9 +86,8 @@ public class Zoo {
         }
 
         if (securityLevel >= totalDanger) {
-            return false;
+            return null;
         } else {
-            Random myRandom = new Random();
 
             // Out of the creatures at the zoo, the ones that are not fully pacified are added into a new ArrayList called notPacifiedCreatures
             ArrayList<Creature> nonPacifiedCreatures = new ArrayList<>();
@@ -84,9 +99,10 @@ public class Zoo {
 
             if (nonPacifiedCreatures.isEmpty()) {
                 // If all creatures are pacified non will escape.
-                return false;
+                return null;
             }
 
+            Random myRandom = new Random();
             Creature escapingCreature = nonPacifiedCreatures.get(myRandom.nextInt(nonPacifiedCreatures.size()));
 
             int randomInt1 = myRandom.nextInt(3);
@@ -94,12 +110,12 @@ public class Zoo {
 
             if (randomInt1==randomInt2){
                 System.out.println(escapingCreature.getCreatureName() + " has escaped. ");
-                return true;
+                return escapingCreature;
             }
             else{
-                return false;
+                return null;
             }
-        } // Lägg till så de flyr för nighttime
+        }
     }
 
     public void printZooStats(){
@@ -132,6 +148,8 @@ public class Zoo {
             System.out.println();
         }
     }
+
+
 
     public void upgradeZooMenu(Inventory inventory){
         Scanner myScanner = new Scanner(System.in);

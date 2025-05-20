@@ -33,16 +33,21 @@ public class Habitat extends Buyable{
     }
 
     public void addCreatureToHabitatAndZoo(Creature creature, Zoo zoo){
-        this.creatures.add(creature);
-        totalLevelInHabitat += creature.getCreatureLevel();
-        zoo.addCreatureToZoo(creature);
+        if (canAddCreatureToHabitat(creature, zoo)){
+            creature.setHabitat(this);
+            creatures.add(creature);
+            totalLevelInHabitat += creature.getCreatureLevel();
+            zoo.addCreatureToZoo(creature);
+        }
+        else{
+            System.out.println("Could not add "+ creature.getCreatureName()+" to "+ this.getHabitatName()+".");
+
+        }
     }
 
     public ArrayList<Creature> getCreatures() {
         return creatures;
     }
-
-
 
     public int getCreatureLimit() {
         return creatureTotalLevelLimit;

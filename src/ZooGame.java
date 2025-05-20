@@ -27,19 +27,19 @@ public class ZooGame {
         Inventory inventory = new Inventory(0);
 
         Biome woodlandBiome = new WoodlandBiome();
+        Biome drylandBiome = new DrylandBiome();
+        Biome oceanBiome = new OceanBiome();
+
         Habitat meadow = new Meadow(100.0, "Meadow", 1, 1, woodlandBiome, 0);
+        Habitat forest = new Forest(100,"Forest", 1,1, woodlandBiome,0);
+
+        Habitat
+
+
         Creature twiglet = new Creature(100.0, woodlandBiome, 1, 0, "Twiglet", 1, 10, 1);
 
         zoo.addHabitatToZoo(meadow);
-
-        // lägg till det i klassen istället för här
-        if (meadow.canAddCreatureToHabitat(twiglet, zoo)){
-            meadow.addCreatureToHabitatAndZoo(twiglet, zoo);
-        }
-        else{
-            System.out.println("Could not add "+ twiglet.getCreatureName()+" to "+ meadow.getHabitatName()+".");
-        }
-
+        meadow.addCreatureToHabitatAndZoo(twiglet, zoo);
 
         System.out.println();
         zoo.printZooStats();
@@ -65,6 +65,9 @@ public class ZooGame {
             }
             endDay(zoo, day);
             day++;
+            zoo.nightTime();
+
+
 
         }
 
@@ -276,15 +279,15 @@ public class ZooGame {
         return quantity;
     }
 
-    private void buyHabitatsMenu(Scanner scanner, Habitat habitat) {
+    private void buyHabitatsMenu(Scanner scanner, Habitat habitat, Habitat glacier) {
         System.out.println();
         System.out.println("Shop - Habitats:");
-        System.out.println();
         System.out.printf("%-17s %s\n", "Habitat:", "Price:");
 
         System.out.print("1. ");
         System.out.printf("%-17s %s\n", habitat.getHabitatName(), "   "+habitat.getPrice() );
-        System.out.println("3. Fruit");
+        System.out.print("2. ");
+        System.out.printf("%-17s %s\n", habitat.getHabitatName(), "   "+habitat.getPrice() );
         System.out.println("4. Back to Shop Menu");
         System.out.print("Choose an option: (1/2/3/4): ");
 

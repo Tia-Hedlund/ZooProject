@@ -1,4 +1,4 @@
-public abstract class DrylandBiome extends Biome{
+public class DrylandBiome extends Biome{
 
     @Override
     public boolean BiomesAreCompatible(Creature creature){

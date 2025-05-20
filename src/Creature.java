@@ -6,6 +6,7 @@ public class Creature extends Buyable{
     private int dailyProfit;
     private double creatureGoldBonus = 1.0;
     private Biome creatureBiome;
+    private Habitat habitat;
 
     public Creature(Double price, Biome creatureBiome, int dangerLevel, int pacifyLevel, String creatureName, int level, int dailyProfit, int creatureGoldBonus){
         super(price);
@@ -32,6 +33,14 @@ public class Creature extends Buyable{
         }
     }
 */
+
+    public Habitat getHabitat() {
+        return habitat;
+    }
+
+    public void setHabitat(Habitat habitat) {
+        this.habitat = habitat;
+    }
 
     public Biome getCreatureBiome() {
         return creatureBiome;
