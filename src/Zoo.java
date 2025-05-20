@@ -169,10 +169,10 @@ public class Zoo {
         String choice = myScanner.nextLine();
         switch (choice){
             case "1":
-                upgradeZooWood(inventory);
+                upgradeZooWood(inventory, getIntWoodNeeded());
                 break;
             case "2":
-                upgradeZooMoney();
+                upgradeZooMoney(getUpgradeCost());
                 break;
             case "3":
                 break;
@@ -187,26 +187,53 @@ public class Zoo {
         maxStorage+=10;
     }
 
-    public void upgradeZooWood(Inventory inventory){
-        double woodNeeded = this.zooLevel+this.zooLevel*0.5;
+    public int getIntWoodNeeded(){
+        double woodNeeded = zooLevel+zooLevel*0.5;
         int intWoodNeeded = (int) Math.round(woodNeeded);
+        return intWoodNeeded;
+    }
 
-        if (inventory.woodCount >= intWoodNeeded) {
-            ZooUpgrade();
-            System.out.println("Zoo have been updraded to level "+zooLevel);
+    public double getUpgradeCost(){
+        double upgradeCost = zooLevel*10;
+        return upgradeCost;
+    }
+
+    public boolean canUpgradeZooWood(Inventory inventory, int woodNeeded){
+        if (inventory.getItems().getOrDefault("wood", 0) >= woodNeeded) {
+            return true;
         }
         else{
-            System.out.println(inventory.woodCount+"/"+intWoodNeeded+ ". Not enough wood. "+(intWoodNeeded-inventory.woodCount)+ " more wood required.");
+            return false;
         }
     }
 
-    public void upgradeZooMoney(){
-        double upgradeCost = this.zooLevel*10;
+    public void upgradeZooWood(Inventory inventory, int woodNeeded){
+
+        if (canUpgradeZooWood(inventory, woodNeeded)) {
+            ZooUpgrade();
+            System.out.println("Zoo has been upgraded to level "+zooLevel+" using "+woodNeeded +" wood.");
+        }
+        else{
+            System.out.println(inventory.woodCount+"/"+woodNeeded+ ". Not enough wood. "+(woodNeeded-inventory.woodCount)+ " more wood required.");
+        }
+    }
+
+    public boolean canUpgradeZooMoney(double upgradeCost){
         if (money>=upgradeCost){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void upgradeZooMoney(double upgradeCost){
+        if (canUpgradeZooMoney(upgradeCost)){
+            System.out.println("Zoo has been upgraded to level "+zooLevel+" using "+upgradeCost+"coins.");
             ZooUpgrade();
         }
         else{
-            System.out.println(money+"/"+upgradeCost +". Not enough money. "+(upgradeCost-this.money)+" more money required.");
+            System.out.println(money+"/"+upgradeCost +". Not enough coins. "+(upgradeCost-money)+" more coins required to upgrade.");
         }
     }
 

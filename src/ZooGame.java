@@ -140,6 +140,7 @@ public class ZooGame {
                 zoo.printZooStats();
                 break;
             case "4":
+                // useItem
                 break;
             case "5":
                 return false;
@@ -153,13 +154,11 @@ public class ZooGame {
     }
 
     private void endDay(Zoo zoo, int day){
-
         System.out.println("Ending day "+ day + ".");
         for (Creature creature : zoo.getCreatures()){
             zoo.claimProfit(creature);
         }
         System.out.println("Total Coins: "+zoo.getMoney());
-        // for loop för creatures i zoo, testa att fly för varje
     }
 
     private void useItemMenu(Scanner scanner, Inventory inventory){
@@ -201,7 +200,6 @@ public class ZooGame {
     private void visitShopMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard){
         System.out.println();
         System.out.println("Shop:");
-        System.out.println();
         System.out.println("1. Items");
         System.out.println("2. Habitats");
         System.out.println("3. Creatures");
@@ -228,8 +226,10 @@ public class ZooGame {
                 buyGuardMenu(scanner, guard, shop, zoo);
                 break;
             case "5":
+                // Buy Upgrades Menu
                 break;
             case "6":
+                // Sell Items Menu
                 break;
             case "7":
                 return;
@@ -400,10 +400,36 @@ public class ZooGame {
                 return;
             default:
                 System.out.println();
-
         }
-
     }
 
+    private void buyUpgradesMenu(Scanner scanner, Shop shop, Zoo zoo, Inventory inventory ){
+        System.out.println();
+        System.out.println("Shop:");
+        System.out.println("1. Zoo");
+        System.out.println("2. Habitat");
+        System.out.println("3. Creature");
+        System.out.println("4. Back");
+        System.out.print("Choose an option: ");
+
+        String answer = scanner.nextLine().toLowerCase();
+        System.out.println();
+
+        switch (answer){
+            case "1":
+                shop.buyUpgradeZoo(scanner, zoo, inventory);
+                break;
+            case "2":
+                buyHabitatsMenu(scanner, shop, zoo);
+                break;
+            case "3":
+                buyCreatureMenu(scanner, shop, zoo);
+                break;
+            case "4":
+                return;
+            default:
+                System.out.println("Please enter (1/2/3/4)");
+        }
+    }
 
 }

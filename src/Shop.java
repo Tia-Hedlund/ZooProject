@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Shop {
-    Scanner myScanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
     private ArrayList<Habitat> habitatsForSale;
     private ArrayList<Creature> creaturesForSale;
 
@@ -218,7 +218,7 @@ public class Shop {
     }
 
     public void buyCreature(Zoo zoo, Creature creature){
-        Habitat chosenHabitat = chooseCreaturesHabitat(myScanner, creature, zoo);
+        Habitat chosenHabitat = chooseCreaturesHabitat(scanner, creature, zoo);
 
         if (chosenHabitat == null){
             System.out.println("Purchase cancelled.");
@@ -259,9 +259,40 @@ public class Shop {
         }
     }
 
-    // ***** Methods Upgrades *****
+    // ***** Methods Buy Upgrades *****
 
+    public void buyUpgradeZoo(Scanner scanner, Zoo zoo, Inventory inventory){
 
+        int woodNeeded = zoo.getIntWoodNeeded();
+        double upgradeCost = zoo.getUpgradeCost();
+
+        System.out.printf("%-12s %s\n", "Upgrade method:", "   Cost:");
+        System.out.print("1. ");
+        System.out.printf("%-12s %s\n", "Wood", zoo.getIntWoodNeeded()+" wood");
+        System.out.print("2. ");
+        System.out.printf("%-12s %s\n", "Coins", zoo.getUpgradeCost()+" wood");
+        System.out.println("3. Back");
+        System.out.print("Choose an option (1/2/3): ");
+
+        String answer = scanner.nextLine();
+
+        switch (answer){
+            case "1":
+                zoo.upgradeZooWood(inventory, woodNeeded);
+                break;
+            case "2":
+                zoo.upgradeZooMoney(upgradeCost);
+                break;
+            case "3":
+                return;
+            default:
+                System.out.println("Please enter a valid number.");
+        }
+    }
+
+    public void buyHabitatUpgrade(){
+
+    }
 
 
 

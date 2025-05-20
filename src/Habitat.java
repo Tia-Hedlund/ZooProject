@@ -65,8 +65,37 @@ public class Habitat extends Buyable{
         return habitatName;
     }
 
+    public double getUpgradeCost(){
+        double upgradeCost = habitatLevel*1000;
+        return upgradeCost;
+    }
+
+    public double getIntWoodNeeded(){
+        int woodNeeded = habitatLevel * 10;
+        return woodNeeded;
+    }
+
+    public boolean canUpgradeMoney(Zoo zoo){
+        if (zoo.getMoney() >= getUpgradeCost()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean canUpgradeWood(Inventory inventory){
+        if (inventory.getItems().getOrDefault("wood",0)>=getIntWoodNeeded()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     // Om upgrade metoden körs så ökas level och creaturelimit med 1
     public void upgrade(){
+        if ()
         this.habitatLevel++;
         this.creatureTotalLevelLimit++;
     }
