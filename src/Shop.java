@@ -290,8 +290,33 @@ public class Shop {
         }
     }
 
-    public void buyHabitatUpgrade(){
+    public void buyHabitatUpgrade(Habitat habitat, Zoo zoo, Inventory inventory){
+        System.out.printf("%-19s %s\n", "Upgrade method:", "Amount Required:");
+        System.out.print("1. ");
+        System.out.printf("%-19s %s\n", "Wood", "  "+habitat.getIntWoodNeeded());
+        System.out.print("2. ");
+        System.out.printf("%-19s %s\n", "Coins", "  "+habitat.getUpgradeCost());
+        System.out.println("3. Back");
+        System.out.print("Choose an option (1/2/3): ");
 
+        String answer = scanner.nextLine();
+
+        switch (answer){
+            case "1":
+                Wood wood = new Wood(0);
+                wood.useToUpgrade(habitat, inventory);
+                break;
+            case "2":
+                if (habitat.canUpgrade("money", zoo)){
+                    habitat.upgrade();
+                    habitat.upgradeReduceMoney(zoo);
+                }
+                break;
+            case "3":
+                return;
+            default:
+                System.out.println("Please enter a valid number.");
+        }
     }
 
 

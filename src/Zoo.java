@@ -65,7 +65,7 @@ public class Zoo {
     public void addGuardToZoo(){
         securityLevel++;
         guardCount++;
-        System.out.println("Security Level increased to "+ securityLevel+".");
+        System.out.println("Security Level increased to level "+ securityLevel+".");
     }
 
     public void nightTime(Shop shop){
@@ -229,8 +229,8 @@ public class Zoo {
 
     public void upgradeZooMoney(double upgradeCost){
         if (canUpgradeZooMoney(upgradeCost)){
-            System.out.println("Zoo has been upgraded to level "+zooLevel+" using "+upgradeCost+"coins.");
             ZooUpgrade();
+            System.out.println("Zoo has been upgraded to level "+zooLevel+" using "+upgradeCost+" coins.");
         }
         else{
             System.out.println(money+"/"+upgradeCost +". Not enough coins. "+(upgradeCost-money)+" more coins required to upgrade.");

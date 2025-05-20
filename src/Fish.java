@@ -15,7 +15,7 @@ public class Fish extends Food{
     public void useToUpgrade(Object target, Inventory inventory){
         // om targeten är av typen creature så kan det genomföras
         if(target instanceof Creature creature){
-            if (inventory.upgradedWithFish(creature)){// eftersom metoden upgradedWithFish kräver creature som parameter{
+            if (inventory.canUpgradeWithFish(creature)){// eftersom metoden upgradedWithFish kräver creature som parameter{
                 creature.upgrade();
                 System.out.println(creature.getCreatureName() + "has been upgraded to " + creature.getCreatureLevel());
             }

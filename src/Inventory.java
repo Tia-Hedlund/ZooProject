@@ -28,7 +28,7 @@ public class Inventory {
         this.storageUsed+=quantity;
     }
 
-    public boolean upgradedWithFish(Creature creature){
+    public boolean canUpgradeWithFish(Creature creature){
         if (items.getOrDefault("fish", 0) >= creature.getCreatureLevel()){
             // Updates key "fish" in the Hashmap, to store the difference between the previous amount of fish and the creature's level
             items.put("fish", items.get("fish") - creature.getCreatureLevel());
@@ -43,7 +43,7 @@ public class Inventory {
     }
 
 
-    public boolean upgradedWithFruit(Creature creature) {
+    public boolean canUpgradeWithFruit(Creature creature) {
         if (items.getOrDefault("fruit", 0) >= creature.getCreatureLevel()) {
             items.put("fruit", items.get("fruit") - creature.getCreatureLevel());
             storageUsed -= creature.getCreatureLevel();
@@ -54,17 +54,17 @@ public class Inventory {
         }
     }
 
-    public boolean upgradedWithWood(Habitat habitat){
-        if (items.getOrDefault("wood", 0)>=habitat.getHabitatLevel()){
-            items.put("wood", items.get("wood")-habitat.getHabitatLevel());
+    public boolean canUpgradeWithWood(Habitat habitat){
+        if (items.getOrDefault("wood", 0)>=habitat.getIntWoodNeeded()){
+            items.put("wood", items.getOrDefault("wood",0)-habitat.getIntWoodNeeded());
+            // reduces the storage used according to the wood used.
             storageUsed -= habitat.getHabitatLevel();
-            return true; // det var möjligt att uppgradera;
+            return true; // Returns true, "yes-it can upgrade with wood"
         }
         else{
-            System.out.println("Not enough wood in inventory to upgrade habitat");
-            return false; // det var ej möjligt att uppgradera
+            System.out.println("Not enough wood to upgrade "+habitat.getHabitatName()+".");
+            return false; // Returns false, could not upgrade with wood
         }
-
     }
 
     public boolean fedWithFish(){

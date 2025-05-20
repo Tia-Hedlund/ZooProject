@@ -6,11 +6,12 @@ public class Wood extends Item{
     @Override
     // krävs att en av parametrarna är object target eftersom det anges i grunden för use metoden i items
     public void useToUpgrade(Object target, Inventory inventory){
-        // om targeten är av typen habitat så kan det genomföras
+        // Of the target is of the type habitat the first if statement will be true
         if(target instanceof Habitat habitat) {
-            if (inventory.upgradedWithWood(habitat)) {// eftersom metoden upgradedWithFruit kräver creature som parameter{
+            // if the method canUpgradeWithWood in inventory is true...
+            if (inventory.canUpgradeWithWood(habitat)) {
+                // calls the upgrade method of the habitat
                 habitat.upgrade();
-                System.out.println(habitat.getHabitatName() + "has been upgraded to " + habitat.getHabitatLevel());
             }
         }
     }

@@ -9,7 +9,7 @@ public class Fruit extends Food{
     public void useToUpgrade(Object target, Inventory inventory){
         // om targeten är av typen creature så kan det genomföras
         if(target instanceof Creature creature) {
-            if (inventory.upgradedWithFruit(creature)) {// eftersom metoden upgradedWithFruit kräver creature som parameter{
+            if (inventory.canUpgradeWithFruit(creature)) {// eftersom metoden upgradedWithFruit kräver creature som parameter{
                 creature.upgrade();
                 System.out.println(creature.getCreatureName() + "has been upgraded to " + creature.getCreatureLevel());
             }
