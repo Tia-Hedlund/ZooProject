@@ -39,12 +39,30 @@ public class Shop {
 
     // ***** Methods Sell *****
 
-    public void sellItems(Inventory inventory, Zoo zoo, String itemName, int quantity, Item item) {
-        inventory.decreaseItem(itemName, quantity);
-        zoo.setMoney(zoo.getMoney()+(quantity*(item.getPrice()/2)));
+    public boolean canSellItems(Inventory inventory, String itemName, int quantity){
+        if (inventory.getItems().getOrDefault(itemName, 0)>=quantity){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
-        System.out.println(quantity + " " + itemName + " sold for "+ ((item.getPrice()/2)*quantity)+" coins.");
-        System.out.println("Total Coins: "+zoo.getMoney());
+    public void sellItems(Inventory inventory, Zoo zoo, String itemName, int quantity, Item item) {
+        if (canSellItems(inventory, itemName, quantity)){
+            inventory.decreaseItem(itemName, quantity);
+            zoo.setMoney(zoo.getMoney()+(quantity*(item.getPrice()/2)));
+
+            System.out.println(quantity + " " + itemName + " sold for "+ ((item.getPrice()/2)*quantity)+" coins.");
+            System.out.println("Total Coins: "+zoo.getMoney());
+        }
+        else if (inventory.getItems().getOrDefault(itemName, 0)== 0){
+            System.out.println("No "+ itemName + " in inventory.");
+        }
+        else{
+            System.out.println("Not enough "+ itemName + "in inventory to sell "+ quantity +".");
+        }
+
     }
 
     // ***** Methods Buy *****

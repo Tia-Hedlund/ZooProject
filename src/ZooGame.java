@@ -235,7 +235,7 @@ public class ZooGame {
         System.out.println("Sell Items:");
         inventory.printInventory(zoo);
         System.out.println();
-        System.out.printf("%-12s %s\n", "Item:", "   Price:");
+        System.out.printf("%-12s %s\n", "Item:", "   Sell Price:");
         System.out.print("1. ");
         System.out.printf("%-12s %s\n", "Wood", (wood.getPrice()/2));
         System.out.print("2. ");
