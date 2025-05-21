@@ -118,9 +118,10 @@ public class ZooGame {
         System.out.println("1. Visit Shop");
         System.out.println("2. View Creatures and Habitats");
         System.out.println("3. View Zoo stats");
-        System.out.println("4. Use Item");
-        System.out.println("5. End Day");
-        System.out.println("6. Quit Game");
+        System.out.println("4. View Inventory");
+        System.out.println("5. Use Item");
+        System.out.println("6. End Day");
+        System.out.println("7. Quit Game");
         System.out.print("Choose an action: (1/2/3/4): ");
 
         String stringAnswer = scanner.nextLine();
@@ -137,11 +138,14 @@ public class ZooGame {
                 zoo.printZooStats();
                 break;
             case "4":
+                inventory.printInventory();
+                break;
+            case"5":
                 // useItem
                 break;
-            case "5":
-                return false;
             case "6":
+                return false;
+            case "7":
                 System.out.println("Quitting game.");
                 System.exit(0);
             default:
@@ -490,7 +494,7 @@ public class ZooGame {
             Habitat belongsToHabitat = c.getHabitat();
 
             System.out.print(i + 1 + ". ");
-            System.out.printf("%-17s %-15s %s\n", creatureName, level, belongsToHabitat.getHabitatName());
+            System.out.printf("%-17s %-15s %s\n", creatureName, level, belongsToHabitat.getHabitatName()+ " - lvl "+belongsToHabitat.getHabitatLevel());
         }
 
         System.out.println((zoo.getCreatures().size()+1)+". Back");

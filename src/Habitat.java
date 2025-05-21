@@ -94,12 +94,11 @@ public class Habitat extends Buyable{
     public void upgrade(){
         habitatLevel++;
         creatureTotalLevelLimit++;
-        System.out.println(habitatName + " has been upgraded to level " + habitatLevel+".");
     }
 
     public void upgradeReduceMoney(Zoo zoo){
         zoo.setMoney(zoo.getMoney()-getUpgradeCost());
-        System.out.println("Upgrade bought for "+ getUpgradeCost()+". "+zoo.getMoney()+" coins remaining.");
+        System.out.println("Upgrade bought for "+ getUpgradeCost()+" coins. "+zoo.getMoney()+" coins remaining.");
 
     }
 

@@ -15,6 +15,10 @@ public class Inventory {
         return storageUsed;
     }
 
+    public void setStorageUsed(int storageUsed) {
+        this.storageUsed = storageUsed;
+    }
+
     public HashMap<String, Integer> getItems() {
         return items;
     }
@@ -25,6 +29,11 @@ public class Inventory {
     }
 
 
+    public void printInventory(){
+        System.out.printf("%-15s %-15s %s\n", "Wood:", "Fish:", "Fruit:");
+        System.out.printf("%-15s %-15s %s\n", items.getOrDefault("wood",0), items.getOrDefault("fish",0), items.getOrDefault("fruit",0));
+        System.out.println();
+    }
 
     public boolean canUpgradeWithFish(Creature creature){
         if (items.getOrDefault("fish", 0) >= creature.getFoodRequired()){
@@ -53,9 +62,6 @@ public class Inventory {
 
     public boolean canUpgradeWithWood(Habitat habitat){
         if (items.getOrDefault("wood", 0)>=habitat.getIntWoodNeeded()){
-            items.put("wood", items.getOrDefault("wood",0)-habitat.getIntWoodNeeded());
-            // reduces the storage used according to the wood used.
-            storageUsed -= habitat.getHabitatLevel();
             return true; // Returns true, "yes-it can upgrade with wood"
         }
         else{

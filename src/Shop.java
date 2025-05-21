@@ -39,7 +39,6 @@ public class Shop {
 
     // ***** Methods Buy *****
 
-    // glöm inte att fråga användare om quantity
     public boolean canBuyItems(Zoo zoo, Buyable item, Inventory inventory, int quantity){
         if (zoo.getMoney() >= item.getPrice()*quantity && ((zoo.getMaxStorage()-inventory.getStorageUsed())>=quantity)){
             return true;
@@ -324,8 +323,8 @@ public class Shop {
 
     public boolean canUpgradeCreature(Creature creature){
         Habitat creaturesHabitat = creature.getHabitat();
-        System.out.println("total level in habitat: "+creaturesHabitat.getTotalLevelInHabitat());
-        System.out.println("creature level limit in habitat: "+ creaturesHabitat.getCreatureLevelLimit());
+        System.out.println("Total Creature level in "+creaturesHabitat.getHabitatName()+": "+creaturesHabitat.getTotalLevelInHabitat());
+        System.out.println("Creature level limit in "+creaturesHabitat.getHabitatName()+": "+ creaturesHabitat.getCreatureLevelLimit());
         if (creaturesHabitat.getTotalLevelInHabitat()>=creaturesHabitat.getCreatureLevelLimit()){
             return false;
         }

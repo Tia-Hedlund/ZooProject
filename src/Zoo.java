@@ -207,8 +207,9 @@ public class Zoo {
     public void upgradeZooWood(Inventory inventory){
 
         if (canUpgradeZooWood(inventory, getIntWoodNeeded())) {
-
-            System.out.println("Zoo has been upgraded to level "+zooLevel+1+" using "+getIntWoodNeeded() +" wood.");
+            System.out.println("Zoo has been upgraded to level "+(zooLevel+1)+" using "+getIntWoodNeeded() +" wood.");
+            inventory.getItems().put("wood", inventory.getItems().getOrDefault("wood",0)-getIntWoodNeeded());
+            inventory.setStorageUsed(inventory.getStorageUsed()-getIntWoodNeeded()) ;
             ZooUpgrade();
         }
         else{
