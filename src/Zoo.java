@@ -239,7 +239,7 @@ public class Zoo {
     public void upgradeZooMoney(){
         if (canUpgradeZooMoney(getUpgradeCost())){
             deductMoney();
-            System.out.println("Zoo has been upgraded to level "+zooLevel+1+" using "+getUpgradeCost()+" coins.");
+            System.out.println("Zoo has been upgraded to level "+(zooLevel+1)+" using "+getUpgradeCost()+" coins.");
             zooUpgrade();
         }
         else{
