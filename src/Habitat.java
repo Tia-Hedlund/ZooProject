@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Habitat extends Buyable{
+    // creates attributes
     private int habitatLevel;
     private String habitatName;
     private int creatureTotalLevelLimit;
@@ -10,6 +11,7 @@ public class Habitat extends Buyable{
     private ArrayList<Creature> creatures;
     private Biome habitatBiome;
 
+    // constructor
     public Habitat(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat){
         super(price);
         this.habitatName = habitatName;
@@ -20,6 +22,7 @@ public class Habitat extends Buyable{
         this.totalLevelInHabitat = totalLevelInHabitat;
     }
 
+    // getters and setters
     public Biome getHabitatBiome() {
         return habitatBiome;
     }
@@ -36,6 +39,7 @@ public class Habitat extends Buyable{
         return habitatLevel;
     }
 
+    // method returning boolean to check if creature can be added to habitat
     public boolean canAddCreatureToHabitat(Creature creature, Zoo zoo){
         if (habitatBiome.BiomesAreCompatible(creature) && totalLevelInHabitat < creatureTotalLevelLimit && !creatures.contains(creature) && !zoo.getCreatures().contains(creature)){
             return true;
@@ -45,16 +49,20 @@ public class Habitat extends Buyable{
         }
     }
 
+    // method for adding the creature to habitat
     public void addCreatureToHabitatAndZoo(Creature creature, Zoo zoo){
         if (canAddCreatureToHabitat(creature, zoo)){
+            // the creatures (taken in as parameter) habitat is set to this habitat
             creature.setHabitat(this);
+            // adds the creature to the arraylist creatures for the habitat
             creatures.add(creature);
             totalLevelInHabitat += creature.getCreatureLevel();
+            // ads cerature to zoo arraylist too
             zoo.addCreatureToZoo(creature);
         }
         else{
-            System.out.println("Could not add "+ creature.getCreatureName()+" to "+ this.getHabitatName()+".");
-
+            // print for user
+            System.out.println("Could not add "+ creature.getCreatureName()+" to "+ getHabitatName()+".");
         }
     }
 
@@ -65,8 +73,6 @@ public class Habitat extends Buyable{
     public int getCreatureLevelLimit() {
         return creatureTotalLevelLimit;
     }
-
-
 
     public String getHabitatName() {
         return habitatName;
@@ -103,6 +109,7 @@ public class Habitat extends Buyable{
 
     }
 
+    // creates the method that the specific habtiats overrides to generate fish wood and food
     public void tryGenerateItem(Inventory inventory, Zoo zoo){
 
     }

@@ -2,15 +2,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Shop {
+    // creates attricutes and scanner
     Scanner scanner = new Scanner(System.in);
     private ArrayList<Habitat> habitatsForSale;
     private ArrayList<Creature> creaturesForSale;
 
+    // constructor, creates arraylists
     public Shop(){
         habitatsForSale = new ArrayList<>();
         creaturesForSale = new ArrayList<>();
     }
 
+    //getters and setters
     public ArrayList<Habitat> getHabitatsForSale() {
         return habitatsForSale;
     }
@@ -21,6 +24,7 @@ public class Shop {
 
     // ***** Methods Add for Sale *****
 
+    // methods adds and removes creatures and habitats from the arraylists above
     public void addHabitatForSale(Habitat habitat){
         habitatsForSale.add(habitat);
     }
@@ -39,6 +43,7 @@ public class Shop {
 
     // ***** Methods Sell *****
 
+    // method to check if there are any items inventory to be sold, returns boolean true if yes false if no
     public boolean canSellItems(Inventory inventory, String itemName, int quantity){
         if (inventory.getItems().getOrDefault(itemName, 0)>=quantity){
             return true;
@@ -48,9 +53,13 @@ public class Shop {
         }
     }
 
+    // method for selling items
     public void sellItems(Inventory inventory, Zoo zoo, String itemName, int quantity, Item item) {
+        // if the method cansellitems returned true then...
         if (canSellItems(inventory, itemName, quantity)){
+            // decreases with the quantity that the user chose
             inventory.decreaseItem(itemName, quantity);
+            // sets the zoo money to the increased amount after selling
             zoo.setMoney(zoo.getMoney()+(quantity*(item.getPrice()/2)));
 
             System.out.println(quantity + " " + itemName + " sold for "+ ((item.getPrice()/2)*quantity)+" coins.");
@@ -68,6 +77,7 @@ public class Shop {
 
     // ***** Methods Buy *****
 
+    // returns boolean, checks if canBuyItems
     public boolean canBuyItems(Zoo zoo, Buyable item, Inventory inventory, int quantity){
         if (zoo.getMoney() >= item.getPrice()*quantity && ((zoo.getMaxStorage()-inventory.getStorageUsed())>=quantity)){
             return true;
@@ -151,7 +161,7 @@ public class Shop {
         }
     }
 
-    // lägg till att den inte går att köpa om det inte finns en biome den kan bo i
+    // method checks if canBuyCreature, if yes return true if no return false
     public boolean canBuyCreature(Zoo zoo, Creature creature, Habitat habitat){
         if (zoo.getMoney() >= creature.getPrice() && habitat.canAddCreatureToHabitat(creature, zoo)){
             return true;
@@ -186,6 +196,7 @@ public class Shop {
         System.out.printf("%-17s %-15s %-19s %s\n", "Habitat:", "   Level:", "   Status:", "   Creatures:");
 
         while(true) {
+            // how this works is explained is ZooGame class
             for (int i = 0; i < biomeMatchingHabitats.size(); i++) {
                 Habitat h = biomeMatchingHabitats.get(i);
 
@@ -221,6 +232,7 @@ public class Shop {
             String answer = myScanner.nextLine();
 
             int intChoice;
+            // also explained in zooGameclass
             try {
                 intChoice = Integer.parseInt(answer);
 
@@ -268,6 +280,7 @@ public class Shop {
         }
     }
 
+    // checks if can buy gaurd, returns true or false depending on the if statment
     public boolean canBuyGuard(Zoo zoo, Guard guard){
         if (zoo.getMoney() >= (guard.getTotalPrice(zoo))){
             return true;
@@ -304,6 +317,7 @@ public class Shop {
 
         String answer = scanner.nextLine();
 
+        // calls different methods depending on the users input
         switch (answer){
             case "1":
                 zoo.upgradeZooWood(inventory);
@@ -331,10 +345,12 @@ public class Shop {
 
         switch (answer){
             case "1":
+                // creates wood so that the woods method useTopUpgrade can be called
                 Wood wood = new Wood(0);
                 wood.useToUpgrade(habitat, inventory);
                 break;
             case "2":
+                // if user chose money then habitat gets upgraded with money if the method canUpgrade returns boolean true
                 if (habitat.canUpgrade("money", zoo)){
                     habitat.upgradeReduceMoney(zoo);
                     habitat.upgrade();
@@ -363,6 +379,7 @@ public class Shop {
     }
 
     public void buyCreatureUpgrade(Creature creature, Zoo zoo, Inventory inventory) {
+        // prints menu
         System.out.printf("%-19s %s\n", "Upgrade method:", "   Amount Required:");
         System.out.print("1. ");
         System.out.printf("%-19s %s\n", "Fruit", "  " + creature.getFoodRequired());
@@ -377,16 +394,20 @@ public class Shop {
 
         switch (answer) {
             case "1":
+                // creates fruit so the fruit use to upgrade method can be called
                 Fruit fruit = new Fruit(0);
                 fruit.useToUpgrade(creature, inventory);
                 break;
             case "2":
+                // same as with fruit
                 Fish fish = new Fish(0);
                 fish.useToUpgrade(creature, inventory);
                 break;
             case "3":
+                // if player chose to upgrade with money, creature gets upgradded if the canUpgrademoney method returns true
                 if (creature.canUpgradeMoney(zoo)){
                     creature.reduceUpgradeMoney(zoo);
+                    // the habitat that is used as a parameter in the creature upgrade is saved here in habiat
                     Habitat habitat = creature.getHabitat();
                     creature.upgrade(habitat);
                 }

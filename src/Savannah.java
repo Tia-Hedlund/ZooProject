@@ -2,10 +2,12 @@ import java.util.Random;
 
 public class Savannah extends DrylandHabitat{
 
+    // constructor
     public Savannah(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat) {
         super(price, habitatName, habitatLevel, creatureLevelLimit, habitatBiome, totalLevelInHabitat);
     }
 
+    // Overrides the method in habtiat, explained in CoralReef class
     @Override
     public void tryGenerateItem(Inventory inventory, Zoo zoo){
         Random myrandom = new Random();

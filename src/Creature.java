@@ -1,4 +1,5 @@
 public class Creature extends Buyable{
+    // creates all the attributes
     private int dangerLevel;
     private String creatureName;
     private int creatureLevel;
@@ -8,18 +9,19 @@ public class Creature extends Buyable{
     private Biome creatureBiome;
     private Habitat habitat;
 
+    // constructor
     public Creature(Double price, Biome creatureBiome, int dangerLevel, int pacifyLevel, String creatureName, int level, int dailyProfit, int creatureGoldBonus){
         super(price);
         this.creatureBiome = creatureBiome;
-        this.dangerLevel = dangerLevel; // ska randomisa dangerLevelen
+        this.dangerLevel = dangerLevel;
         this.pacifyLevel = pacifyLevel;
         this.creatureName = creatureName;
         this.creatureLevel = level;
-        this.dailyProfit = dailyProfit;// randomize mellan intervall
+        this.dailyProfit = dailyProfit;
         this.creatureGoldBonus = creatureGoldBonus;
-
     }
 
+    // getters and setters
     public Habitat getHabitat() {
         return habitat;
     }
@@ -66,6 +68,7 @@ public class Creature extends Buyable{
         return upgradeCost;
     }
 
+    // method which returns boolean to check if creature can get upgraded with money
     public boolean canUpgradeMoney(Zoo zoo){
         if (getUpgradeCost()<=zoo.getMoney()){
             return true;
@@ -76,16 +79,19 @@ public class Creature extends Buyable{
         }
     }
 
+    // method for reducing money if upgrading a creature with money
     public void reduceUpgradeMoney(Zoo zoo){
         zoo.setMoney(zoo.getMoney()-getUpgradeCost());
         System.out.println("Upgrade bought for "+ getUpgradeCost()+". "+zoo.getMoney()+" coins remaining.");
     }
 
+    // upgrades the creatuer and increaes the habitats total level in habitat
     public void upgrade(Habitat habitat){
         this.creatureLevel++;
         habitat.setTotalLevelInHabitat(habitat.getTotalLevelInHabitat()+1);
     }
 
+    // a sort of getter for fruitIntNeededToFeed
     public int fruitNeededToFeed(){
         int fruitNeededToFeed = dangerLevel*10*(pacifyLevel+1);
         return fruitNeededToFeed;
@@ -109,10 +115,10 @@ public class Creature extends Buyable{
 
     public boolean possibleToPacify(){
         if (dangerLevel>=pacifyLevel){
-            return true; // ja, det är möjligt att pacifya
+            return true; // yes possible to pacify
         }
         else{
-            return false; // nej, det är inte möjligt att pacifya
+            return false; // no, cannot pacify
         }
     }
 

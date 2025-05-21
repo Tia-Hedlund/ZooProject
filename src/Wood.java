@@ -4,10 +4,11 @@ public class Wood extends Item{
 
     }
 
+
     @Override
-    // krävs att en av parametrarna är object target eftersom det anges i grunden för use metoden i items
+    // one of the parameters of useToUpgrade is target of type method
     public void useToUpgrade(Object target, Inventory inventory){
-        // Of the target is of the type habitat the first if statement will be true
+        // If target is of the type habitat then the if statement will run cause (...) is true
         if(target instanceof Habitat habitat) {
             // if the method canUpgradeWithWood in inventory is true...
             if (inventory.canUpgradeWithWood(habitat)) {

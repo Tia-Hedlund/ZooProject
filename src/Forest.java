@@ -1,12 +1,13 @@
 import java.util.Random;
-import java.util.Scanner;
 
 public class Forest extends WoodlandHabitat{
 
+    // constructor
     public Forest(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat) {
         super(price, habitatName, habitatLevel, creatureLevelLimit, habitatBiome, totalLevelInHabitat);
     }
 
+    // overrides the tryGenerateItem (explained in coralReef method)
     @Override
     public void tryGenerateItem(Inventory inventory, Zoo zoo){
         Random myrandom = new Random();

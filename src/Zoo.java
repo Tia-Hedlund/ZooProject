@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Zoo {
+    // creates attributes
     private String name;
     private double money;
     private int maxStorage;
@@ -12,6 +12,7 @@ public class Zoo {
     private ArrayList<Habitat> habitats;
     private int guardCount;
 
+    // constructor
     public Zoo(String name, double money, int maxStorage, int securityLevel, int zooLevel) {
         this.name = name;
         this.money = money;
@@ -22,10 +23,7 @@ public class Zoo {
         this.habitats = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
+    // getters and setters
     public ArrayList<Habitat> getHabitats() {
         return habitats;
     }
@@ -62,7 +60,9 @@ public class Zoo {
         return guardCount;
     }
 
+    // method to addGuard to zoo
     public void addGuardToZoo(){
+        // increases securitylevel and guard count by 1
         securityLevel++;
         guardCount++;
         System.out.println("Security Level increased to level "+ securityLevel+".");
@@ -70,13 +70,18 @@ public class Zoo {
 
     public void nightTime(Shop shop, Inventory inventory, Zoo zoo){
 
+        // for each Habitat h in the arraylist habitatas...
         for (Habitat h: habitats){
+            // tries to generateItem, if habitat is coralreef, forest or savannah fish, wood or fruit will be generate otherwise nothing mor ehappens
             h.tryGenerateItem(inventory, zoo);
         }
 
+        // a Creature called and saved in escaped of the type Creature is returned from the method creatureEscape();
         Creature escaped = creatureEscape();
         //System.out.println("Security Level: "+securityLevel);
         //System.out.println("Danger in Zoo: "+getTotalDangerLevel());
+
+        // if escaped is null and no Creaure was returned from the method...
         if (escaped != null){
 
             System.out.println(escaped.getCreatureName() +" escaped during the night!");
@@ -95,6 +100,7 @@ public class Zoo {
 
         }
         else{
+            // prints different messages depending how how much the security level differs from the dangerlevel
             int diff = securityLevel-getTotalDangerLevel();
             if (creatures.isEmpty()){
                 System.out.println(name +" stood empty tonight. Quiet nights have their own charm...");
@@ -117,17 +123,21 @@ public class Zoo {
         }
     }
 
+    // method for getting the totalDangerlevel
     public int getTotalDangerLevel(){
         int totalDanger = 0;
+        // for loop that goes through each creature in the arraylist and gets their dangerlevel separatly andthen adds it to total danger
         for (Creature c : creatures) {
             int danger = c.getDangerLevel() - c.getPacifyLevel();
             totalDanger += danger;
         }
+        // returns an int totaldanger
         return totalDanger;
     }
 
     public Creature creatureEscape() {
         int totalDanger = getTotalDangerLevel();
+        // here it returns null, which makes the if statement in the previous method happen
         if (securityLevel >= totalDanger) {
             return null;
         } else {
@@ -140,18 +150,24 @@ public class Zoo {
                 }
             }
 
+            // if the arrayllist is empty...
             if (nonPacifiedCreatures.isEmpty()) {
                 // If all creatures are pacified non will escape.
                 return null;
             }
 
             Random myRandom = new Random();
+
+            // gets a random creatures from the nonPacifiedCreatures arraylist and makes it the escapee subject
             Creature escapingCreature = nonPacifiedCreatures.get(myRandom.nextInt(nonPacifiedCreatures.size()));
 
+            // creates two random ints
             int randomInt1 = myRandom.nextInt(3);
             int randomInt2 = myRandom.nextInt(3);
 
+            // if the ints are the same 33% chance
             if (randomInt1==randomInt2){
+                // the escapee Creature of type Creature will be returned, meaning that that specific creatuer escaped from the zoo
                 return escapingCreature;
             }
             else{
@@ -170,11 +186,16 @@ public class Zoo {
     public void printHabitatStats(){
         System.out.printf("%-17s %-15s %s\n", "Habitat:", "Level:", "Creatures:");
 
+        // for loop that goes through all the habitats in the arraylist habitats one by one
         for (Habitat habitat : this.habitats){
+            // gets some of those habitats specific attributes
             String habitatName = habitat.getHabitatName();
             int level = habitat.getHabitatLevel();
+            // creates a new Arraylist containing all the creatures in the habitats arraylsit creatures
             ArrayList<Creature> creatures = habitat.getCreatures();
 
+            // that arralist is used within here.
+            // specific Stringbuilder parts Ive not made myself, but used for aesthetic purposes only, they dont add any functionality
             StringBuilder creatureList = new StringBuilder("[");
             for (int i = 0; i < creatures.size(); i++){
                 Creature c = creatures.get(i);
@@ -216,9 +237,12 @@ public class Zoo {
 
     public void upgradeZooWood(Inventory inventory){
 
+        // canUpgradezZoowood method returned true...
         if (canUpgradeZooWood(inventory, getIntWoodNeeded())) {
             System.out.println("Zoo has been upgraded to level "+(zooLevel+1)+" using "+getIntWoodNeeded() +" wood.");
+            // gets and puts items withing the hashmap in inventory
             inventory.getItems().put("wood", inventory.getItems().getOrDefault("wood",0)-getIntWoodNeeded());
+            // updates the storageUsed in invetory
             inventory.setStorageUsed(inventory.getStorageUsed()-getIntWoodNeeded()) ;
             zooUpgrade();
         }
@@ -251,6 +275,7 @@ public class Zoo {
         money = money-getUpgradeCost();
     }
 
+    // method for claiming profit of the creautres
     public void claimProfit(Creature creature){
         double profitMoney = (creature.getDailyProfit()+50) * creature.getCreatureGoldBonus() * creature.getCreatureLevel()* creature.getDangerLevel();
         double totalMoney = profitMoney + money;

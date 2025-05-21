@@ -55,11 +55,11 @@ public class Inventory {
             items.put("fish", items.get("fish") - creature.getFoodRequired());
             // Storage used is reduced by creatureLevel, the same amount of Fish that were used to Upgrade
             storageUsed -= creature.getFoodRequired();
-            return true; // det var möjligt att upgradera
+            return true;
         }
         else{
             System.out.println("Not enough fish in inventory to upgrade "+creature.getCreatureName()+".");
-            return false; // det var ej möjligt att uppgradera
+            return false;
         }
     }
 
@@ -67,10 +67,10 @@ public class Inventory {
         if (items.getOrDefault("fruit", 0) >= creature.getFoodRequired()) {
             items.put("fruit", items.get("fruit") - creature.getFoodRequired());
             storageUsed -= creature.getFoodRequired();
-            return true; // det var möjligt att uppgradera;
+            return true;
         } else {
             System.out.println("Not enough fruit in inventory to upgrade "+creature.getCreatureName()+".");
-            return false; // det var ej möjligt att uppgradera
+            return false;
         }
     }
 
@@ -86,13 +86,14 @@ public class Inventory {
 
     public boolean canFeedWithFish(Creature creature){
         if (items.getOrDefault("fish", 0) >= creature.fishNeededToFeed()){
+            // same for all the items.put - it puts  new value of the item in the hashmap, and get gets the amount of them already there
             items.put("fish", items.getOrDefault("fish", 0)-creature.fishNeededToFeed());
             storageUsed-=creature.fishNeededToFeed();
-            return true; // lyckades använda fisk för feed för det fanns tillräckligt
+            return true;
         }
         else if (items.getOrDefault("fish",0) == 0){
             System.out.println("You dont have any fish in your inventory.");
-            return false; // kunde inte använda fisk för feed för det fanns inte tillräckligt
+            return false;
         }
         else{
             System.out.println("("+items.getOrDefault("fish", 0)+"/"+ creature.fishNeededToFeed()+") Not enough fish in inventory too increase the Gold Bonus of " + creature.getCreatureName()+".");
@@ -105,11 +106,11 @@ public class Inventory {
         if (items.getOrDefault("fruit", 0) >=creature.fruitNeededToFeed()){
             items.put("fruit", items.getOrDefault("fruit", 0) -creature.fruitNeededToFeed());
             storageUsed-= creature.fruitNeededToFeed();
-            return true; // lyckades använda fruit för feed för det fanns tillräckligt
+            return true;
         }
         else if (items.getOrDefault("fruit",0) == 0){
             System.out.println("You dont have any fruit in your inventory.");
-            return false; // kunde inte använda fisk för feed för det fanns inte tillräckligt
+            return false;
         }
         else{
             System.out.println("("+items.getOrDefault("fruit", 0)+"/"+ creature.fruitNeededToFeed()+")Not enough fruit in inventory too pacify" + creature.getCreatureName()+".");
