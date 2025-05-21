@@ -76,9 +76,14 @@ public class Inventory {
             storageUsed-=creature.fishNeededToFeed();
             return true; // lyckades använda fisk för feed för det fanns tillräckligt
         }
-        else{
+        else if (items.getOrDefault("fish",0) == 0){
             System.out.println("You dont have any fish in your inventory.");
             return false; // kunde inte använda fisk för feed för det fanns inte tillräckligt
+        }
+        else{
+            System.out.println("("+items.getOrDefault("fish", 0)+"/"+ creature.fishNeededToFeed()+") Not enough fish in inventory too increase the Gold Bonus of " + creature.getCreatureName()+".");
+
+            return false;
         }
     }
 
@@ -88,9 +93,13 @@ public class Inventory {
             storageUsed-= creature.fruitNeededToFeed();
             return true; // lyckades använda fruit för feed för det fanns tillräckligt
         }
-        else{
+        else if (items.getOrDefault("fruit",0) == 0){
             System.out.println("You dont have any fruit in your inventory.");
-            return false; // kunde inte använda fruit för feed för det fanns inte tillräckligt
+            return false; // kunde inte använda fisk för feed för det fanns inte tillräckligt
+        }
+        else{
+            System.out.println("("+items.getOrDefault("fruit", 0)+"/"+ creature.fruitNeededToFeed()+")Not enough fruit in inventory too pacify" + creature.getCreatureName()+".");
+            return false;
         }
     }
 }

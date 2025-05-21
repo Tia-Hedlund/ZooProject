@@ -164,7 +164,7 @@ public class ZooGame {
 
     private void feedCreatureMenu(Zoo zoo, Scanner scanner, Inventory inventory){
         System.out.println("Owned Creatures:");
-        System.out.printf("%-17s %-15s %s\n", "Creature:", "   Pacified Level:", "   Gold Profit Boost:");
+        System.out.printf("%-17s %-19s %s\n", "Creature:", "   Pacified Level:", "   Gold Profit Boost:");
 
         for (int i = 0; i < zoo.getCreatures().size(); i++) {
             Creature c = zoo.getCreatures().get(i);
@@ -174,7 +174,7 @@ public class ZooGame {
             double goldProfitBoost = c.getCreatureGoldBonus();
 
             System.out.print(i + 1 + ". ");
-            System.out.printf("%-17s %-15s %s\n", creatureName, pacifyLevel, goldProfitBoost);
+            System.out.printf("%-17s %-19s %s\n", creatureName, pacifyLevel, goldProfitBoost);
         }
 
         System.out.println((zoo.getCreatures().size()+1)+". Back");
@@ -204,11 +204,11 @@ public class ZooGame {
 
     private void chooseFoodMenu(Scanner scanner, Inventory inventory, Creature chosenCreature) {
         System.out.println();
-        System.out.printf("%-17s %s\n", "Food:", "In inventory:");
+        System.out.printf("%-17s %-17s %s\n", "Food:", "   In inventory:", "   Amount Required:");
         System.out.print("1. ");
-        System.out.printf("%-17s %s\n", "Fish", inventory.getItems().getOrDefault("fish", 0));
+        System.out.printf("%-17s %-17s %s\n", "Fish", inventory.getItems().getOrDefault("fish", 0), chosenCreature.fishNeededToFeed());
         System.out.print("2. ");
-        System.out.printf("%-17s %s\n", "Fruit", inventory.getItems().getOrDefault("fruit", 0));
+        System.out.printf("%-17s %-17s %s\n", "Fruit", inventory.getItems().getOrDefault("fruit", 0), chosenCreature.fruitNeededToFeed());
         System.out.println("3. Back");
         System.out.print("Choose an option: ");
 

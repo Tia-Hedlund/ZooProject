@@ -23,7 +23,8 @@ public class Fruit extends Food{
         if (creature.possibleToPacify()){
             // checkar om det går att mata med frukt, om det finns i inventory
             if(inventory.canFeedWithFruit(creature)){
-                System.out.println(creature.fruitNeededToFeed()+" fruit used to pacify +"+ creature.getCreatureName()+" to pacify-level "+ creature.getPacifyLevel()+ ".");
+                System.out.println(creature.fruitNeededToFeed()+" fruit used to pacify "+ creature.getCreatureName()+". Pacified level increased to level "+ (creature.getPacifyLevel()+1)+ ".");
+                System.out.println(creature.getCreatureName()+" is easier for your guards to handle now...");
                 creature.pacify(); // pacifyar, PacifyLevel ökar hos creaturen
 
             }

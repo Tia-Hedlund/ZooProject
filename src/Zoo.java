@@ -70,6 +70,8 @@ public class Zoo {
 
     public void nightTime(Shop shop){
         Creature escaped = creatureEscape();
+        System.out.println("Security Level: "+securityLevel);
+        System.out.println("Danger in Zoo: "+getTotalDangerLevel());
         if (escaped != null){
 
             System.out.println(escaped.getCreatureName() +" escaped during the night!");
@@ -92,10 +94,13 @@ public class Zoo {
             if (creatures.isEmpty()){
                 System.out.println(name +" stood empty tonight. Quiet nights have their own charm...");
             }
-            if (securityLevel==0){
+            else if (getTotalDangerLevel()==0){
+                System.out.println("Peaceful creatures make for peaceful nights.");
+            }
+            else if (securityLevel==0){
                 System.out.println("Lucky! Even without a single guard on duty no creature escaped. ");
             }
-            else if(diff<0 && !(securityLevel==0)){
+            else if(diff<0 && securityLevel>0){
                 System.out.println("The creatures clawed at the gates, but somehow your defenses held... for now.");
             }
             else if(diff>=0 && diff<=3){

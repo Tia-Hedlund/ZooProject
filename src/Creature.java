@@ -87,13 +87,23 @@ public class Creature extends Buyable{
     }
 
     public int fruitNeededToFeed(){
-        int fruitNeededToFeed = dangerLevel*10*pacifyLevel;
+        int fruitNeededToFeed = dangerLevel*10*(pacifyLevel+1);
         return fruitNeededToFeed;
     }
 
+    public int getBonus(){
+        int bonus = (int)((creatureGoldBonus-1)/0.1);
+
+        if (bonus == 0){
+            return 1;
+        }
+        else{
+            return (bonus+1);
+        }
+    }
+
     public int fishNeededToFeed(){
-        int bonuscount = (int) Math.round((creatureGoldBonus-1)/0.1);
-        int fishNeededToFeed = dangerLevel*5*(bonuscount);
+        int fishNeededToFeed = dangerLevel*5*(getBonus());
         return fishNeededToFeed;
     }
 

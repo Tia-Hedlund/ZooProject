@@ -26,8 +26,8 @@ public class Fish extends Food{
     @Override
     public void useToFeed(Creature creature, Inventory inventory){
         if (inventory.canFeedWithFish(creature)){
+            System.out.println(creature.fishNeededToFeed()+" fish used to increase "+ creature.getCreatureName()+"s Gold Boost to "+ (creature.getCreatureGoldBonus()+0.1)+ ".");
             creature.updateGoldBonus(this);
-            System.out.println(creature.fishNeededToFeed()+" fish used to increase +"+ creature.getCreatureName()+"s Gold Boost to "+ creature.getCreatureGoldBonus()+ ".");
         }
     }
 }
