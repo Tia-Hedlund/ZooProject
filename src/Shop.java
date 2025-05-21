@@ -60,7 +60,8 @@ public class Shop {
             System.out.println("No "+ itemName + " in inventory.");
         }
         else{
-            System.out.println("Not enough "+ itemName + "in inventory to sell "+ quantity +".");
+            System.out.println("Not enough "+ itemName + " in inventory to sell "+ quantity + " "+itemName+".");
+            System.out.println("In inventory: "+inventory.getItems().getOrDefault(itemName, 0)+ "/"+ quantity);
         }
 
     }

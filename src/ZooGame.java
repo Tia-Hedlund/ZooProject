@@ -21,9 +21,9 @@ public class ZooGame {
         // Starting Zoo and Receiving starting biome and creature:
         Zoo zoo = new Zoo(zooName, 100, 50, 0, 1);
         Shop shop = new Shop();
-        Fish fish = new Fish(50.0);
-        Fruit fruit = new Fruit(50.0);
-        Wood wood = new Wood(50.0);
+        Fish fish = new Fish(100.0);
+        Fruit fruit = new Fruit(100.0);
+        Wood wood = new Wood(25.0);
         Inventory inventory = new Inventory(0);
         Guard guard = new Guard(50.0);
 
@@ -32,11 +32,11 @@ public class ZooGame {
         Biome oceanBiome = new OceanBiome();
 
         Habitat meadow = new Meadow(100.0, "Meadow", 1, 1, woodlandBiome, 0);
-        Habitat forest = new Forest(100.0, "Forest", 1, 1, woodlandBiome, 0);
-        Habitat desert = new Desert(100.0, "Desert", 1, 1, drylandBiome, 0);
-        Habitat savannah = new Savannah(100.0, "Savannah", 1, 1, drylandBiome, 0);
-        Habitat coralReef = new CoralReef(100.0, "Coral Reef", 1, 1, oceanBiome, 0);
-        Habitat glacier = new Glacier(100.0, "Glacier", 1, 1, oceanBiome, 0);
+        Habitat forest = new Forest(1000.0, "Forest", 1, 1, woodlandBiome, 0);
+        Habitat desert = new Desert(3000.0, "Desert", 1, 1, drylandBiome, 0);
+        Habitat savannah = new Savannah(10000.0, "Savannah", 1, 1, drylandBiome, 0);
+        Habitat coralReef = new CoralReef(15000.0, "Coral Reef", 1, 1, oceanBiome, 0);
+        Habitat glacier = new Glacier(6000.0, "Glacier", 1, 1, oceanBiome, 0);
 
         shop.addHabitatForSale(forest);
         shop.addHabitatForSale(desert);
@@ -44,14 +44,49 @@ public class ZooGame {
         shop.addHabitatForSale(coralReef);
         shop.addHabitatForSale(glacier);
 
-        Creature twiglet = new Creature(100.0, woodlandBiome, 1, 0, "Twiglet", 1, 10, 1);
-        Creature reek = new Creature(100.0, drylandBiome, 1, 0, "Reek", 1, 10, 1);
-        Creature scavenger = new Creature(100.0, drylandBiome, 1, 0, "Scavenger", 1, 10, 1);
-        Creature sawtooth = new Creature(100.0, woodlandBiome, 1, 0, "Sawtooth", 1, 10, 1);
+        Creature twiglet = new Creature(100.0, woodlandBiome, 1, 0, "Twiglet", 1, 5, 1);
+        Creature snufflebud = new Creature(200.0, woodlandBiome, 1, 0, "Snufflebud", 1, 10, 1);
+        Creature gloamlet = new Creature(500.0, woodlandBiome, 2, 0, "Gloamlet", 1, 15, 1);
+        Creature grimthicket = new Creature(650.0, woodlandBiome, 2, 0, "Grimthicket", 1, 16, 1);
+        Creature sawtooth = new Creature(1000.0, woodlandBiome, 3, 0, "Sawtooth", 1, 18, 1);
+        Creature dreadmoss = new Creature(1200.0, woodlandBiome, 3, 0, "Dreadmoss", 1, 20, 1);
+
+        Creature reek = new Creature(200.0, drylandBiome, 1, 0, "Reek", 1, 5, 1);
+        Creature scavenger = new Creature(300.0, drylandBiome, 1, 0, "Scavenger", 1, 7, 1);
+        Creature scorchtail = new Creature(1000.0, drylandBiome, 2, 0, "Scorchtail", 1, 20, 1);
+        Creature trub = new Creature(1050.0, drylandBiome, 2, 0, "Trub", 1, 21, 1);
+        Creature kraalhorn = new Creature(3100.0, drylandBiome, 3, 0, "Kraalhorn", 1, 38, 1);
+        Creature heatwyrm = new Creature(5000.0, drylandBiome, 4, 0, "Heat Wyrm", 1, 56, 1);
+
+        Creature glimmer = new Creature(400.0, oceanBiome, 1, 0, "Glimmer", 1, 15, 1);
+        Creature shellveil = new Creature(520.0, oceanBiome, 1, 0, "Shellveil", 1, 17, 1);
+        Creature lurefin = new Creature(1600.0, oceanBiome, 2, 0, "Lurefin", 1, 31, 1);
+        Creature serelune = new Creature(2030.0, oceanBiome, 3, 0, "Serelune", 1, 46, 1);
+        Creature vessiryn = new Creature(3200.0, oceanBiome, 4, 0, "Vessiryn", 1, 58, 1);
+        Creature boreala = new Creature(12000.0, oceanBiome, 5, 0, "Boreala", 1, 102, 1);
+
+
+        // skapa metod
+        shop.addCreatureForSale(snufflebud);
+        shop.addCreatureForSale(gloamlet);
+        shop.addCreatureForSale(grimthicket);
+        shop.addCreatureForSale(sawtooth);
+        shop.addCreatureForSale(dreadmoss);
 
         shop.addCreatureForSale(reek);
         shop.addCreatureForSale(scavenger);
-        shop.addCreatureForSale(sawtooth);
+        shop.addCreatureForSale(scorchtail);
+        shop.addCreatureForSale(trub);
+        shop.addCreatureForSale(kraalhorn);
+        shop.addCreatureForSale(heatwyrm);
+
+        shop.addCreatureForSale(glimmer);
+        shop.addCreatureForSale(shellveil);
+        shop.addCreatureForSale(lurefin);
+        shop.addCreatureForSale(serelune);
+        shop.addCreatureForSale(vessiryn);
+        shop.addCreatureForSale(boreala);
+
 
         zoo.addHabitatToZoo(meadow);
         meadow.addCreatureToHabitatAndZoo(twiglet, zoo);
@@ -85,18 +120,6 @@ public class ZooGame {
 
         }
 
-
-        // Shop switch case being divided into : 1 items, 2 habitats, 3 creatures, 4 upgrades, 5 guards, 6 sell, 7 back, default
-        // Upgrades a switch case divided into : 1 upgrade Zoo, 2 upgrade habitat, 3 upgrade creature, 4 upgrade guards, 5 back
-
-        // let user try to upgrade their Twiglet, and then recommend the user to end the day and claim profit.
-        // With the profit the second day, recommend the user to buy some guards to increase the security level, because otherwise their creature might try to escape.
-        // "Zoo is now ready to get run on its own" Good luck!
-
-        // Gör så Zoo Habitat och Creature och kanske guard också ärver från en ny klass kallad "Upgradable" som alla har en polimorfimetod som används för att upgrade den saken.
-
-
-        // få igång spelet, faktiskt skapa habitats och flera creatures.
         // gräs monster grön text, gräs habitats grön och bold
         // Dryland monster orange text, dryland habitats orange och bold
         // Ocean monster blue text, ocean habitat blue and bold.
@@ -114,7 +137,6 @@ public class ZooGame {
     private boolean showMainMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard) {
         System.out.println();
         System.out.println("Zoo Actions: ");
-        System.out.println();
         System.out.println("1. Visit Shop");
         System.out.println("2. View Creatures and Habitats");
         System.out.println("3. View Zoo stats");
@@ -231,10 +253,8 @@ public class ZooGame {
     }
 
     private void sellItemMenu(Scanner scanner, Shop shop, Inventory inventory, Zoo zoo, Wood wood, Fish fish, Fruit fruit){
-        System.out.println();
-        System.out.println("Sell Items:");
         inventory.printInventory(zoo);
-        System.out.println();
+        System.out.println("Sell Items:");
         System.out.printf("%-12s %s\n", "Item:", "   Sell Price:");
         System.out.print("1. ");
         System.out.printf("%-12s %s\n", "Wood", (wood.getPrice()/2));
@@ -420,12 +440,12 @@ public class ZooGame {
         }
 
         System.out.println("Shop - Creatures:");
-        System.out.printf("%-17s %s\n", "Creature:", "   Price:");
+        System.out.printf("%-17s %-17s %s\n", "Creature:", "   Price:", "   Danger:");
 
         for (int i = 0; i < shop.getCreaturesForSale().size(); i++) {
             Creature c = shop.getCreaturesForSale().get(i);
             System.out.print(i + 1 + ". ");
-            System.out.printf("%-17s %s\n", c.getCreatureName(), "" + c.getPrice());
+            System.out.printf("%-17s %-17s %s\n", c.getCreatureName(), "" + c.getPrice(), ""+ c.getDangerLevel());
         }
         System.out.println((shop.getCreaturesForSale().size() + 1) + ". Back");
         System.out.print("Choose an option: ");
