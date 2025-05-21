@@ -119,7 +119,7 @@ public class ZooGame {
         System.out.println("2. View Creatures and Habitats");
         System.out.println("3. View Zoo stats");
         System.out.println("4. View Inventory");
-        System.out.println("5. Use Item");
+        System.out.println("5. Feed Creature");
         System.out.println("6. End Day");
         System.out.println("7. Quit Game");
         System.out.print("Choose an action: (1/2/3/4): ");
@@ -141,7 +141,7 @@ public class ZooGame {
                 inventory.printInventory();
                 break;
             case"5":
-                // useItem
+                feedCreatureMenu(zoo, scanner, inventory);
                 break;
             case "6":
                 return false;
@@ -162,17 +162,54 @@ public class ZooGame {
         System.out.println("Total Coins: " + zoo.getMoney());
     }
 
-    private void useItemMenu(Scanner scanner, Inventory inventory) {
+    private void feedCreatureMenu(Zoo zoo, Scanner scanner, Inventory inventory){
+        System.out.println("Owned Creatures:");
+        System.out.printf("%-17s %-15s %s\n", "Creature:", "   Pacified Level:", "   Gold Profit Boost:");
+
+        for (int i = 0; i < zoo.getCreatures().size(); i++) {
+            Creature c = zoo.getCreatures().get(i);
+
+            String creatureName = c.getCreatureName();
+            int pacifyLevel = c.getPacifyLevel();
+            double goldProfitBoost = c.getCreatureGoldBonus();
+
+            System.out.print(i + 1 + ". ");
+            System.out.printf("%-17s %-15s %s\n", creatureName, pacifyLevel, goldProfitBoost);
+        }
+
+        System.out.println((zoo.getCreatures().size()+1)+". Back");
+        System.out.print("Choose an option (1-"+(zoo.getCreatures().size()+1)+"): ");
+
+        String answer = scanner.nextLine();
         System.out.println();
-        System.out.printf("%-17s %s\n", "Item:", "In inventory:");
+
+        int intChoice;
+        try {
+            intChoice = Integer.parseInt(answer);
+            if (intChoice == (zoo.getCreatures().size() +1)){
+                return;
+            }
+            else if (intChoice >= 1 && intChoice <= zoo.getCreatures().size()){
+                Creature chosenCreature = zoo.getCreatures().get(intChoice-1);
+
+                chooseFoodMenu(scanner, inventory, chosenCreature);
+            }
+            else{
+                System.out.println("Please enter a number between (1-"+(zoo.getCreatures().size() +1) +")");
+            }
+        } catch (Exception e){
+            System.out.println("Please enter a number between (1-"+(zoo.getCreatures().size() +1) +")");
+        }
+    }
+
+    private void chooseFoodMenu(Scanner scanner, Inventory inventory, Creature chosenCreature) {
+        System.out.println();
+        System.out.printf("%-17s %s\n", "Food:", "In inventory:");
         System.out.print("1. ");
-        System.out.printf("%-17s %s\n", "Wood", inventory.getItems().getOrDefault("wood", 0));
-        System.out.print("2. ");
         System.out.printf("%-17s %s\n", "Fish", inventory.getItems().getOrDefault("fish", 0));
-        System.out.print("3. ");
+        System.out.print("2. ");
         System.out.printf("%-17s %s\n", "Fruit", inventory.getItems().getOrDefault("fruit", 0));
-        System.out.println();
-        System.out.println("4. Back");
+        System.out.println("3. Back");
         System.out.print("Choose an option: ");
 
         String stringAnswer = scanner.nextLine();
@@ -180,22 +217,17 @@ public class ZooGame {
         System.out.println();
         switch (answer) {
             case "1":
-
+                Fish fish = new Fish(0);
+                fish.useToFeed(chosenCreature, inventory);
                 break;
             case "2":
-
+                Fruit fruit = new Fruit(0);
+                fruit.useToFeed(chosenCreature, inventory);
                 break;
             case "3":
-
-                break;
-            case "4":
                 return;
             default:
         }
-    }
-
-    private void useItemMenu() {
-
     }
 
     private void visitShopMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard) {
@@ -251,7 +283,6 @@ public class ZooGame {
         System.out.printf("%-12s %s\n", "Fish", fish.getPrice());
         System.out.print("3. ");
         System.out.printf("%-12s %s\n", "Fruit", fruit.getPrice());
-        System.out.println();
         System.out.println("4. Back");
         System.out.print("Choose an option: (1/2/3/4): ");
 

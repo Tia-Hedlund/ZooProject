@@ -70,10 +70,10 @@ public class Inventory {
         }
     }
 
-    public boolean fedWithFish(){
-        if (items.getOrDefault("fish", 0) > 0){
-            items.put("fish", items.getOrDefault("fish", 0)-1);
-            storageUsed--;
+    public boolean canFeedWithFish(Creature creature){
+        if (items.getOrDefault("fish", 0) >= creature.fishNeededToFeed()){
+            items.put("fish", items.getOrDefault("fish", 0)-creature.fishNeededToFeed());
+            storageUsed-=creature.fishNeededToFeed();
             return true; // lyckades använda fisk för feed för det fanns tillräckligt
         }
         else{
@@ -82,10 +82,10 @@ public class Inventory {
         }
     }
 
-    public boolean fedWithFruit(){
-        if (items.getOrDefault("fruit", 0) >0){
-            items.put("fruit", items.getOrDefault("fruit", 0) -1);
-            storageUsed--;
+    public boolean canFeedWithFruit(Creature creature){
+        if (items.getOrDefault("fruit", 0) >=creature.fruitNeededToFeed()){
+            items.put("fruit", items.getOrDefault("fruit", 0) -creature.fruitNeededToFeed());
+            storageUsed-= creature.fruitNeededToFeed();
             return true; // lyckades använda fruit för feed för det fanns tillräckligt
         }
         else{

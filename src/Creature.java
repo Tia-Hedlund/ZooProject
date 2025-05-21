@@ -86,8 +86,19 @@ public class Creature extends Buyable{
         habitat.setTotalLevelInHabitat(habitat.getTotalLevelInHabitat()+1);
     }
 
+    public int fruitNeededToFeed(){
+        int fruitNeededToFeed = dangerLevel*10*pacifyLevel;
+        return fruitNeededToFeed;
+    }
+
+    public int fishNeededToFeed(){
+        int bonuscount = (int) Math.round((creatureGoldBonus-1)/0.1);
+        int fishNeededToFeed = dangerLevel*5*(bonuscount);
+        return fishNeededToFeed;
+    }
+
     public boolean possibleToPacify(){
-        if (this.dangerLevel>=this.pacifyLevel){
+        if (dangerLevel>=pacifyLevel){
             return true; // ja, det är möjligt att pacifya
         }
         else{
@@ -100,6 +111,6 @@ public class Creature extends Buyable{
     }
 
     public void updateGoldBonus(Fish fish){
-        this.creatureGoldBonus= this.creatureGoldBonus + fish.getGoldBonusValue();
+        creatureGoldBonus = creatureGoldBonus + fish.getGoldBonusValue();
     }
 }
