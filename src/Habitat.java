@@ -102,4 +102,8 @@ public class Habitat extends Buyable{
 
     }
 
+    public void tryGenerateItem(){
+
+    }
+
 }

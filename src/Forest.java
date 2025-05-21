@@ -1,9 +1,29 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Forest extends WoodlandHabitat{
 
+    Scanner scanner = new Scanner(System.in);
+
     public Forest(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat) {
         super(price, habitatName, habitatLevel, creatureLevelLimit, habitatBiome, totalLevelInHabitat);
+    }
+
+    //@Override
+    public void tryGenerateItem(Scanner scanner, Inventory inventory, Zoo zoo){
+        Random myrandom = new Random();
+
+        if (inventory.getStorageUsed()>=zoo.getMaxStorage()){
+            System.out.println("Storage is full. Cannot collect wood from " + getHabitatName() + ". ");
+            return;
+        }
+
+        double baseDropRate = 0.3 + (getHabitatLevel() *0.05);
+        double randomDouble = myrandom.nextDouble();
+
+        if (randomDouble < baseDropRate){
+
+        }
     }
 
     public void tryGenerateWood(Habitat habitat, Inventory inventory, Zoo zoo){

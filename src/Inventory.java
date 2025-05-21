@@ -28,6 +28,10 @@ public class Inventory {
         this.storageUsed+=quantity;
     }
 
+    public void increaseFish(String itemName, int quantity){
+        items.put(itemName, items.get(itemName) + quantity);
+        increaseStorageUsed(quantity);
+    }
 
     public void printInventory(){
         System.out.printf("%-15s %-15s %s\n", "Wood:", "Fish:", "Fruit:");

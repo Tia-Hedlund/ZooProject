@@ -69,6 +69,11 @@ public class Zoo {
     }
 
     public void nightTime(Shop shop){
+
+        for (Habitat h: habitats){
+            h.generateItem();
+        }
+
         Creature escaped = creatureEscape();
         System.out.println("Security Level: "+securityLevel);
         System.out.println("Danger in Zoo: "+getTotalDangerLevel());
