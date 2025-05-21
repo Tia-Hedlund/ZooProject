@@ -4,9 +4,6 @@ public abstract class Item extends Buyable{
         super(price);
     }
 
-    /*
-
-     */
     public abstract void useToUpgrade(Object target, Inventory inventory);
 
 

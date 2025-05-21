@@ -75,8 +75,8 @@ public class Zoo {
         }
 
         Creature escaped = creatureEscape();
-        System.out.println("Security Level: "+securityLevel);
-        System.out.println("Danger in Zoo: "+getTotalDangerLevel());
+        //System.out.println("Security Level: "+securityLevel);
+        //System.out.println("Danger in Zoo: "+getTotalDangerLevel());
         if (escaped != null){
 
             System.out.println(escaped.getCreatureName() +" escaped during the night!");

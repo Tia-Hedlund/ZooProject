@@ -230,6 +230,48 @@ public class ZooGame {
         }
     }
 
+    private void sellItemMenu(Scanner scanner, Shop shop, Inventory inventory, Zoo zoo, Wood wood, Fish fish, Fruit fruit){
+        System.out.println();
+        System.out.println("Sell Items:");
+        inventory.printInventory(zoo);
+        System.out.println();
+        System.out.printf("%-12s %s\n", "Item:", "   Price:");
+        System.out.print("1. ");
+        System.out.printf("%-12s %s\n", "Wood", (wood.getPrice()/2));
+        System.out.print("2. ");
+        System.out.printf("%-12s %s\n", "Fish", (fish.getPrice()/2));
+        System.out.print("3. ");
+        System.out.printf("%-12s %s\n", "Fruit", (fruit.getPrice()/2));
+        System.out.println("4. Back");
+        System.out.print("Choose an option: (1/2/3/4): ");
+
+        String answer = scanner.nextLine().toLowerCase();
+        int quantity = 0;
+        String item = "";
+
+        switch (answer) {
+            case "1":
+                item = wood.getClass().getSimpleName().toLowerCase();
+                quantity = enterQuantity(scanner, item, "sell");
+                shop.sellItems(inventory, zoo, item, quantity, wood);
+                break;
+            case "2":
+                item = fish.getClass().getSimpleName().toLowerCase();
+                quantity = enterQuantity(scanner, item, "sell");
+                shop.sellItems(inventory, zoo, item, quantity, fish);
+                break;
+            case "3":
+                item = fruit.getClass().getSimpleName().toLowerCase();
+                quantity = enterQuantity(scanner, item, "sell");
+                shop.sellItems(inventory, zoo, item, quantity, fruit);
+                break;
+            case "4":
+                return;
+            default:
+                System.out.println();
+        }
+    }
+
     private void visitShopMenu(Scanner scanner, Zoo zoo, int day, Shop shop, Inventory inventory, Wood wood, Fish fish, Fruit fruit, Guard guard) {
         System.out.println();
         System.out.println("Shop:");
@@ -262,7 +304,7 @@ public class ZooGame {
                 buyUpgradesMenu(scanner, shop, zoo, inventory);
                 break;
             case "6":
-                // Sell Items Menu
+                sellItemMenu(scanner, shop, inventory, zoo, wood, fish, fruit);
                 break;
             case "7":
                 return;
@@ -293,33 +335,32 @@ public class ZooGame {
         switch (answer) {
             case "1":
                 item = wood.getClass().getSimpleName().toLowerCase();
-                quantity = enterQuantity(scanner, item);
+                quantity = enterQuantity(scanner, item, "purchase");
                 shop.buyItems(zoo, wood, inventory, quantity);
                 break;
             case "2":
                 item = fish.getClass().getSimpleName().toLowerCase();
-                quantity = enterQuantity(scanner, item);
+                quantity = enterQuantity(scanner, item, "purchase");
                 shop.buyItems(zoo, fish, inventory, quantity);
                 break;
             case "3":
                 item = fruit.getClass().getSimpleName().toLowerCase();
-                quantity = enterQuantity(scanner, item);
+                quantity = enterQuantity(scanner, item, "purchase");
                 shop.buyItems(zoo, fruit, inventory, quantity);
                 break;
             case "4":
                 return;
             default:
                 System.out.println();
-
         }
     }
 
-    private int enterQuantity(Scanner scanner, String item) {
+    private int enterQuantity(Scanner scanner, String item, String action) {
         int quantity = 0;
         boolean intInput = false;
 
         while (!intInput) {
-            System.out.print("Enter a number of " + item + " to purchase: ");
+            System.out.print("Enter a number of " + item + " to "+ action +": ");
             try {
                 quantity = scanner.nextInt();
                 scanner.nextLine();
@@ -329,7 +370,6 @@ public class ZooGame {
                 scanner.nextLine();
             }
         }
-
         return quantity;
     }
 

@@ -3,6 +3,7 @@ public class Wood extends Item{
         super(price);
 
     }
+
     @Override
     // krävs att en av parametrarna är object target eftersom det anges i grunden för use metoden i items
     public void useToUpgrade(Object target, Inventory inventory){

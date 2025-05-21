@@ -37,6 +37,16 @@ public class Shop {
         creaturesForSale.remove(creature);
     }
 
+    // ***** Methods Sell *****
+
+    public void sellItems(Inventory inventory, Zoo zoo, String itemName, int quantity, Item item) {
+        inventory.decreaseItem(itemName, quantity);
+        zoo.setMoney(zoo.getMoney()+(quantity*(item.getPrice()/2)));
+
+        System.out.println(quantity + " " + itemName + " sold for "+ ((item.getPrice()/2)*quantity)+" coins.");
+        System.out.println("Total Coins: "+zoo.getMoney());
+    }
+
     // ***** Methods Buy *****
 
     public boolean canBuyItems(Zoo zoo, Buyable item, Inventory inventory, int quantity){

@@ -28,9 +28,18 @@ public class Inventory {
         this.storageUsed+=quantity;
     }
 
+    public void decreaseStorageUsed(int quantity){
+        this.storageUsed-=quantity;
+    }
+
     public void increaseItem(String itemName, int quantity){
         items.put(itemName, items.getOrDefault(itemName,0) + quantity);
         increaseStorageUsed(quantity);
+    }
+
+    public void decreaseItem(String itemName, int quantity){
+        items.put(itemName, items.getOrDefault(itemName,0) - quantity);
+        decreaseStorageUsed(quantity);
     }
 
     public void printInventory(Zoo zoo){
