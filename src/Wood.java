@@ -14,7 +14,7 @@ public class Wood extends Item{
                 // reduces the storage used according to the wood used.
                 inventory.setStorageUsed(inventory.getStorageUsed()-habitat.getIntWoodNeeded()) ;
                 // calls the upgrade method of the habitat
-                System.out.println(habitat.getHabitatName() + " has been upgraded to " + (habitat.getHabitatLevel()+1) +" using "+habitat.getIntWoodNeeded()+" wood.");
+                System.out.println(habitat.getHabitatName() + " has been upgraded to level " + (habitat.getHabitatLevel()+1) +" using "+habitat.getIntWoodNeeded()+" wood.");
                 habitat.upgrade();
             }
         }

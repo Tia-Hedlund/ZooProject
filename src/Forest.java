@@ -3,27 +3,45 @@ import java.util.Scanner;
 
 public class Forest extends WoodlandHabitat{
 
-    Scanner scanner = new Scanner(System.in);
-
     public Forest(double price, String habitatName, int habitatLevel, int creatureLevelLimit, Biome habitatBiome, int totalLevelInHabitat) {
         super(price, habitatName, habitatLevel, creatureLevelLimit, habitatBiome, totalLevelInHabitat);
     }
 
-    //@Override
-    public void tryGenerateItem(Scanner scanner, Inventory inventory, Zoo zoo){
+    @Override
+    public void tryGenerateItem(Inventory inventory, Zoo zoo){
         Random myrandom = new Random();
 
         if (inventory.getStorageUsed()>=zoo.getMaxStorage()){
-            System.out.println("Storage is full. Cannot collect wood from " + getHabitatName() + ". ");
+            System.out.println("Storage is full. Could not collect wood from " + getHabitatName() + ". ");
             return;
         }
 
-        double baseDropRate = 0.3 + (getHabitatLevel() *0.05);
+        double baseDropRate = 0.25 + (getHabitatLevel() *0.05);
         double randomDouble = myrandom.nextDouble();
 
         if (randomDouble < baseDropRate){
+            // create an int to set a maximum amount of wood that can be generated.
+            int woodGenCap = getHabitatLevel();
+            // Generates a random number between 1 and the maximum amount of wood that can be generated
+            int quantity = 1+myrandom.nextInt(woodGenCap);
 
+
+            int spaceInStorage = zoo.getMaxStorage()-inventory.getStorageUsed();
+            // if the random quantity is bigger than the available space in storage, the smaller of the values will be chosen.
+            // cant generate more than the available space.
+            int allowedQuantity = Math.min(quantity, spaceInStorage);
+
+            inventory.increaseItem("wood", allowedQuantity);
+            System.out.println(allowedQuantity + " wood collected from " +getHabitatName()+ ". ");
         }
+    }
+
+    /*
+    public void generateFruit(Inventory inventory, int itemsRecieved){
+        // gets the previous amount of wood in inventory from the Hashmap in inventory
+        int woodInInventory = inventory.getItems().getOrDefault("wood",0);
+        // adds 1
+        inventory.getItems().put("wood", woodInInventory + itemsRecieved);
     }
 
     public void tryGenerateWood(Habitat habitat, Inventory inventory, Zoo zoo){
@@ -53,10 +71,6 @@ public class Forest extends WoodlandHabitat{
         }
     }
 
-    public void generateFruit(Inventory inventory, int itemsRecieved){
-        // gets the previous amount of wood in inventory from the Hashmap in inventory
-        int woodInInventory = inventory.getItems().getOrDefault("wood",0);
-        // adds 1
-        inventory.getItems().put("wood", woodInInventory + itemsRecieved);
-    }
+     */
+
 }

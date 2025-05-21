@@ -28,12 +28,13 @@ public class Inventory {
         this.storageUsed+=quantity;
     }
 
-    public void increaseFish(String itemName, int quantity){
-        items.put(itemName, items.get(itemName) + quantity);
+    public void increaseItem(String itemName, int quantity){
+        items.put(itemName, items.getOrDefault(itemName,0) + quantity);
         increaseStorageUsed(quantity);
     }
 
-    public void printInventory(){
+    public void printInventory(Zoo zoo){
+        System.out.println("Storage used: ("+ storageUsed+"/"+zoo.getMaxStorage()+")");
         System.out.printf("%-15s %-15s %s\n", "Wood:", "Fish:", "Fruit:");
         System.out.printf("%-15s %-15s %s\n", items.getOrDefault("wood",0), items.getOrDefault("fish",0), items.getOrDefault("fruit",0));
         System.out.println();

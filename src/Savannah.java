@@ -6,6 +6,7 @@ public class Savannah extends DrylandHabitat{
         super(price, habitatName, habitatLevel, creatureLevelLimit, habitatBiome, totalLevelInHabitat);
     }
 
+    /*
     public void tryGenerateFruit(Habitat habitat, Inventory inventory, Zoo zoo){
         Random myrandom = new Random();
 
@@ -40,4 +41,38 @@ public class Savannah extends DrylandHabitat{
         // adds 1
         inventory.getItems().put("fruit", fruitInInventory + itemsRecieved);
     }
+
+     */
+
+    @Override
+    public void tryGenerateItem(Inventory inventory, Zoo zoo){
+        Random myrandom = new Random();
+
+        if (inventory.getStorageUsed()>=zoo.getMaxStorage()){
+            System.out.println("Storage is full. Could not collect fruit from " + getHabitatName() + ". ");
+            return;
+        }
+
+        double baseDropRate = 0.2 + (getHabitatLevel() *0.05);
+        double randomDouble = myrandom.nextDouble();
+
+        System.out.println("BaseDrop: "+ baseDropRate);
+        System.out.println("Random: "+ randomDouble);
+
+        if (randomDouble < baseDropRate){
+            // create an int to set a maximum amount of wood that can be generated.
+            int woodGenCap = getHabitatLevel();
+            // Generates a random number between 1 and the maximum amount of wood that can be generated
+            int quantity = 1+myrandom.nextInt(woodGenCap);
+
+            int spaceInStorage = zoo.getMaxStorage()-inventory.getStorageUsed();
+            // if the random quantity is bigger than the available space in storage, the smaller of the values will be chosen.
+            // cant generate more than the available space.
+            int allowedQuantity = Math.min(quantity, spaceInStorage);
+
+            inventory.increaseItem("fruit", allowedQuantity);
+            System.out.println(allowedQuantity + " fruit collected from " +getHabitatName()+ ". ");
+        }
+    }
+
 }

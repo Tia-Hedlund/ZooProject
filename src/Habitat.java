@@ -1,5 +1,6 @@
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Habitat extends Buyable{
     private int habitatLevel;
@@ -102,7 +103,7 @@ public class Habitat extends Buyable{
 
     }
 
-    public void tryGenerateItem(){
+    public void tryGenerateItem(Inventory inventory, Zoo zoo){
 
     }
 

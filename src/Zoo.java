@@ -68,10 +68,10 @@ public class Zoo {
         System.out.println("Security Level increased to level "+ securityLevel+".");
     }
 
-    public void nightTime(Shop shop){
+    public void nightTime(Shop shop, Inventory inventory, Zoo zoo){
 
         for (Habitat h: habitats){
-            h.generateItem();
+            h.tryGenerateItem(inventory, zoo);
         }
 
         Creature escaped = creatureEscape();
@@ -161,8 +161,8 @@ public class Zoo {
     }
 
     public void printZooStats(){
-        System.out.printf("%-17s %-15s %s\n", "Coins:", "Zoo Level:", "Security Level:");
-        System.out.printf("%-17s %-15s %s\n", money, zooLevel, securityLevel);
+        System.out.printf("%-17s %-17s %-17s %s\n", "Coins:", "Zoo Level:", "Security Level:", "Max Storage:");
+        System.out.printf("%-17s %-17s %-17s %s\n", money, zooLevel, securityLevel, maxStorage);
 
         System.out.println();
     }
@@ -189,7 +189,7 @@ public class Zoo {
         }
     }
 
-    public void ZooUpgrade(){
+    public void zooUpgrade(){
         this.zooLevel++;
         maxStorage+=10;
     }
@@ -220,7 +220,7 @@ public class Zoo {
             System.out.println("Zoo has been upgraded to level "+(zooLevel+1)+" using "+getIntWoodNeeded() +" wood.");
             inventory.getItems().put("wood", inventory.getItems().getOrDefault("wood",0)-getIntWoodNeeded());
             inventory.setStorageUsed(inventory.getStorageUsed()-getIntWoodNeeded()) ;
-            ZooUpgrade();
+            zooUpgrade();
         }
         else{
             System.out.println(inventory.woodCount+"/"+getIntWoodNeeded()+ ". Not enough wood. "+(getIntWoodNeeded()-inventory.woodCount)+ " more wood required.");
@@ -240,7 +240,7 @@ public class Zoo {
         if (canUpgradeZooMoney(getUpgradeCost())){
             deductMoney();
             System.out.println("Zoo has been upgraded to level "+zooLevel+1+" using "+getUpgradeCost()+" coins.");
-            ZooUpgrade();
+            zooUpgrade();
         }
         else{
             System.out.println(money+"/"+getUpgradeCost() +". Not enough coins. "+(getUpgradeCost()-money)+" more coins required to upgrade.");

@@ -79,7 +79,7 @@ public class ZooGame {
                 dayActive = showMainMenu(myScanner, zoo, day, shop, inventory, wood, fish, fruit, guard);
 
             }
-            zoo.nightTime(shop);
+            zoo.nightTime(shop, inventory, zoo);
             endDay(zoo, day);
             day++;
 
@@ -138,7 +138,7 @@ public class ZooGame {
                 zoo.printZooStats();
                 break;
             case "4":
-                inventory.printInventory();
+                inventory.printInventory(zoo);
                 break;
             case"5":
                 feedCreatureMenu(zoo, scanner, inventory);

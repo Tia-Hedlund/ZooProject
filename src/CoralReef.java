@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class CoralReef extends OceanHabitat{
 
@@ -7,6 +8,7 @@ public class CoralReef extends OceanHabitat{
         super(price, habitatName, habitatLevel, creatureLevelLimit, habitatBiome, totalLevelInHabitat);
     }
 
+    /*
     public void tryGenerateFish(Habitat habitat, Inventory inventory, Zoo zoo){
         Random myrandom = new Random();
 
@@ -38,6 +40,36 @@ public class CoralReef extends OceanHabitat{
         int fishInInventory = inventory.getItems().getOrDefault("fish",0);
         // adds 1
         inventory.getItems().put("fish", fishInInventory + itemsRecieved);
+    }
+
+     */
+
+    @Override
+    public void tryGenerateItem(Inventory inventory, Zoo zoo){
+        Random myrandom = new Random();
+
+        if (inventory.getStorageUsed()>=zoo.getMaxStorage()){
+            System.out.println("Storage is full. Could not collect fish from " + getHabitatName() + ". ");
+            return;
+        }
+
+        double baseDropRate = 0.2 + (getHabitatLevel() *0.05);
+        double randomDouble = myrandom.nextDouble();
+
+        if (randomDouble < baseDropRate){
+            // create an int to set a maximum amount of wood that can be generated.
+            int woodGenCap = getHabitatLevel();
+            // Generates a random number between 1 and the maximum amount of wood that can be generated
+            int quantity = 1+myrandom.nextInt(woodGenCap);
+
+            int spaceInStorage = zoo.getMaxStorage()-inventory.getStorageUsed();
+            // if the random quantity is bigger than the available space in storage, the smaller of the values will be chosen.
+            // cant generate more than the available space.
+            int allowedQuantity = Math.min(quantity, spaceInStorage);
+
+            inventory.increaseItem("fish", allowedQuantity);
+            System.out.println(allowedQuantity + " fish collected from " +getHabitatName()+ ". ");
+        }
     }
 }
 
